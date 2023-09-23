@@ -94,7 +94,7 @@
   
   #Single Linear Regression
   l1 <- lm(Price ~ Day, data = Eth)
-  plot(Eth$Date, Eth$Price, col = 1, lwd = 1, type = 'l', xlab = "Date", ylab = "Price USD/ETH", main = "Single Linear Regression")
+  plot(Eth$Date, Eth$Price, col = 1, lwd = 1, type = 'l', xlab = "Date", ylab = "Price USD/ETH", main = "Linear Regression")
   lines(Eth$Date, predict(l1), col = 2, lwd = 2.5)
   legend("topleft", inset = 0.1, legend = c("Actual", "Fitted"), fill = c(1, 2), text.font=4)
 
@@ -130,15 +130,18 @@
   
   # ALL AT ONCE
   Plot.All.Previous.Days <- ggplot(Eth, aes(Date)) +
-    geom_line(aes(y = Eth$Price), col = 1, linewidth = 0.5) +
-    geom_line(aes(y = predict(l1)), col = 2, linewidth = 1.25) +
-    geom_line(aes(y = predict(l2)), col = 3, linewidth = 1.25) +
-    geom_line(aes(y = predict(l3)), col = 4, linewidth = 1.25) +
-    geom_line(aes(y = predict(l4)), col = 5, linewidth = 1.25) +
-    geom_line(aes(y = predict(l5)), col = 6, linewidth = 1.25) +
-    labs(x = "Date", y = "Price Eth/USD", title = "A Variety of Moedling Techniques") +
+    geom_line(aes(y = Eth$Price, color = "Actual"), linewidth = 0.5) +
+    geom_line(aes(y = predict(l1), color = "Quadratic"), linewidth = 1.25) +
+    geom_line(aes(y = predict(l2), color = "Cubic"), linewidth = 1.25) +
+    geom_line(aes(y = predict(l3), color = "Exponential"), linewidth = 1.25) +
+    geom_line(aes(y = predict(l4), color = "Logarithmic"), linewidth = 1.25) +
+    geom_line(aes(y = predict(l5), color = "GAM"), linewidth = 1.25) +
+    labs(x = "Date", y = "Price Eth/USD", title = "A Comparison of Ethereum Regression Models") +
     ylim(-500, 5000) +
-    theme_excel_new()
+    theme_minimal() +
+    scale_color_manual(name='Models',
+                       breaks=c("Actual", "Linear", "Quadratic", "Cubic", "Exponential", "Logarithmic"),
+                       values=c("Actual"=1, "Quadratic"=2, "Cubic"=3, "Exponential"=4, "Logarithmic"=5))
   
   
   
@@ -170,9 +173,10 @@
   
   
 #Step 2: Pick best model (ie model with lowest mse)
-  models <- data.frame(x = c("Linear", "Quad", "Cubic", "Exponential", "Logarithmic", "GAM with Spline"),
-                       y = c("mse1", "mse2", "mse3", "mse4", "mse5", "mse7"), 
-                       z = c(mse1, mse2, mse3, mse4, mse5, mse7)) %>% arrange(z) %>% format(justify = "left")
+  models <- data.frame(Model = c("Linear", "Quad", "Cubic", "Exponential", "Logarithmic", "GAM with Spline"),
+                       MSE = c(mse1, mse2, mse3, mse4, mse5, mse7)) %>% arrange(MSE) %>% format(justify = "left")
+  library(gridExtra)
+  grid.table(models)
   
 #Step 3: Use best model to predict price from now (9/21/23) to 2030
   future.days <- seq(1, nrow(Eth)+2294)
@@ -181,19 +185,30 @@
    
   Plot.All.Days <- ggplot(Eth_reshaped, aes(x, y, col = Models)) + 
     geom_line(size = 1.15) +
-    labs(x = "Date", y = "Price Eth/USD", title = "A Variety of Modeling Techniques") +
-    ylim(-500, 5000) +
+    labs(x = "Date", y = "Price Eth/USD", title = "A Comparison of Ethereum Regression Models' Predictions") +
+    ylim(-1000, 5000) +
     theme_pander() +
-    scale_color_manual(values=c(2,3, 4, 5, 6, 7))
+    scale_color_manual(values=c(2,3, 4, 5, 6, 7)) +
+    scale_x_continuous(breaks = c(0, 1460, 2920, 4380, 5000), labels = c("2016", "2020", "2024", "2028", "2030"))
  
   
   x <- Eth$Price
+  l5 <- lm(Price ~ log(Day), data = Eth)
   y <- predict(l5, newdata = data.frame(Day = all.days))
-  plot(all.days, predict(l5, newdata = data.frame(Day = all.days)))
+  plot(all.days, y,
+       col = 4, 
+       lwd = 3, 
+       type = "l",
+       xlab = "Date", ylab = "Price USD/ETH", main = "Logarithmic Regression",
+       ylim = c(0, 2000),
+       xaxt = "n")
+  points(5000, y[5000], cex = 2, col = 1, pch = 20)
+  text(4000, y[5000], "$1936.31")
+  axis(1, at = c(0, 730, 1460, 2190, 2920, 3650, 4380, 5000), labels = c("2016", "2018", "2020", "2022", "2024", "2026", "2028", "2030"))
   
   
 
-  
+
   
   
   
@@ -245,6 +260,32 @@
     geom_line(aes(y = Log), col = 7) +
     labs(x = "Date", y = "Price Eth/USD") +
     ylim(-1000, 5000)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
