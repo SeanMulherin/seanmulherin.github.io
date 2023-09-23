@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
 <!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	idk
 -->
 <html>
 	<head>
-		<title>Project Page</title>
+		<title>Modeling Ethereum</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -41,9 +39,73 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Project 2</h1>
-							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
-							<p>Here are a few paragraphs explaining this project.</p>
+							<h1>A Regression Analysis On Ethereum</h1>
+							<h2>Predicting the Price of Eth in 2030</h2>
+							<center><img src="Modeling Eth/All Models Previous Days.png" alt="" /></center>
+							<h4>September 22, 2023</h4>
+							<p>Hey team!<br>Happy day, happy day! Alrighty so this is my first solo analysis project, and for my first project I wanted to keep things simple
+								so that I may gain confidence and feel good about my self. Well...that was NOT the case. Boy oh boy was I wrong about this being straightforard.
+								To be fair, it was all my own doing - all the main snags and bouts of confusion I experienced was when I delved into an exciting tangential side-project and tried to do something fancy.
+								[This is around the time when I would say somehting like "(see code for details)," but I think I'll revise that to be a bit more honest and say (see code for mess).] 
+							</p>
+							<p>
+								Anywho, lets's jump in!!! So as we begin, I'd be remise not to remind the team that Ethereum is (in)famous for being extremely volatile. Like farting in the middle of a hurricane, it could go anywhere! 
+								This makes regression, even with all the bells and whistles of mathematics, a risky process and thus should be trusted with a moderate to high degree of skepticism.  
+								Okay as noted earlier, I wan't to keep things simple and straightforward. 
+								We will begin by fitting a few models to our training data set - a set that contains the avg daily price for every day from March 10, 2016 - March 11, 2022 (the first 80% of days since Ethereums conception.)
+							</p>	
+
+							<p>There's nothing more straightforward as a straight line, so let's fit a linear function to out training data. Here's what that looks like:</p>
+							<center><img src="Modeling Eth/Linear.png" height="316" width="332" alt="" /></center>
+
+							<p>Pretty much what we'd expect aye? Straight lines are useful, but this one leaves more space than two Christians at prom. So let's up the dimensionality
+								a hair and fit a quadratic function to the data. Can you guess if it'll open up or down??</p>
+							<center><img src="Modeling Eth/Quadratic.png" height="316" width="332" alt="" /></center>
+
+							<p>It certainly looks ~better~ but let's add on more degree to this polynomial and see how well a cubic function does.</p>
+							<center><img src="Modeling Eth/Cubic.png" height="316" width="332" alt="" /></center>
+
+							<p>What do you say we keep this party going with a logarithmic model.</p>
+							<center><img src="Modeling Eth/Logarithmic.png" height="316" width="332" alt="" /></center>
+
+							<p>Okay so now feels like a good time to admit that before we started this journey, I was very aware that logarithimic regression is the most common
+								model used to track and predict Ethereum (and many other similar phenomena) over the long term. Peaks get less prominent as equities mature.
+								But I want to keep going just a little further to fit two more functions! Since we just fit a log, it only seems right to fit its inverse function,
+								Lé Exponentiál</p>
+							<center><img src="Modeling Eth/Exponential.png" height="316" width="332" alt="" /></center>
+
+							<p>Bonjour, bon retour! Yikes that exponential did not do well did it. Well that's okay becuase for our FINAL exploration, I want to show you what it looks like to overfit data. To do so, we will use a generalized additive model
+								and leverage the power of smoothing splines. As you'll see, this does REALLY well at fitting the training data. This is a good thing...right??? We'll circle back in a mintue.
+							</p>
+							<center><img src="Modeling Eth/GAM.png" height="316" width="332" alt="" /></center>
+
+							<p>All together now! Here are all the models all on one graph. Look how far we've come! Before scrolling down, which model do YOU think we should use to predict Ethereum's future price value??</p>
+							<center><img src="Modeling Eth/All Models Previous Days.png" height="350" width="532" alt="" /></center>
+
+							<p>To answer that question, we first must take a quick tangent to discuss a popular metric called Mean Squared Error (MSE). Simply put, it tests how inaccurate a model is.
+								Eye-balling graphs can only get us so far, so we need some reliable metrics to quantify accuracy - enter MSE. Remember how the training data set is comprised
+								of the first 80% of days, well what happened to the remaining 20% of days?? We call that remainind set the "test set" and to compute the MSE of a model,
+								we ask our models to PREDICT the remaining 20% of data and then COMPARE that PREDICTION to the ACTUAL test set. So anyways, this is the metric we'll use to 
+								quantify how inaccurate our models are. Considering the table below, we are interested in the model that gives us the lowest error (unless you have something nefarious
+								going on and want the highest error for some reason.)
+							</p>
+
+							<p>Before we finish this up and reveal the optimal model. Let's see what happens when all of these models are asked to predict future prices!</p>
+							<center><img src="Modeling Eth/All Models All Days.png" height="350" width="532" alt="" /></center>
+
+							<p>Most of them go crazy! The cubic model want to go negative - you'll be owing Ethereum money pretty soon if you follow that model. 
+								Look at the GAM - this is the downfall of overfitting! Yes, our GAM fit the training data almost perfectly, but the second it's asked
+								to predict something it goes nuts and clearly cannot be trusted. Okay so let's stop eye-balling it and look at the numbers:
+							</p>
+
+							<center><img src="Modeling Eth/MSEs.png" height="250" width="300" alt="" /></center>
+
+							<p>	Alas! The best model is revealed as a Logarithmic Regression model. Here it is again:</p>
+							<center><img src="Modeling Eth/Best Model.png" height="350" width="432" alt="" /></center>
+
+							<p>So, according to our optimal model, Ethereum will be priced at $1,936.31 on new year's day of the year 2030. Are you saying to yourself, "hmmmm, not so sure I trust
+								that predicton, Sean." Well good! Trust no one. Goodnight.
+							</p>
 						</div>
 					</div>
 
@@ -57,8 +119,8 @@
 						<section>
 							<h2>Follow</h2>
 							<ul class="icons">
-								<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin"><span class="label">Linkedin</span></a></li>
-								<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
 							</ul>
 						</section>
 						<ul class="copyright">
