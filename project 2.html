@@ -39,7 +39,7 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>A Regression Analysis On Ethereum</h1>
+							<h1>An Ethereum Regression Analysis</h1>
 							<center><img src="Modeling Eth/All Models Previous Days.png" alt="" /></center>
 							<h4>September 22, 2023</h4>
 							<p>Hey team!<br>Happy day, happy day! Alrighty so this is my first solo analysis project, and for my first project I wanted to keep things simple
@@ -51,40 +51,40 @@
 								Anyways, lets's jump in!!! So as we begin, I'd be remise not to remind the team that Ethereum is (in)famous for being extremely volatile. Like farting in a hurricane, it could go anywhere at anytime. 
 								This makes regression, even with all the bells and whistles of statistics, a risky process and thus should be trusted with a moderate degree of skepticism.  
 								As noted earlier, I wan't to keep things simple and straightforward. 
-								We will begin by fitting a few models to our training data set - a set that contains the avg daily price for every day between [March 10, 2016 - March 11, 2022] (the first 80% of days since Ethereum's conception.)
 							</p>	
 
 							<p>Well there's nothing more straightforward than a straight line, so let's fit a linear function to out training data. Here's what that looks like:</p>
-							<center><img src="Modeling Eth/Linear.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/Linear.png" height="405" width="462" alt="" /></center>
 
-							<p>Pretty much what you'd expect aye? Straight lines are useful, but this one leaves more space than two Christians at the school dance. So let's up the dimensionality
+							<p>Pretty much what you'd expect aye? Straight lines are useful, but this one leaves more space than two kids at the school dance. So let's up the dimensionality
 								a hair and fit a quadratic function to the data.
 							</p>
-							<center><img src="Modeling Eth/Quadratic.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/Quadratic.png" height="405" width="462" alt="" /></center>
 
 							<p>It certainly looks ~better~ but let's add one more degree to this polynomial and see how well a cubic function does.</p>
-							<center><img src="Modeling Eth/Cubic.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/Cubic.png" height="405" width="462" alt="" /></center>
 
 							<p>Not too bad. Although, just by looking at it, it's hard to say if it fits better than the quadratic model. What do you say we keep this party going with a logarithmic model.</p>
-							<center><img src="Modeling Eth/Logarithmic.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/Logarithmic.png" height="405" width="462" alt="" /></center>
 
 							<p>Okay so now feels like a good time to admit that before we started this journey, I was very aware that logarithimic regression is the most common
 								model used to track and predict Ethereum (and many other similar phenomena) over the long term. Peaks get less prominent as equities mature. That's an inherent truth.
 								But I want to keep going just a little further to fit two more functions. Since we just fit a log, it only seems right to fit its inverse function,
 								Lé Exponentiál.</p>
-							<center><img src="Modeling Eth/Exponential.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/Exponential.png" height="405" width="462" alt="" /></center>
 
-							<p>Bonjour, bon retour! Yikes that exponential did not do well, did it? Well that's okay becuase for our FINAL exploration, I want to show you what it looks like to overfit data. To do so, we will use a Generalized Additive Model (GAM)
-								and leverage the power of smoothing splines. As you'll see, this does REALLY well at fitting the training data.
+							<p>Bonjour, bon retour! Yikes that exponential did not do well, did it? Well that's okay becuase for our FINAL exploration, I want to show you what it looks like to overfit data. To do so, we will use a 
+								<a href ="https://towardsdatascience.com/generalised-additive-models-6dfbedf1350a" target="_blank"> Generalized Additive Model (GAM) </a>
+								and leverage the power of smoothing splines. As you'll see, this does REALLY well at fitting the data.
 							</p>
-							<center><img src="Modeling Eth/GAM.png" height="316" width="332" alt="" /></center>
+							<center><img src="Modeling Eth/GAM.png" height="405" width="462" alt="" /></center>
 
 							<p>Nearly a perfect fit! This is a good thing...right??? We'll circle back in a minute. First, here are the models all on one graph. Look how far we've come! Before reading on, which model do YOU think we should use to predict Ethereum's future price value??</p>
-							<center><img src="Modeling Eth/All Models Previous Days.png" height="350" width="532" alt="" /></center>
+							<center><img src="Modeling Eth/All Models Previous Days.png"  alt="" /></center>
 
-							<p>To answer that question, we must first take a quick tangent to discuss a popular metric called Mean Squared Error (MSE). Simply put, MSE tests how inaccurate a model is.
-								Eye-balling graphs can only get us so far, so we need some reliable metrics to quantify accuracy - enter MSE. Remember how the training data set is comprised
-								of the first 80% of days, well what happened to the remaining 20% of days?? We refer to that remaining set as the "test set." To compute the MSE of a model,
+							<p>To answer that question, we must first take a quick tangent to discuss a popular metric called <a href ="https://www.simplilearn.com/tutorials/statistics-tutorial/mean-squared-error#:~:text=The%20Mean%20Squared%20Error%20measures,it%20relates%20to%20a%20function." target="_blank"> Mean Sqaured Error (MSE) </a>. Simply put, MSE tests how inaccurate a model is.
+								Eye-balling graphs can only get us so far, so we need some reliable metrics to quantify accuracy - enter MSE. We will begin by fitting a few models to our training data set - a set that contains the avg daily price for every day between [March 10, 2016 - March 11, 2022] (the first 80% of days since Ethereum's conception.)
+								If the training data set is comprised of the first 80% of days, well what happened to the remaining 20% of days?? We refer to that remaining set as the "test set." To compute the MSE of a model,
 								we ask our models to PREDICT the remaining 20% of data and then COMPARE that PREDICTION to the ACTUAL test set. So anyways, this is the metric we'll use to 
 								quantify how inaccurate our models are. Considering the table below, we are interested in the model that gives us the lowest error (unless you have something nefarious
 								going on and want the highest error for some reason.)
@@ -93,8 +93,8 @@
 							<p>Before we finish this up and reveal the optimal model. Let's see what happens when all of these models are asked to predict future prices!</p>
 							<center><img src="Modeling Eth/All Models All Days.png" height="350" width="532" alt="" /></center>
 
-							<p>Most of them go crazy! The cubic model want to go negative - you'll be owing Ethereum money pretty soon if you follow that model. 
-								Look at the GAM - this is the downfall of overfitting! Yes, our GAM fit the training data almost perfectly, but the second it's asked
+							<p>Most of them go crazy! The cubic model (red) want to go negative - you'll be owing Ethereum money pretty soon if you follow that model. 
+								Look at the GAM in blue - this is the downfall of overfitting! Yes, our GAM fit the training data almost perfectly, but the second it's asked
 								to predict something, it goes nuts and clearly cannot be trusted. Okay so let's stop eye-balling it and look at the numbers (remember, we want the lowest MSE):
 							</p>
 
@@ -103,7 +103,7 @@
 							<p>	Alas! The best model is revealed as a Logarithmic Regression model. Here it is again:</p>
 							<center><img src="Modeling Eth/Best Model.png" height="350" width="432" alt="" /></center>
 
-							<p>So, according to our optimal model, Ethereum will be priced at $1,936.31 on new year's day of the year 2030. Are you saying to yourself, "hmmmm, not so sure I trust
+							<p>So, according to our optimal model, Ethereum will be priced at $1,936.31 on new year's day of the year 2030. Are you saying to yourself, "Hmmmm, not so sure I trust
 								that predicton, Sean." Well good! Trust no one. Goodnight.
 							</p>
 						</div>
