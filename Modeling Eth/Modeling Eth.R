@@ -25,11 +25,11 @@
   library(lubridate)
   Eth$Date <- gsub("/", "-", Eth$Date)
   Eth$Date <- mdy(Eth$Date)
-  Eth$Day <- seq(1, nrow(Eth))
   
   #Arrange in descending order
   library(dplyr)
   Eth <- Eth %>% arrange(ymd(Eth$Date))
+  Eth$Day <- seq(1, nrow(Eth))
 
 ############ Model Data - Regression
 #Step 1: Find best model by fitting diff models on train data and testing its accuracy using test data according to MSE
@@ -205,6 +205,8 @@
   points(5000, y[5000], cex = 2, col = 1, pch = 20)
   text(4000, y[5000], "$1936.31")
   axis(1, at = c(0, 730, 1460, 2190, 2920, 3650, 4380, 5000), labels = c("2016", "2018", "2020", "2022", "2024", "2026", "2028", "2030"))
+  
+  a <- Eth$Price
   
   
 
