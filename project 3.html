@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
 <!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	idk
 -->
 <html>
 	<head>
-		<title>Project Page</title>
+		<title>Breast Cancer Detection</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -41,9 +39,87 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Project 3</h1>
-							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
-							<p>Here are a few paragraphs explaining this project.</p>
+							<h1>A Classification Analysis on Breast Cancer</h1>
+							<span class="image main"><img src="Breast Cancer/c.jpg" alt="" /></span>
+							<h4>October,1 2023</h4>
+							<p>Hey team!<br> Happy breast cancer awareness month! Today we're back in action, this time with a classification project. My innagural project was a regression analysis on Ethereum, during which I compared many
+								different models and used a validation-set approach to choose the best performing model. This project will be very similar in that I will be fitting many different
+								classification models to the training data, assessing their performances with the test data, and choosing the most accurate model. I'm getting goosebumps just thinking about it!
+							</p>
+							<p>So the goal is to classify breast cancer tumors as either malignant or benign. The data set we'll be using today is generously provided by the University of Wisconsin's Clinical Sciences Center. Now, this 
+								data set includes 30 different recorded metrics on 569 participants. That's a lot of variables and not a lot of samples! It's like bringing goodey bags to a buffet,
+								sure It'll work fine but you'd much prefer a duffle bag. At any rate, let's start shoveling food in. 
+							</p>
+							<p>	
+								So my first step was to take a look at the raw data and see which, if any, variables are expendable. Without getting into too much detail,
+								about half of the variables were redundant and non-essential. All predictor variables kept describe the average of various characteristics of a cell nucleus 
+								within a breast cancer tumor. Characteristics such as: radius, texture, perimeter, area, smoothness, compactness, concavity, symmetry, and fractal dimension. All variables discarded 
+								describe either the standard error or the minimum value of the aforementioned qualities. The response variable describes patients' diagnoses, with each diagnosis taking on 
+								one of two possible values - benign or malignant.   
+							</p>
+							<p>
+								As you'll see shortly, I fit a slew of popular classificaton models. Since the response variable is binary, I expected the logistic regression model to outperform
+								all the others becuase it is well-regarded as the most robust and powerful model to use for such an analysis. Becuase we have 9 predictors, it would make sense for the 
+								best model to be one that reduces dimensionality and pentlizes complexity; thus, linear classification, logistic classification, and support vevtor machines (SVM) should perform well.
+							</p>
+							<p>
+								We performed a 70/30 split in the train/test data.
+							</p>
+
+							<center><img src="Breast Cancer/model_errors.png" height="280" width="240"  alt="" /></center>
+
+							<pre>
+								<code class="line-numbers" style="background-color:#33475b;color:white">
+####### Logistic Regression #######
+logreg <- glm(diagnosis ~ ., data = Breast, subset = train, family = "binomial")
+logreg.pred <- predict(logreg, Breast[test, ] , type = "response")
+logreg.pred <- ifelse(logreg.pred >= 0.5, "M", "B")
+err1 <- mean(logreg.pred != validation)
+									
+####### Linear Discriminant Analysis ####### 
+lda <- lda(diagnosis ~., data = Breast, subset = train)
+lda.pred <- predict(lda, Breast[test, ])
+err2 <- mean(lda.pred$class != validation)
+									
+####### Quadratic Discriminant Analysis #######
+qda <- qda(diagnosis ~., data = Breast, subset = train)
+qda.pred <- predict(qda, Breast[test, ])
+err3 <- mean(qda.pred$class != validation)
+									
+####### Naive Bayes #######
+nb <- naiveBayes(diagnosis ~ ., data = Breast, subset = train)
+nb.pred <- predict(nb, Breast[test, ])
+err4 <- mean(nb.pred != validation)
+									
+####### KNN #######
+train.Matrix <- cbind(radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean, concavity_mean, concave_points_mean, symmetry_mean, fractal_dimension_mean)[train, ]
+test.Matrix <- cbind(radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean, concavity_mean, concave_points_mean, symmetry_mean, fractal_dimension_mean)[test, ]
+knn.pred <- knn(train.Matrix, test.Matrix, Breast[train, "diagnosis"], k=1)
+err5 <- mean(knn.pred != validation)
+
+####### CART with 10-fold cv #######
+train.control <- trainControl(method = "cv", number = 10, savePredictions = T)
+cart <- train(diagnosis ~., data = Breast, subset = train, trControl = train.control, tuneLength=10, method = "rpart") #tuneLength controls regularization penalty, rpart invokes cart package, trControl invokes cv
+cart.pred <- predict(cart, Breast[test, ])
+err6 <- mean(cart.pred != validation)
+									
+####### Random Forest #######
+rf1 <- train(diagnosis ~., data = Breast, subset = train, method = "rf", trControl = train.control, tuneLength = 2, preProcess = c("center", "scale")) #mtry represents the # of nodes (how complex your tree is)
+rf1.pred <- predict(rf1, Breast[test, ])
+err7 <- mean(rf1.pred != validation)
+					
+rf2 <- randomForest(diagnosis ~., data = Breast, subset = train) #uses the rf package instead of cv
+rf2.pred <- predict(rf2, Breast[test, ])
+err8 <- mean(rf2.pred != validation)
+									
+####### SVM #######
+svm <- svm(diagnosis ~., data = Breast, subset = train)
+svm.pred <- predict(svm, Breast[test, ])
+err9 <- mean(svm.pred != validation)
+								</code>
+							</pre>
+
+
 						</div>
 					</div>
 
