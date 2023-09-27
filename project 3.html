@@ -42,15 +42,15 @@
 							<h1>A Classification Analysis on Breast Cancer</h1>
 							<span class="image main"><a href="https://www.emro.who.int/fr/noncommunicable-diseases/campaigns/breast-cancer-awareness-month-2022.html" target="_blank"><img src="Breast Cancer/c.jpg" alt="" /></a></span>
 							<h4>September 27, 2023</h4>
-							<p>Hey team!<br> It's nearly breast cancer awareness month! According to the <a href="https://www.who.int/news-room/fact-sheets/detail/breast-cancer" target="_blank">World Health Organization (WHO)</a>, breast cancer is the "world's most prevelent cancer," 
-								affecting a cummulative 7.8 million people worldwide as of 2020. As you'll see in today's analysis, we are able to detect the malignance of breast cancer tumours with a high degree
+							<p>Hey team!<br> It's nearly breast cancer awareness month! According to the <a href="https://www.who.int/news-room/fact-sheets/detail/breast-cancer" target="_blank">World Health Organization (WHO)</a>, breast cancer is the "world's most prevalent cancer," 
+								affecting a cumulative 7.8 million people worldwide as of 2020. As you'll see in today's analysis, we are able to detect the malignancy of breast cancer tumors with a high degree
 								of accuracy. Early detection is one of the best ways to increase survival rate, so don't wait and go see a doctor for a <a href="https://www.cdc.gov/cancer/breast/basic_info/screening.htm#:~:text=if%20you%20qualify.-,Mammogram,of%20dying%20from%20breast%20cancer." target="_blank">breast cancer screening test!</a>
 							</p>
 							<p>
 								Okay so we're back in action, this time with a classification project. My innagural project was a regression analysis on Ethereum, during which I compared many
 								different models and used a validation-set approach to identify the queen bee (the best performing model.) Today's project will be very similar in that I will be fitting many different
 								classification models to the training data, assessing their performances using the testing data, and choosing the most accurate model with which we will classify
-								tumours as either malignant or benign. I'm getting goosebumps just thinking about it!
+								tumors as either malignant or benign. I'm getting goosebumps just thinking about it!
 							</p>
 							<p>The data set we'll be using is generously provided by the <a href="https://www.medicine.wisc.edu/hematology-oncology/breast-cancer-clinical-research" target="_blank">University of Wisconsin's Clinical Science Center.</a>
 								Now, this data set includes 30 different recorded metrics on 569 participants. That's a lot of variables and not a lot of samples! It's like bringing goodey bags to a buffet -
@@ -59,7 +59,7 @@
 							<p>	
 								So my first step was to take a look at the raw data and see which, if any, variables are expendable. Without getting into too much detail,
 								about half of the variables were redundant and non-essential. All predictor variables kept describe the average of various characteristics of a cell nucleus 
-								within a breast cancer tumour. Characteristics such as: radius, texture, perimeter, area, smoothness, compactness, concavity, symmetry, and fractal dimension. All variables discarded 
+								within a breast cancer tumor. Characteristics such as: radius, texture, perimeter, area, smoothness, compactness, concavity, symmetry, and fractal dimension. All variables discarded 
 								describe either the standard error or the minimum value of the aforementioned qualities. The response variable describes patients' diagnoses, with each diagnosis taking on 
 								one of two possible values - benign or malignant. 
 							</p>
@@ -145,7 +145,7 @@ grid.table(models)
 								</code>
 							</pre>
 							<p>Viola! Here's what we get. We have a tie between our Linear Discriminant Analysis (LDA) and Support Vector Machine (SVM), both having error rates of
-								2.94%. In other words, these two models correctly predict whether a breast cancer tumour is either malignant or benign 97.06% of the time (on the training data subset.)
+								2.94%. In other words, these two models correctly predict whether a breast cancer tumor is either malignant or benign 97.06% of the time (on the training data subset.)
 								The Logistic Regression comes in at 3rd place with an error rate of 4.12%, and I get served yet another humble pie. Although, in my defense, I did expect that the simpler 
 								linear models would perform best which is indeed the case.
 							</p>
