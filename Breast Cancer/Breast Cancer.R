@@ -15,7 +15,7 @@ library(gridExtra)
 set.seed(1)
 train <- createDataPartition(y = Breast$diagnosis, p = 0.7, list = F) #random generates row indexes
 test <- -train
-validation <- validation
+validation <- Breast[test, "diagnosis"]
 
 ####### Logistic Regression #######
 logreg <- glm(diagnosis ~ ., data = Breast, subset = train, family = "binomial")
@@ -69,9 +69,25 @@ models <- data.frame(Model = c("Logistic", "LDA", "QDA", "Naive Bayes", "KNN", "
                 Error = c(err1, err2, err3, err4, err5, err6, err7, err8, err9)) %>% mutate(Error = round(Error, 4)) %>% arrange(Error)
 grid.table(models)
 
-best.model <- lda(diagnosis ~., Breast)
-best.pred <- predict(best.model, Breast)  
-err.best <- mean(best.pred$class != Breast$diagnosis)
+####### Final Model Predictions ################
+lda.final <- lda(diagnosis ~., Breast)
+svm.final <- svm(diagnosis ~., Breast)
+lda.final.err <- mean(predict(lda.final)$class != Breast$diagnosis)
+svm.final.err <- mean(predict(svm.final) != Breast$diagnosis)
+
+
+final.err <- data.frame(Model = c("LDA", "SVM"), Error = c(round(svm.final.err, 4), round(lda.final.err, 4)))
+grid.table(final.err)
+
+
+
+
+
+
+
+
+
+
 
 
 
