@@ -43,14 +43,14 @@
 							<center><img src="Modeling Eth/All Models Previous Days.png" alt="" /></center>
 							<h4>September 22, 2023</h4>
 							<p>Hey team!<br>Happy day, happy day! Alrighty so this is my first solo analysis project, and for my first project I wanted to keep things simple
-								so that I may gain confidence and feel good about my self. Well...that was NOT the case. Boy oh boy was I wrong about this being straightforward.
+								so that I may gain confidence and feel good about my self. In typical fashion, I underestimated the rigor of this analysis. 
 								To be fair, it was all my own doing - all the main snags and bouts of confusion I experienced was when I delved into an exciting tangential project and tried to do something fancy.
-								[This is around the time when I would say somehting like "(see code for details)," but I think I'll revise that to be a bit more honest and say (see code for mess).] 
+								[This is around the time when I would say somehting like "(see code for details)," but I think I'll revise that to be a bit more honest and say (see code for organized mess).] 
 							</p>
 							<p>
 								Anyways, lets's jump in!!! So as we begin, I'd be remise not to remind the team that Ethereum is (in)famous for being extremely volatile. Like farting in a hurricane, it could go anywhere at anytime. 
 								This makes regression, even with all the bells and whistles of statistics, a risky process and thus should be trusted with a moderate degree of skepticism.  
-								As noted earlier, I wan't to keep things simple and straightforward. 
+								As noted earlier, I want to keep things simple and straightforward. 
 							</p>	
 
 							<p>Well there's nothing more straightforward than a straight line, so let's fit a linear function to out training data. Here's what that looks like:</p>
@@ -67,9 +67,9 @@
 							<p>Not too bad. Although, just by looking at it, it's hard to say if it fits better than the quadratic model. What do you say we keep this party going with a logarithmic model.</p>
 							<center><img src="Modeling Eth/Logarithmic.png" height="405" width="462" alt="" /></center>
 
-							<p>Okay so now feels like a good time to admit that before we started this journey, I was very aware that logarithimic regression is the most common
-								model used to track and predict Ethereum (and many other similar phenomena) over the long term. Peaks get less prominent as equities mature. That's an inherent truth.
-								But I want to keep going just a little further to fit two more functions. Since we just fit a log, it only seems right to fit its inverse function,
+							<p>Okay so now feels like a good time to admit that before we started this journey, I was aware that logarithimic regression is the most common
+								model used to track and predict Ethereum (and many other similar phenomena) over the long term. Peaks get less prominent as equities mature.
+								But I want to keep going just a little further to fit two more functions. Since we just fit a logarithm, it only seems right to fit its inverse function,
 								Lé Exponentiál.</p>
 							<center><img src="Modeling Eth/Exponential.png" height="405" width="462" alt="" /></center>
 
@@ -93,7 +93,7 @@
 							<p>Before we finish this up and reveal the optimal model. Let's see what happens when all of these models are asked to predict future prices!</p>
 							<center><img src="Modeling Eth/All Models All Days.png" height="350" width="532" alt="" /></center>
 
-							<p>Most of them go crazy! The cubic model (red) want to go negative - you'll be owing Ethereum money pretty soon if you follow that model. 
+							<p>Most of them go crazy! The cubic model (red) wants to go negative - you'll be owing Ethereum money pretty soon if you follow that model. 
 								Look at the GAM in blue - this is the downfall of overfitting! Yes, our GAM fit the training data almost perfectly, but the second it's asked
 								to predict something, it goes nuts and clearly cannot be trusted. Okay so let's stop eye-balling it and look at the numbers (remember, we want the lowest MSE):
 							</p>
