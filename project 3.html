@@ -79,8 +79,8 @@ validation <- Breast[test, "diagnosis"]
 								</code>	
 							</pre>
 							
-							<p> Next, we fit various models to the training data, ask these models to predict values, then, compare the predicted values with our actual known values (which are held in the test set.)
-								This comparison is quantified as a model's error rate: the proportion of misclassified predicitons. I name the error rates for each model err1, err2, and so on. 
+							<p> Next, we fit various models to the training data, ask these models to predict values, then compare the predicted values with our actual known values (which are held in the test set.)
+								This comparison is quantified as a model's error rate: the proportion of misclassified predictions. I name the error rates for each model: err1, err2, err3, and so on. 
 							</p>
 							
 
@@ -167,7 +167,7 @@ svm.final.err <- mean(predict(svm.final) != Breast$diagnosis)
 							<center><img src="Breast Cancer/e.png" height="100" width="140"  alt="" /></center>
 
 							<p><br>Ding! Ding! Ding! We have our winner! Linear Discriminant Analysis is crowned the best performing model, with a final comprehensive error rate of 3.87%.
-								To wrap things up, I hope you are more convinced that breast cancer is a pressing issue, given it's prevalence. I hope you agree that early detection
+								To wrap things up, I hope you are more convinced that breast cancer is a pressing issue, given its prevalence. I hope you agree that early detection
 								is imperative in the fight against this disease, given how confident we can be in the diagnosis. Finally, I hope you think statistics is even cooler
 								than you previously thought. Let's work together to spread the word! Enjoy the day.
 							</p>
