@@ -1,12 +1,8 @@
 <!DOCTYPE HTML>
-<!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 	<head>
-		<title>Project Page</title>
+		<title>Global CO2 Production</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -41,9 +37,121 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Project 5</h1>
-							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
-							<p>Here are a few paragraphs explaining this project.</p>
+							<h1>A Carbon Dioxide Emissions Analysis</h1>
+							<center><img src="CO2 Production/co2_map.png" height="401" width="815" alt="" /></center>
+							<h4>October 21, 2023</h4>
+							<p>Hey team!<br> I'm excited to share today's environmental analysis with you all. Climate change an increasingly pressing issue, and rightfullly so. The rising of global temperatures
+							is leading to disastrous circumstances: melting glaciers lead to rising ocean water levels, which, lead to less land for plants and mammals to cohabitate. Furthermore, with more ocean and, thus, less land, 
+							the world's food supply is under increasing amounts of pressure. This pressure is debilitating and the main culprit is human-caused Carbon Dioxide (CO2) emissions.
+							Industrial activity produces CO2 and emits it into the atmosphere which dissolves the planet's ozone layer. This ozone layer is crucial in protecting our comforatbly livable planet 
+							becuase it prevents harmful sun rays from invading our atmosphere and making their way toward Earth's 
+							surface.  There are many credible learning resources for you to learn more about this threat, but my personal favorite is the 
+							<a href="https://hdr.undp.org/" target="_blank">National Resources Defense Council (NRDC).</a> In short, CO2 production raises global temperatures which has harmful and disastrous consequences. Becuase of this,
+							we want to minimize CO2 production. This mission conflicts with immediate profits for bussinesses so it has been met with strong resistence. However, as we will see in today's analysis, 
+							most contries, especially in the last decade, have begun to decrease their CO2 production. Let's jump in!
+							</p>
+							<br>
+							<h2><hr><center>A Look Behind</center><hr></h2>
+							<br>
+
+							<p>
+								Today's data is generously provided by the <a href="https://hdr.undp.org/" target="_blank">United Nations Development Programme (UNDP).</a>
+								The data contains many different metrics, but, today we are going to focus on only three variables: CO2 production, Human Development Index (HDI) code, and country. 
+								<blockquote>
+								<strong>Note: </strong> HDI measures a country's social and economic development. It is a metric that combines information on citizens' quality of life, defined as the normalization<sup>1</sup> of life expectancy, education, and income.
+								For more information, and a collection of intriguing visuals, check out <a href="https://hdr.undp.org/data-center/human-development-index#/indicies/HDI" target="_blank">UNDP's article.</a>
+								</blockquote>
+							</p>
+
+							<p> Okay, so let's begin by taking a zoomed-out look at all the CO2 production data. We will plot the annual CO2 production for each country from 1991 to 2021. We have data for all 195 countries around the world:</p>
+							
+							<img src="CO2 Production/overall_graph.png" height="500" width=500" alt="" />
+							<img src="CO2 Production/World_CO2P.png" height="500" width=500" alt="" />
+							
+							<p>
+								<br>
+								On the left, we see the amount of CO2 produced for each country, where each line represents a different country. On the right is the world's combined CO2 production. 
+								You'll notice the sharp decline in carbon emissions that occured in 2019. This is a result of the global COVID-19 pandemic - impeding industrial activity
+								and drastically lowering energy demands. 
+								This plot is a bit cluttered. To add clarity, let's partition each country by their HDI code. Remember, HDI measures the social and economic health of a country's population, so high HDI values indicate healthy populations.
+								HDI code categorizes these values into four groups: low, medium, high, and very high. Take a look:
+								<br>
+							</p>
+							
+							<center><img src="CO2 Production/faceted_co2p.png" height="600" width=700" alt="" /></center>
+
+							<p><br>
+								The glaring first impression from this graph is that countries with higher HDI codes have higher levels of CO2 production. 
+								This shouldn't come as a surprise. As countries develop, their populations grow and economies flourish. With more people comes more business and higher
+								energy demands. The byproduct of non-renewable energy is CO2. Thus, higher HDI codes are strongly correlated with higher CO2 production<sup>2</sup>.
+								Interestingly, the average carbon footprint for a person in the United States is 16 tons, compared to the worldwide average of 4 tons<sup>3</sup>.
+								Okay, I think it's time to name names. Let's filter out the countries with relatively negligible CO2 production to expose the top emitters for each HDI code:
+							 </p>
+
+							<center><img src="CO2 Production/filtered_faceted_co2p.png" height="800" width=950" alt="" /></center>
+
+							
+							<br><blockquote>
+								<strong>Note: </strong> In an effort to mitigate erroneous conclusions taken from this plot, I want to highlight the different y-axis scales for each HDI category (low, medium, high, very high).
+								For example, as displayed, the CO2 production range for countries with low HDI codes is [0, 1.4] while the range for countries with high HDI codes is [0, 70]. 
+							</blockquote>
+
+
+							<p>
+								I think I'll let the above graph speak for itself. Its main purpose is to shed light on the world's top cummulative CO2 emitters in the past three decades. 
+								If you are interested in the tabular form<sup>4</sup> of this data, I've included it in the appendix - where each table shows the top 10 CO2 emitters for each HDI code. I think now is a good time
+								to provide another perspective - one that, perhaps, portrays a more inspiring story. We will now look at the rate at which CO2 production has changed in each country - whether production 
+								has increased or decreased and, if so, to what magnitude. This is shown below:
+							</p>
+
+							<center><img src="CO2 Production/co2_map.png" height="401" width="815" alt="" /></center>
+							<blockquote>
+								<strong>Note: </strong> "avgroc" is defined as the average rate of change. Positive values (red) indicate and overall increase in CO2 production, while negative 
+								values (blue) indicate a decrease in CO2 production. I've provided a labeled world map<sup>5</sup> in the appendix for your reference.
+							</blockquote>
+
+							<p>
+								This is an illuminating graph, isn't it? The countries that have the highest overall <u>rate of increase</u> in CO2 production are: Mongolia, China, Saudi Arabia, Qatar, and Iran. 
+								The countries that have the highest overall <u>rate of decrease</u> in CO2 production are: Estonia, United Arab Emirates, Luxembourg (that tiny spec in Europe), Ukraine, United States, and Russia.
+								I underlined the two aforementioned metrics becuase I wan't to emphasize the meaning of these claims: CO2 production <u>rate</u> refers to the <u>change</u> in CO2 production, spanning over 32 years from 1991 to 2021.
+								For there to be a <u>rate of change</u>, the average CO2 production must either increase, decrease, or stay constant. For example, the United States has a <u>decreased</u> rate of change becuase 
+								<u>less</u> CO2 was produced in 2021 than in 1991.
+							</p>
+
+
+
+
+							<h2><hr><center>A Look Ahead</center><hr></h2>
+
+
+							<h2><hr><center>Appendix</center><hr></h2>
+							<p>
+								<ol>
+									<dl>
+										[1] Normalization: <br>In three dimensional Euclidean Geometry, to normalize is to find the maximum length while incoorporating all three dimensions. 
+										Ski's in a box.
+									</dl>
+
+									<dl>[2] Pearson's Correlation Analysis</dl>
+
+									<dl>[3]<a href="https://www.nature.org/en-us/get-involved/how-to-help/carbon-footprint-calculator/#:~:text=A%20carbon%20footprint%20is%20the,is%20closer%20to%204%20tons." target="_blank">Carbon Footprint</a></dl>
+
+									<dl>[4] Top Emitters Tabular Data (sorted in descending order)</dl>
+									<img src="CO2 Production/co2pL.png" height="200" width="240" alt="" />
+									<img src="CO2 Production/co2pM.png" height="200" width="240" alt="" />
+									<img src="CO2 Production/co2pH.png" height="200" width="240" alt="" />
+									<img src="CO2 Production/co2pVH.png" height="200" width="240" alt="" />
+									
+									<dl><br>[5] Labeled World Map</dl>
+									<center><img src="CO2 Production/map.gif" height="401" width="815" alt="" /></center>
+								<ol>
+							</p>
+
+
+
+
+
+
 						</div>
 					</div>
 
