@@ -42,15 +42,14 @@
 							<h1>An Ethereum Regression Analysis</h1>
 							<center><img src="Modeling Eth/All Models Previous Days.png" alt="" /></center>
 							<h4>September 22, 2023</h4>
-							<p>Hey team!<br>Happy day, happy day! Alrighty so this is my first solo analysis project, and for my first project I wanted to keep things simple
+							<p>Hey team!<br>This is my first solo analysis project, and for my first project I wanted to keep things simple
 								so that I may gain confidence and feel good about my self. In typical fashion, I underestimated the rigor of this analysis. 
 								To be fair, it was all my own doing - all the main snags and bouts of confusion I experienced was when I delved into an exciting tangential project and tried to do something fancy.
-								[This is around the time when I would say somehting like "(see code for details)," but I think I'll revise that to be a bit more honest and say (see code for organized mess).] 
 							</p>
 							<p>
-								Anyways, lets's jump in!!! So as we begin, I'd be remise not to remind the team that Ethereum is (in)famous for being extremely volatile. Like farting in a hurricane, it could go anywhere at anytime. 
+								Anyways, lets's jump in. So as we begin, I'd be remise not to remind the team that Ethereum is infamous for being extremely volatile. Like farting in a hurricane, it could go anywhere at anytime. 
 								This makes regression, even with all the bells and whistles of statistics, a risky process and thus should be trusted with a moderate degree of skepticism.  
-								As noted earlier, I want to keep things simple and straightforward. 
+								As noted earlier, I want to keep things simple and straightforward.
 							</p>	
 
 							<p>Well there's nothing more straightforward than a straight line, so let's fit a linear function to out training data. Here's what that looks like:</p>
@@ -70,10 +69,10 @@
 							<p>Okay so now feels like a good time to admit that before we started this journey, I was aware that logarithimic regression is the most common
 								model used to track and predict Ethereum (and many other similar phenomena) over the long term. Peaks get less prominent as equities mature.
 								But I want to keep going just a little further to fit two more functions. Since we just fit a logarithm, it only seems right to fit its inverse function,
-								Lé Exponentiál.</p>
+								the exponential.</p>
 							<center><img src="Modeling Eth/Exponential.png" height="405" width="462" alt="" /></center>
 
-							<p>Bonjour, bon retour! Yikes that exponential did not do well, did it? Well that's okay becuase for our FINAL exploration, I want to show you what it looks like to overfit data. To do so, we will use a 
+							<p>Yikes that exponential did not do well, did it? Well that's okay becuase for our FINAL exploration, I want to show you what it looks like to overfit data. To do so, we will use a 
 								<a href ="https://towardsdatascience.com/generalised-additive-models-6dfbedf1350a" target="_blank"> Generalized Additive Model (GAM) </a>
 								and leverage the power of smoothing splines. As you'll see, this does REALLY well at fitting the data.
 							</p>
@@ -103,8 +102,7 @@
 							<p>	Alas! The best model is revealed as a Logarithmic Regression model. Here it is again:</p>
 							<center><img src="Modeling Eth/Best Model.png" height="350" width="432" alt="" /></center>
 
-							<p>So, according to our optimal model, Ethereum will be priced at $1,936.31 on new year's day of the year 2030. Are you saying to yourself, "Hmmmm, not so sure I trust
-								that predicton, Sean." Well good! Trust no one. Goodnight.
+							<p>So, according to our optimal model, Ethereum will be priced at $1,936.31 on new year's day of the year 2030.
 							</p>
 						</div>
 					</div>
