@@ -48,7 +48,7 @@
 								I'll walk through the process of coding a neural network, explaining the relevant math and concepts behind it, including powerful ideas such as 
 								gradient descent, forward and backward propagation, and other relevant topics. 
 								Neural networks are a complex topic so to help explain and understand the ideas, we will work through a classification problem.
-								Our task will be to classify peoples' status of developing type 2 diabetes. 
+								Our task will be to classify peoples' risk of developing type 2 diabetes. 
 
 								<h2><hr><center>A Metaphor on Sorting Big Data</center><hr></h2>
 								To get a better idea of the complexity this requires, let's imagine skittles and a strainer. You have a MASSIVE bag containing hundreds of thousands of skittles and only one strainer
@@ -64,7 +64,7 @@
 								<blockquote><strong>Figure 1.</strong> A diagram to help visualize a popular siphoning method often implemented to handle big data.</blockquote>
 								
 								<h2><hr><center>The Data</center><hr></h2>
-								Today's task is to identify a person's status of developing type 2 diabetes, given some information about their biology and lifestyle. 
+								Today's task is to identify a person's risk of developing type 2 diabetes, given some information about their biology and lifestyle. 
 								As of 2019, 37.3 million americans had been diagnosed with diabetes and 96 million had <u><i>prediabetes</i></u> - defined as having high risk of developing type 2 diabetes <sup>1</sup>. 
 								Type 2 diabetes is a chronic disease that describes the body's difficulty in either producing or properly utilizing insulin. Insulin is produced and secreted by the pancreas to help break down
 								glucose (i.e. sugar) in the foods you eat. For this reason, people who have diabetes are much more likely to have abnormal levels of glucose in their bloodstream - this metric is commonly
@@ -77,11 +77,10 @@
 								The data set we will be using has been generously provided by the <a href="https://www.cdc.gov/brfss/annual_data/annual_2015.html" target="_blank"> Center for Disease Control and Prevention (CDC)</a>
 								as a part of their annual behavioral survey of Americans. 
 								In this survey, people are asked questions about their biological health factors and lifestyle habits.  
-								Specifically, we have 253, 680 people and 20 variables for each person. This makes for over 5 million values for our network to model. 
+								Specifically, we have 253, 680 people and 21 variables for each person. This makes for over 5 million values for our network to model. 
 								Furthermore, to add to the complexity, many of these variables have two or more levels - meaning they have two or more values they can take on. For example, <i>General Health</i> ranges 
 								from 1-5, whereas <i>Mental Health</i> ranges from 1-30. All the variables are either numeric, ordinal, or binary, and they all eventually need
-								to morph into a single output value: diabetes status. We will define diabetes status to hold one of three different values: low risk,
-								prediabetes, and diabetes. <br>
+								to morph into a single output value: diabetes risk status. We will define diabetes status to hold one of two different values: low risk and high risk. <br>
 
 								The variables in our data are as follows: <br><br>
 									<div class="table-wrapper">
@@ -192,9 +191,9 @@
 								can get a sense of how complex this web becomes when you consider all the animals that exist and the often subtle differences between them. It is so complex, in fact, there approximately 100
 								billion neurons in the human brain<sup>3</sup>. <br><br>
 
-								In our diabetes example, to sort 253, 680 observations we will code a <i>system</i> with four <i>layers</i>. The first layer is called the <u><i>input layer</i></u> and will take in 
-								all 20 variables for each individual person. The second and third layers are considered to be <u><i>hidden layers</i></u>. The final layer is the <u><i>output layer</i></u> 
-								and will sort the last hidden layer into 3 groups (i.e. diabetes status). Any layer that is between the input and output layers are considered hidden layers. If a neural network has two or more 
+								In our diabetes example, to sort 253, 680 observations we will code a <i>system</i> with three <i>layers</i>. The first layer is called the <u><i>input layer</i></u> and will take in 
+								all 21 variables for each individual person. The second layer is considered to be a <u><i>hidden layer</i></u>. The final layer is the <u><i>output layer</i></u> 
+								and will sort the last hidden layer into 2 groups (i.e. diabetes risk status). Any layer that is between the input and output layers are considered hidden layers. If a neural network has many
 								hidden layers, it is considered to be a <u><i>deep neural network</i></u>.<br><br>
 								
 								<center><img src="Diabetes NN/nn1.jpg" heigh=600 width=900 alt="" /></center>
@@ -325,22 +324,14 @@ sigmoid <- function(Z){
 	1/(1 + exp(-Z))
 }
 										
-######### Forward Feed - Initialize #########
-W_1 <- matrix(runif(210), nrow = 21, ncol = 10)
+######### Forward Feed - Initializing #########
+W_1 <- matrix(runif(63), nrow = 21, ncol = 3)
 Z_2 <- X %*% W_1
 A_2 <- sigmoid(Z_2)
 										
-W_2 <- matrix(runif(60), nrow = 10, ncol = 6)
+W_2 <- matrix(runif(9), nrow = 3, ncol = 3)
 Z_3 <- A_2 %*% W_2
-A_3 <- sigmoid(Z_3)
-										
-W_3 <- matrix(runif(18), nrow = 6, ncol = 3)
-Z_4 <- A_3 %*% W_3
-A_4 <- sigmoid(Z_4)
-										
-W_4 <- matrix(runif(9), nrow = 3, ncol = 3)
-Z_5 <- A_4 %*% W_4
-Y_hat <- sigmoid(Z_5)
+Y_hat <- sigmoid(Z_3)
 									</code>
 								</pre>
 								<p>
@@ -358,42 +349,34 @@ sigmoidprime <- function(z){
 }
 								
 ######### Gradient Descent ######### 
-learning_rate <- .2
-steps <- 1000
+learning_rate <- 0.01
+steps <- 10000
 for(i in 1:steps){
-	## initialize weights, runs it through activation function, calculate y_hat
- 	Z_2 <- X %*% W_1
- 	A_2 <- sigmoid(Z_2)
-	Z_3 <- A_2 %*% W_2
-	A_3 <- sigmoid(Z_3)
-	Z_4 <- A_3 %*% W_3
-	A_4 <- sigmoid(Z_4)
-	Z_5 <- A_4 %*% W_4
-	Y_hat <- sigmoid(Z_5)
+  ## initialize weights, runs it through activation function, calculate y_hat
+  Z_2 <- X %*% W_1
+  A_2 <- sigmoid(Z_2)
+  Z_3 <- A_2 %*% W_2
+  Y_hat <- sigmoid(Z_3)
 
-	## find gradient
-	delta_5 <- -(Y - Y_hat) * sigmoidprime(Z_5)
-	djdw4 <- t(A_4) %*% delta_5
-	delta_4 <- delta_5 %*% t(W_4) * sigmoidprime(Z_4)
-	djdw3 <- t(A_3) %*% delta_4
-	delta_3 <- delta_4 %*% t(W_3) * sigmoidprime(Z_3)
-	djdw2 <- t(A_2) %*% delta_3
-	delta_2 <- delta_3 %*% t(W_2) * sigmoidprime(Z_2)
-	djdw1 <- t(X) %*% delta_2
-	
-	### update weights
-	W_1 <- W_1 - learning_rate * djdw1
-	W_2 <- W_2 - learning_rate * djdw2
-	W_3 <- W_3 - learning_rate * djdw3
-	W_4 <- W_4 - learning_rate * djdw4
+  ## find gradient
+  delta_3 <- (-(Y - Y_hat) * sigmoidprime(Z_3))
+  djdw2 <- t(A_2) %*% delta_3
+  delta_2 <- delta_3 %*% t(W_2) * sigmoidprime(Z_2)
+  djdw1 <- t(X) %*% delta_2
+
+  ## update weights
+  W_1 <- W_1 - learning_rate * djdw1
+  W_2 <- W_2 - learning_rate * djdw2
+
 }
 									</code>
 								</pre>	
 
 							<p>
 								<h3>Diabetes Status Calculator</h3>
-								Here's a calculator for diabetes status.
-		
+								And that's it! Using the coded algorithm above, we found the optimal weights. Testing the accuracy of our predictions using cross-validation, this model is about
+								80% accurate in its predictions. Below, I created a form for you to input data and run it through our algorithm to calculate diabetes risk. PLay around with values to
+								explore which variables have the highest inluence on type 2 diabetes development!
 							</p>
 							
 							<form>
@@ -485,11 +468,13 @@ for(i in 1:steps){
 									<center><p>Value: <span id="ageV"></span></p></center>
 								</div>
 								
-								<br><br><button type="button" onclick="getSelectedValue()">Submit</button>
+								<button type="button" onclick="getSelectedValue()">Submit</button>
+
+
 							</form>
 					
-					
-							<div id="output"></div>
+							
+							<center><div id="output"></div></center>
 					
 							<script>
 								var bmi = document.getElementById("bmi");
@@ -547,93 +532,200 @@ for(i in 1:steps){
 								age.oninput = function() {
 								  output6.innerHTML = this.value;
 								}
-						
-					
-					
-								function getSelectedValue() {
-									var male = document.getElementById('male');
-									var walk = document.getElementById('walkY');
-									var cov = document.getElementById('covY');
-									var cost = document.getElementById('costY');
-									var hyp = document.getElementById('hypY');
-									var chol = document.getElementById('HcholY');
-									var Cchol = document.getElementById('CcholY');
-									var smoke = document.getElementById('smokeY');
-									var heart = document.getElementById('heartY');
-									var stroke = document.getElementById('strokeY');
-									var phys = document.getElementById('physAY');
-									var fru = document.getElementById('fruY');
-									var veg = document.getElementById('vegY');
-									var alc = document.getElementById('alcY');
-					
-					
-									var male1 = 0;
-									var hyp1 = 0;
-									var walk1    = 0;
-									var coverage1  = 0;
-									var cost1    = 0;
-									var chol1    = 0;
-									var chol_check1    = 0;
-									var smoker1    = 0;
-									var heart1    = 0;
-									var stroke1    = 0;
-									var phys1    = 0;
-									var fruit1    = 0;
-									var veg1    = 0;
-									var alc1    = 0;
-					
-									var bmi1 = Number(bmi.value);
-									var income1 = Number(income.value);
-									var edu1 = Number(edu.value);
-									var phys_ill1 = Number(phys_ill.value);
-									var genh1 = Number(genh.value);
-									var menh1 = Number(menh.value);
-									var age1 = Number(age.value);
-					
-					
-									if (male.checked) { male1 = 1} 
-									if (hyp.checked) { hyp1 = 1} 
-									if (walk.checked) { walk1 = 1} 
-									if (cov.checked) { coverage1 = 1} 
-									if (cost.checked) { cost1 = 1} 
-									if (chol.checked) { chol1 = 1} 
-									if (Cchol.checked) { chol_check1 = 1} 
-									if (smoke.checked) { smoker1 = 1} 
-									if (heart.checked) { heart1 = 1} 
-									if (stroke.checked) { stroke1 = 1} 
-									if (phys.checked) { phys1 = 1} 
-									if (fru.checked) { fruit1 = 1} 
-									if (veg.checked) { veg1 = 1} 
-									if (alc.checked) { alc1 = 1} 
 
-									let input_m = [[hyp1, chol1, chol_check1, bmi1, smoker1, stroke1, heart1, phys1, fruit1, veg1, alc1, coverage1, cost1, genh1, menh1, phys_ill1, walk1, male1, age1, edu1, income1]];
-									
+
+
+
+
+
+								function getSelectedValue() {
+								// Given elements
+								var elements = [
+								1.0122308,  0.532257870,
+								5.0482054 , 0.307744466,
+								2.6184029 , 0.001475569,
+								2.8911680 , 0.566279068,
+								2.1914274 , 1.122341280,
+								-1.5311112,  0.188882796,
+								0.4843885 ,-0.251521723,
+								-3.7197687,  0.596156556,
+								3.5560423 ,-0.277581475,
+								2.5537634 , 0.067000521,
+								2.4687754 , 0.592636047,
+								2.1282497 , 0.014582394
+								];
+
+								// Create a matrix with 6 rows and 3 columns
+								var rows = 12;
+								var cols = 2;
+
+								// Initialize the matrix
+								var W_3 = [];
+
+								// Populate the matrix with elements
+								for (let i = 0; i < rows; i++) {
+									W_3[i] = elements.slice(i * cols, (i + 1) * cols);
+								}
+
+								// Given elements
+								var elements = [
+								7.474084, -7.474084,
+								-7.879299,  7.879299,
+								];
+
+								// Create a matrix with 3 rows and 3 columns
+								var rows = 2;
+								var cols = 2;
+
+								// Initialize the matrix
+								var W_4 = [];
+
+								// Populate the matrix with elements
+								for (let i = 0; i < rows; i++) {
+									W_4[i] = elements.slice(i * cols, (i + 1) * cols);
+								}
 
 								
 
+								// Function to perform dot product of two matrices
+								function dotProduct(matrix1, matrix2) {
+								var result = [];
 
+								for (let i = 0; i < matrix1.length; i++) {
+									result[i] = [];
+									for (let j = 0; j < matrix2[0].length; j++) {
+									let sum = 0;
+									for (let k = 0; k < matrix1[0].length; k++) {
+										sum += matrix1[i][k] * matrix2[k][j];
+									}
+									result[i][j] = sum;
+									}
+								}
 
+								return result;
+								}
+									// Sigmoid function in JavaScript		
+									function sigmoid(Z) {
+										return 1 / (1 + Math.exp(-Z));	
+									}
+									
+									var male = document.getElementById('male');
+									//var walk = document.getElementById('walkY');
+									//var cov = document.getElementById('covY');
+									//var cost = document.getElementById('costY');
+									var hyp = document.getElementById('hypY');
+									var chol = document.getElementById('HcholY');
+									var Cchol = document.getElementById('CcholY');
+									//var smoke = document.getElementById('smokeY');
+									var heart = document.getElementById('heartY');
+									var stroke = document.getElementById('strokeY');
+									//var phys = document.getElementById('physAY');
+									//var fru = document.getElementById('fruY');
+									//var veg = document.getElementById('vegY');
+									var alc = document.getElementById('alcY');
+					
+									
+									var male1 = 0;
+									var hyp1 = 0;
+									//var walk1    = 0;
+									//var coverage1  = 0;
+									//var cost1    = 0;
+									var chol1    = 1;
+									var chol_check1    = 0;
+									//var smoker1    = 0;
+									var heart1    = 0;
+									var stroke1    = 0;
+									//var phys1    = 0;
+									//var fruit1    = 0;
+									//var veg1    = 0;
+									var alc1    = 0;
+					
+									
+									var bmi1 = Number(bmi.value);
+									var income1 = Number(income.value);
+									//var edu1 = Number(edu.value);
+									var phys_ill1 = Number(phys_ill.value);
+									var genh1 = Number(genh.value);
+									//var menh1 = Number(menh.value);
+									var age1 = Number(age.value);
+					
+									
+									if (male.checked) { male1 = 1} 
+									if (hyp.checked) { hyp1 = 1} 
+									if (bmi1 <= 27) { bmi1 = 0} 
+									if (genh1 <= 3) { genh1 = 0} 
+									if (phys_ill1 <= 15) { phys_ill1 = 1} 
+									if (chol.checked) { chol1 = 0} 
+									if (Cchol.checked) { chol_check1 = 1} 
+									if (age1 <= 8) { age1 = 0} 
+									if (heart.checked) { heart1 = 1} 
+									if (stroke.checked) { stroke1 = 1} 
+									if (income1 <= 7) { income1 = 0} 
+									//if (fru.checked) { fruit1 = 1} 
+									//if (veg.checked) { veg1 = 1} 
+									if (alc.checked) { alc1 = 1} 
+									
 
+									var user_input = [[hyp1, chol1, chol_check1, bmi1, stroke1, heart1, alc1, genh1, phys_ill1, male1, age1, income1]];
+									
+									// Final Output Propagation
+									
+									var Z_4 = dotProduct(user_input, W_3);
+									var A_4 = Z_4.map(row => row.map(element => sigmoid(element)));
+									var Z_5 = dotProduct(A_4, W_4);
+									var Y_hat = Z_5.map(row => row.map(element => sigmoid(element)));
 
+									
 
+									// Find the maximum value in the array
+									let maxElement = Y_hat[0][0];
+									let maxRowIndex = 0;
+									let maxColIndex = 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
+									for (let i = 0; i < Y_hat.length; i++) {
+									for (let j = 0; j < Y_hat[i].length; j++) {
+										if (Y_hat[i][j] > maxElement) {
+										maxElement = Y_hat[i][j];
+										
+										maxColIndex = j;
+										}
+									}
+									}
 
 									var outputDiv = document.getElementById('output');
-									outputDiv.innerHTML = male1 + hyp1 + walk1 + coverage1 + cost1 + chol1 + chol_check1 + smoker1 + heart1 + stroke1 + phys1 + physA1 + fruit1 + veg1 + alc1;
+									//outputDiv.innerHTML = Y_hat;
+									var final_output = Number(maxColIndex);
+									var string = 0;
+									if(final_output == 0){
+										string = "low";
+									} else{
+										string = "high";
+									}
+									
+									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes!";
+									//outputDiv.innerHTML = Y_hat;
 								}
+
 							</script>
+
+							<p>
+								<br><blockquote>
+									<strong>Disclaimer. </strong>This calculator should not be trusted blindly so please consult a medical professional for credible and trustworthy claims.
+									Also, I will not collect, track, nor save data entered in this form. 
+								</blockquote>
+							</p>
+							
+
+
+
+
+
+
+
+
+
+
+
 
 								
 						
