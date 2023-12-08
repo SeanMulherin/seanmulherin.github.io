@@ -371,7 +371,7 @@ for(i in 1:steps){
 								</pre>	
 								<p>
 									That's it! Using the coded algorithm above, we found the optimal weights. Testing the accuracy of our predictions using cross-validation, this model is about
-									80% accurate in its predictions.
+									80% accurate overall in its predictions.
 								</p>
 								<h2><hr><center>Diabetes Status Calculator</center><hr></h2>
 							<p>
@@ -569,18 +569,27 @@ for(i in 1:steps){
 								function getSelectedValue() {
 								// Given elements
 								var elements = [
-								1.0122308,  0.532257870,
-								5.0482054 , 0.307744466,
-								2.6184029 , 0.001475569,
-								2.8911680 , 0.566279068,
-								2.1914274 , 1.122341280,
-								-1.5311112,  0.188882796,
-								0.4843885 ,-0.251521723,
-								-3.7197687,  0.596156556,
-								3.5560423 ,-0.277581475,
-								2.5537634 , 0.067000521,
-								2.4687754 , 0.592636047,
-								2.1282497 , 0.014582394
+								-1.6591388 ,-1.28814871,
+								6.8238531 , 0.50138510,
+								-13.9406518,  0.68196367,
+								16.3791959 , 1.14158335,
+								8.1134000  ,0.95536288,
+								-3.7729887 ,-2.62323583,
+								-2.7728189 ,-1.29432264,
+								-12.3072071, -1.61327439,
+								-0.4513584 , 0.16278750,
+								-5.1026452 , 0.04194778,
+								7.6446316  ,2.54346985,
+								6.3923314  ,0.79332485,
+								19.6193680 , 1.82436914,
+								1.6737213 ,-1.02548033,
+								5.1085201 , 0.39300092,
+								-3.3141231,  0.13892409,
+								6.4192575 , 0.73360797,
+								1.3435166 , 0.31771802,
+								-0.8939281, -1.16963530,
+								-2.9037836, -0.13255961,
+								0.6499445 , 0.63642557,
 								];
 
 								// Create a matrix with 6 rows and 3 columns
@@ -597,8 +606,8 @@ for(i in 1:steps){
 
 								// Given elements
 								var elements = [
-								7.474084, -7.474084,
-								-7.879299,  7.879299,
+								-4.155091,  4.155091,
+								5.552493, -5.552493,
 								];
 
 								// Create a matrix with 3 rows and 3 columns
@@ -707,13 +716,16 @@ for(i in 1:steps){
 									var outputDiv = document.getElementById('output');
 									//outputDiv.innerHTML = Y_hat;
 									var string = "idk man";
+									var conf = 0;
 									if(Y_hat[0][0] > 0.5){
 										string = "low";
+										conf = Math.round(100*Y_hat[0][0]);
 									} else if(Y_hat[0][0] < 0.5){
 										string = "high";
+										conf = Math.round(100*Y_hat[0][1]);
 									}
 									
-									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes!" + Y_hat[0][0];
+									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes! By the way, we are about " + conf + "% confident in this prediction.";
 									//outputDiv.innerHTML = Y_hat;
 								}
 
@@ -731,29 +743,6 @@ for(i in 1:steps){
 
 
 
-
-
-
-
-
-
-
-								
-						
-																						
-
-
-
-
-
-
-
-
-
-
-
-
-
 							<h2><hr><center>Abstract</center><hr></h2>
 							<p>
 								<ol>
@@ -765,7 +754,10 @@ for(i in 1:steps){
 											<ol> 1. <a href="https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivatives/v/partial-derivatives-introduction" target="_blank"> Calculus - Partial Derivatives</a></ol>
 											<ol> 2. <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank"> Linear Algebra - Operations</a> </ol>		
 									</dl>
-
+									<dl>
+										[5] The values in the W_1 matrix. This cab be used to interpret magnitude of influence each predictor has on diabetes risk. <br><br>
+										<center><img src="Diabetes NN/w1.png" heigh=300 width=300 alt="" /></center>
+									</dl>
 
 								</ol>
 							</p>	
