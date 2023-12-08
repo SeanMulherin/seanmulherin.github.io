@@ -46,41 +46,41 @@
 								Hey team,<br>
 								Today's article is one meant to educate about neural networks and their innerworkings.
 								I'll walk through the process of coding a neural network, explaining the relevant math and concepts behind it, including powerful ideas such as 
-								gradient descent, forward and backward propagation, and other relevant topics. 
+								gradient descent and forward/backward propagation.
 								Neural networks are a complex topic so to help explain and understand the ideas, we will work through a classification problem.
 								Our task will be to classify peoples' risk of developing type 2 diabetes. 
 
 								<h2><hr><center>A Metaphor on Sorting Big Data</center><hr></h2>
 								To get a better idea of the complexity this requires, let's imagine skittles and a strainer. You have a MASSIVE bag containing hundreds of thousands of skittles and only one strainer
-								with only three holes in it - the idea being we need to sort these skittles into three different groups. You begin to pour your bag of skittles into the strainer to siphon 
-								and separate them. Almost immediately, you notice issues with this process because the strainer is too constrictive and can't handle so many skittles. Some skittles get sorted through, but only
-								few at a time. While you are waiting for your skittles to slowly siphon through, you see another strainer. This one has ten holes in it and a brilliant idea pops into your head 
+								with only three holes in it - the idea being we need to sort these skittles into three different groups. You begin to pour your bag of skittles into the strainer to 
+								separate them. Almost immediately, you notice issues with this process because the strainer is too constrictive and can't handle so many skittles. Some skittles get sorted through, but only
+								few at a time. While you are waiting for your skittles to slowly move through, you see another strainer. This one has ten holes in it and a brilliant idea pops into your head 
 								- you place the strainer with ten holes atop the strainer with three holes and continue to pour the skittles into this stack of now two strainers. Note, we can say this <u><i>system</i></u>
 								of strainers has two <u><i>layers</i></u>. Your idea works! You notice the skittles are sorting through the <u><i>system</i></u> at a faster rate than when you had just the 
 								one strainer. So, to further expedite this process and increase the <u><i>power</i></u> of your system, you go out to buy more strainers with more holes and add them 
 								as additional <u><i>layers</i></u> to your <u><i>system</i></u>. This is one method to handle extremely large data sets, or <u><i>big data.</i></u>
 
 								<center><img src="Diabetes NN/strainer.jpg" heigh=300 width=300 alt="" /></center>
-								<blockquote><strong>Figure 1.</strong> A diagram to help visualize a popular siphoning method often implemented to handle big data.</blockquote>
+								<blockquote><strong>Figure 1.</strong> A diagram to help visualize a popular sorting method often implemented to handle big data.</blockquote>
 								
 								<h2><hr><center>The Data</center><hr></h2>
 								Today's task is to identify a person's risk of developing type 2 diabetes, given some information about their biology and lifestyle. 
-								As of 2019, 37.3 million americans had been diagnosed with diabetes and 96 million had <u><i>prediabetes</i></u> - defined as having high risk of developing type 2 diabetes <sup>1</sup>. 
+								As of 2019, 37.3 million Americans had been diagnosed with diabetes and 96 million had <u><i>prediabetes</i></u> - defined as having high risk of developing type 2 diabetes <sup>1</sup>. 
 								Type 2 diabetes is a chronic disease that describes the body's difficulty in either producing or properly utilizing insulin. Insulin is produced and secreted by the pancreas to help break down
 								glucose (i.e. sugar) in the foods you eat. For this reason, people who have diabetes are much more likely to have abnormal levels of glucose in their bloodstream - this metric is commonly
 								referred to as <u><i>blood sugar levels</i></u>. If neglected, extremely high or extremely low blood sugar levels can lead to a multitude of health complications such as heart disease, kidney disease, 
 								hearing loss, and cataracts, to name a few <sup>2</sup>. Type 2 diabetes is preventable and treatable. With proper nutrition, exercise, and lifestyle habits, people with type 2 diabetes
-								can function at high levels with minimal effects on their daily lives. Before we can implement corrective regimens, however, we must first be able to identify one's diabetes status.
+								can function at high levels with minimal effects on their daily lives. Before we can implement corrective regimens, however, we must first be able to identify one's diabetes risk status.
 								The neural network we will build today, trained using robust and reliable data, will help us do just that. 
 
 								<br><br>
 								The data set we will be using has been generously provided by the <a href="https://www.cdc.gov/brfss/annual_data/annual_2015.html" target="_blank"> Center for Disease Control and Prevention (CDC)</a>
 								as a part of their annual behavioral survey of Americans. 
 								In this survey, people are asked questions about their biological health factors and lifestyle habits.  
-								Specifically, we have 253, 680 people and 21 variables for each person. This makes for over 5 million values for our network to model. 
-								Furthermore, to add to the complexity, many of these variables have two or more levels - meaning they have two or more values they can take on. For example, <i>General Health</i> ranges 
+								Specifically, we have 253, 680 people and 21 variables for each person. This makes for over 5 million values for our network to track. 
+								Furthermore, to add to the complexity, many of these variables have two or more levels - meaning they have two or more possible values they can equal. For example, <i>General Health</i> ranges 
 								from 1-5, whereas <i>Mental Health</i> ranges from 1-30. All the variables are either numeric, ordinal, or binary, and they all eventually need
-								to morph into a single output value: diabetes risk status. We will define diabetes status to hold one of two different values: low risk and high risk. <br>
+								to morph into a single output value: diabetes risk status. We will define diabetes risk status to hold one of two different values: low risk and high risk. <br>
 
 								The variables in our data are as follows: <br><br>
 									<div class="table-wrapper">
@@ -193,7 +193,7 @@
 
 								In our diabetes example, to sort 253, 680 observations we will code a <i>system</i> with three <i>layers</i>. The first layer is called the <u><i>input layer</i></u> and will take in 
 								all 21 variables for each individual person. The second layer is considered to be a <u><i>hidden layer</i></u>. The final layer is the <u><i>output layer</i></u> 
-								and will sort the last hidden layer into 2 groups (i.e. diabetes risk status). Any layer that is between the input and output layers are considered hidden layers. If a neural network has many
+								and will sort the last hidden layer into 2 groups (diabetes risk status). Any layer that is between the input and output layers are considered hidden layers. If a neural network has many
 								hidden layers, it is considered to be a <u><i>deep neural network</i></u>.<br><br>
 								
 								<center><img src="Diabetes NN/nn1.jpg" heigh=600 width=900 alt="" /></center>
@@ -225,7 +225,7 @@
 								</blockquote>
 								The first thing to understand is that each node communicates information via 'pathways' using weight values, \(W^{(i)}\), where \(i\) represents the layer. These weights range from (0, 1), exclusive. The greater the weight, the more important/relevant 
 								the pathway. Each pathway is expressed as a vector of weights. The length of these weight vectors depend on the number of nodes from one layer to the next. Consider the diagram above. Notice layer 1 has
-								three nodes and layer 2 has two nodes. This means that there are 6 unique weight vectors containing 'information' in the form of real numbered values ranging from (0, 1). The key is to optimize these values. 
+								three nodes and layer 2 has two nodes. This means that there are 6 unique weight vectors containing 'information' in the form of real-numbered values ranging from (0, 1). The key is to optimize these values. 
 								In optimizing weight values, we optimize the transfer of information.
 								We'll use partial derivatives to help us accomplish this in an algorithm called <u><i>gradient descent</i></u>, but more on that later. Since weights transfer information through the network, it makes sense
 								the first weight matrix \(W^{(1)}\) directly involves the data we input \(X\). Thus, the output of our model \(z^{(i)}\) after transferring information from layer 1 to layer 2 is expressed as follows: 
@@ -234,21 +234,21 @@
 								The next thing to understand is that each node has an activation function \(f(x)\). This function controls each node's magnitude of importance (i.e. weights). There are a few different activation functions
 								that are used in neural networks, the two most common are the <i>Sigmoid function</i> and the <i>ReLu function</i>. Today, we will use the Sigmoid function because 
 								it is taught in a typical algebra course and thus more well known. Recall the <a href="https://www.desmos.com/calculator/9dhmdjvx7n" target="_blank"> Sigmoid function</a> is an s-shaped curve 
-								that squishes real numbered outputs such that the range is (0, 1), exclusive. This helps standardize the weight values. Each output matrix  \(z^{(i)}\)  is inputted into this activation function to recalculate
+								that squishes real-numbered outputs such that the range is (0, 1), exclusive. This helps standardize the weight values. Each output matrix  \(z^{(i)}\)  is inputted into this activation function to recalculate
 								and readjust weights at each layer of the network. We name this new output \(a^{(i)}\) to specify that it is the newly activated weights. Here it is mathematically: 
 								$$f(x) = \frac{1}{1 + e^{-x}}$$
 								$$a^{(2)} = f(z^{(2)})$$
 
 								Now that we understand the idea of weights, and how an activation function controls weights, we'll talk about bias terms, \(B^{(i)}\). 
 								Each and every node, except in the input layer, has a bias term. You can also think about it as each node that receives information has a bias term.
-								These terms, similar to weights, are real numbered values ranging (0, 1), exclusive. The difference being, instead of transferring information via pathways, 
+								These terms, similar to weights, are real-numbered values ranging (0, 1), exclusive. The difference being, instead of transferring information via pathways, 
 								bias terms transfer misinformation, or <u><i>error</i></u>. Including an error term as a part of every 'message' from one node to the next is our way to
 								acknowledge the unavoidable uncertainty in the information propagated through our network. In essence, we are teaching the model humility. Mathematically,
 								to include bias in our model, we simply add this bias matrix to the output matrix  \(z^{(i)}\), as follows:
 								$$z^{(2)} = XW^{(1)}+JB^{(1)^{T}}$$
 								<blockquote>
-									There's some linear algebraic manipulation to make matrix dimensions compatible. Specifically, we multiply the transpose of the bias matrix
-									\(B^{(i)^{T}}\) by a matrix of ones \(J=[1, 1,..., 1]\).
+									There's some linear algebraic manipulation to make matrix dimensions compatible. Specifically, we take the dot product of the transpose of the bias matrix
+									\(B^{(i)^{T}}\) with matrix of ones \(J=[1, 1,..., 1]\).
 								</blockquote>
 
 								We continue this process until we reach the output layer. Once we reach the final output layer, the activation matrix is called the predicted output \(\hat{y}\). If we have only 
@@ -306,9 +306,6 @@
 								$$...$$
 								$$  z^{(i)} = a^{(i-1)}W^{(i)} $$
 								$$  \hat{y} = f(z^{(i)}) $$
-
-								Model accuracy can calculated using mean squared error:
-								$$  MSE = \frac{1}{n} \sum(y-\hat{y})^2 $$
 							</p>
 							<h2><hr><center>The Code</center><hr></h2>
 							<h3>Forward Propagation</h3>
@@ -716,16 +713,16 @@ for(i in 1:steps){
 									var outputDiv = document.getElementById('output');
 									//outputDiv.innerHTML = Y_hat;
 									var string = "idk man";
-									var conf = 0;
+									var conf = 0.00;
 									if(Y_hat[0][0] > 0.5){
 										string = "low";
-										conf = Math.round(100*Y_hat[0][0]);
+										conf = 100*Y_hat[0][0];
 									} else if(Y_hat[0][0] < 0.5){
 										string = "high";
-										conf = Math.round(100*Y_hat[0][1]);
+										conf = 100*Y_hat[0][1];
 									}
 									
-									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes! By the way, we are about " + conf + "% confident in this prediction.";
+									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes! By the way, we are about " + conf.toFixed(2) + "% confident in this prediction.";
 									//outputDiv.innerHTML = Y_hat;
 								}
 
