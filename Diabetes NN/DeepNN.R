@@ -8,7 +8,7 @@ library(NeuralNetTools)
 df <- read.csv("diabetes.csv", header = T)
 df <- df[1:1000, ]
 #df <- df |> select(c(HighBP, HighChol, CholCheck, BMI, Stroke, HeartDiseaseorAttack,
- #                     HvyAlcoholConsump, GenHlth, PhysHlth, Sex, Age, Income, Diabetes_012))
+#                     HvyAlcoholConsump, GenHlth, PhysHlth, Sex, Age, Income, Diabetes_012))
 df$BMI <- ifelse(df$BMI <= 27, 0, 1)
 df$GenHlth <- ifelse(df$GenHlth <= 3, 0, 1)
 df$PhysHlth <- ifelse(df$PhysHlth <= 15, 0, 1)
@@ -75,8 +75,9 @@ djdw1 <- t(X) %*% delta_2
 
 ######### Gradient Descent ######### 
 learning_rate = 0.01
-steps = 100000
-for(i in 1:steps){
+converge <- FALSE
+W_1_old <- matrix(rep(0, 42), nrow = 21, ncol = 2)
+while(!converge){
   # initialize weights, runs it through activation function, calculate y_hat
   Z_2 <- X %*% W_1
   A_2 <- sigmoid(Z_2)
@@ -90,6 +91,14 @@ for(i in 1:steps){
   # update weights
   W_1 <- W_1 - learning_rate * djdw1
   W_2 <- W_2 - learning_rate * djdw2
+  #convergence
+  w1round <- sum(round(W_1, 4))
+  w1round_old <- sum(round(W_1_old, 4))
+  if(w1round != w1round_old){
+    W_1_old = W_1
+  }else{
+    converge = TRUE
+  }
 }
 
 
@@ -120,7 +129,3 @@ for(i in 1:nrow(test)){
   actual[i] <- which(Y_test[i, ] == max(Y_test[i, ]))
 }
 mean(predicted == actual)
-
-
-
-

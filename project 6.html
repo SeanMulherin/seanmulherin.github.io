@@ -334,10 +334,11 @@ Y_hat <- sigmoid(Z_3)
 								<p>
 									<h3>Backward Propagation</h3>
 									Now that we have our matrices initialized, we can begin propagating forward and backward through the network, taking a step in the direction
-									of steepest descent each time. We need to set two values: learning rate and number of steps. Recall, the learning rate controls how far we 
+									of steepest descent each time. Recall, the learning rate controls how far we 
 									move in the direction of steepest descent, or how big our 'step' is. If we make the learning rate too big (like 0.9) then our model will likely
 									trust the direction too much and 'overstep', leading the model off course; too small, and our model will require many propagation interations
-									to be optimized, which would be computationally expensive. The number of steps controls the number of propagation iterrations our model executes.
+									to be optimized, which would be computationally expensive. The convergence boolean controls the number of propagation iterrations our model executes.
+									When weight values are optimized, the algorithm halts.
 								<pre>
 									<code style="background-color:#33475b;color:white">
 ######### Partial Derrivative of Activation Function  ######### 
@@ -347,8 +348,9 @@ sigmoidprime <- function(z){
 								
 ######### Gradient Descent ######### 
 learning_rate <- 0.01
-steps <- 10000
-for(i in 1:steps){
+W_1_old <- matrix(rep(0, 42), nrow = 21, ncol = 2)
+converge <- FALSE
+while(!converge){
   ## initialize weights, runs it through activation function, calculate y_hat
   Z_2 <- X %*% W_1
   A_2 <- sigmoid(Z_2)
@@ -364,11 +366,20 @@ for(i in 1:steps){
   ## update weights
   W_1 <- W_1 - learning_rate * djdw1
   W_2 <- W_2 - learning_rate * djdw2
+
+  ## determine convergence
+  w1round <- sum(round(W_1, 4))
+  w1round_old <- sum(round(W_1_old, 4))
+  if(w1round != w1round_old){
+    W_1_old = W_1
+  }else{
+    converge = TRUE
+  }
 }</code>
 								</pre>	
 								<p>
 									That's it! Using the coded algorithm above, we found the optimal weights. Testing the accuracy of our predictions using cross-validation, this model is about
-									80% accurate overall in its predictions.
+									84% accurate overall in its predictions.
 								</p>
 								<h2><hr><center>Diabetes Status Calculator</center><hr></h2>
 							<p>
@@ -566,27 +577,27 @@ for(i in 1:steps){
 								function getSelectedValue() {
 								// Given elements
 								var elements = [
-								-1.6591388 ,-1.28814871,
-								6.8238531 , 0.50138510,
-								-13.9406518,  0.68196367,
-								16.3791959 , 1.14158335,
-								8.1134000  ,0.95536288,
-								-3.7729887 ,-2.62323583,
-								-2.7728189 ,-1.29432264,
-								-12.3072071, -1.61327439,
-								-0.4513584 , 0.16278750,
-								-5.1026452 , 0.04194778,
-								7.6446316  ,2.54346985,
-								6.3923314  ,0.79332485,
-								19.6193680 , 1.82436914,
-								1.6737213 ,-1.02548033,
-								5.1085201 , 0.39300092,
-								-3.3141231,  0.13892409,
-								6.4192575 , 0.73360797,
-								1.3435166 , 0.31771802,
-								-0.8939281, -1.16963530,
-								-2.9037836, -0.13255961,
-								0.6499445 , 0.63642557,
+								3.721384 ,-1.5093279,
+								-8.676933, -0.8859655,
+								-2.797055, -1.2006840,
+								29.809626,  3.7154532,
+								15.426957,  1.8562890,
+								5.275746 ,-0.6546053,
+								-10.234618, -2.7325197,
+								-8.545799 , 0.8761673,
+								-7.564835 ,-0.7113932,
+								33.266242 , 6.1760378,
+								-4.849617 , 7.2509424,
+								11.534136 , 5.2590120,
+								-11.287855, -2.9107076,
+								-22.777411, -4.1231071,
+								1.216481  ,1.1619911,
+								-3.483598 , 1.1331227,
+								1.499961 ,-0.8913315,
+								-15.758150, -1.7384091,
+								-9.283742 ,-2.9990731,
+								-15.009721, -2.6769167,
+								12.364432 , 1.2307232
 								];
 
 								// Create a matrix with 6 rows and 3 columns
@@ -603,8 +614,8 @@ for(i in 1:steps){
 
 								// Given elements
 								var elements = [
-								-4.155091,  4.155091,
-								5.552493, -5.552493,
+								-12.97498,  12.97498,
+								14.77484 ,-14.77484
 								];
 
 								// Create a matrix with 3 rows and 3 columns
