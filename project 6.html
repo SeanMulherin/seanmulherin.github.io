@@ -655,43 +655,43 @@ while(!converge){
 									}
 									
 									var male = document.getElementById('male');
-									//var walk = document.getElementById('walkY');
-									//var cov = document.getElementById('covY');
-									//var cost = document.getElementById('costY');
+									var walk = document.getElementById('walkY');
+									var cov = document.getElementById('covY');
+									var cost = document.getElementById('costY');
 									var hyp = document.getElementById('hypY');
 									var chol = document.getElementById('HcholY');
 									var Cchol = document.getElementById('CcholY');
-									//var smoke = document.getElementById('smokeY');
+									var smoke = document.getElementById('smokeY');
 									var heart = document.getElementById('heartY');
 									var stroke = document.getElementById('strokeY');
-									//var phys = document.getElementById('physAY');
-									//var fru = document.getElementById('fruY');
-									//var veg = document.getElementById('vegY');
+									var phys = document.getElementById('physAY');
+									var fru = document.getElementById('fruY');
+									var veg = document.getElementById('vegY');
 									var alc = document.getElementById('alcY');
 					
 									
 									var male1 = 0;
 									var hyp1 = 0;
-									//var walk1    = 0;
-									//var coverage1  = 0;
-									//var cost1    = 0;
+									var walk1    = 0;
+									var coverage1  = 0;
+									var cost1    = 0;
 									var chol1    = 1;
 									var chol_check1    = 0;
-									//var smoker1    = 0;
+									var smoker1    = 0;
 									var heart1    = 0;
 									var stroke1    = 0;
-									//var phys1    = 0;
-									//var fruit1    = 0;
-									//var veg1    = 0;
+									var phys1    = 0;
+									var fruit1    = 0;
+									var veg1    = 0;
 									var alc1    = 0;
 					
 									
 									var bmi1 = Number(bmi.value);
 									var income1 = Number(income.value);
-									//var edu1 = Number(edu.value);
+									var edu1 = Number(edu.value);
 									var phys_ill1 = Number(phys_ill.value);
 									var genh1 = Number(genh.value);
-									//var menh1 = Number(menh.value);
+									var menh1 = Number(menh.value);
 									var age1 = Number(age.value);
 					
 									
@@ -702,16 +702,21 @@ while(!converge){
 									if (phys_ill1 <= 15) { phys_ill1 = 1} 
 									if (chol.checked) { chol1 = 0} 
 									if (Cchol.checked) { chol_check1 = 1} 
-									if (age1 <= 50) { age1 = 0} 
+									if (age1 <= 44) { age1 = 0} 
 									if (heart.checked) { heart1 = 1} 
 									if (stroke.checked) { stroke1 = 1} 
-									if (income1 <= 7) { income1 = 0} 
-									//if (fru.checked) { fruit1 = 1} 
-									//if (veg.checked) { veg1 = 1} 
+									if (income1 <= 4) { income1 = 0} 
+									if (fru.checked) { fruit1 = 1} 
+									if (veg.checked) { veg1 = 1} 
 									if (alc.checked) { alc1 = 1} 
+									if (smoke.checked) { smoker1 = 1} 
+									if (phys.checked) { phys1 = 1} 
+									if (cov.checked) { coverage1 = 1} 
+									if (cost.checked) { cost1 = 1} 
+									if (walk.checked) { walk1 = 1} 
 									
 
-									var user_input = [[hyp1, chol1, chol_check1, bmi1, stroke1, heart1, alc1, genh1, phys_ill1, male1, age1, income1]];
+									var user_input = [[hyp1, chol1, chol_check1, bmi1, smoker1, stroke1, heart1, phys1, fruit1, veg1, alc1, coverage1, cost1, genh1, menh1, phys_ill1, walk1, male1, age1, edu1, income1]];
 									
 									// Final Output Propagation
 									
