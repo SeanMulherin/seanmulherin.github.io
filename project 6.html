@@ -600,8 +600,8 @@ while(!converge){
 								12.364432 , 1.2307232
 								];
 
-								// Create a matrix with 6 rows and 3 columns
-								var rows = 12;
+								// Create a matrix with 21 rows and 2 columns
+								var rows = 21;
 								var cols = 2;
 
 								// Initialize the matrix
@@ -618,7 +618,7 @@ while(!converge){
 								14.77484 ,-14.77484
 								];
 
-								// Create a matrix with 3 rows and 3 columns
+								// Create a matrix with 2 rows and 2 columns
 								var rows = 2;
 								var cols = 2;
 
@@ -654,21 +654,28 @@ while(!converge){
 										return 1 / (1 + Math.exp(-Z));	
 									}
 									
-									var male = document.getElementById('male');
-									var walk = document.getElementById('walkY');
-									var cov = document.getElementById('covY');
-									var cost = document.getElementById('costY');
 									var hyp = document.getElementById('hypY');
 									var chol = document.getElementById('HcholY');
 									var Cchol = document.getElementById('CcholY');
+									var bmi1 = Number(bmi.value);
 									var smoke = document.getElementById('smokeY');
-									var heart = document.getElementById('heartY');
 									var stroke = document.getElementById('strokeY');
-									var phys = document.getElementById('physAY');
+									var heart = document.getElementById('heartY');
+									var phys = document.getElementById('physAtY');
 									var fru = document.getElementById('fruY');
 									var veg = document.getElementById('vegY');
 									var alc = document.getElementById('alcY');
-					
+									var cov = document.getElementById('covY');
+									var cost = document.getElementById('costY');
+									var genh1 = Number(genh.value);
+									var menh1 = Number(menh.value);
+									var phys_ill1 = Number(phys_ill.value);
+									var walk = document.getElementById('walkY');
+									var male = document.getElementById('male');
+									var age1 = Number(age.value);
+									var edu1 = Number(edu.value);
+									var income1 = Number(income.value);
+									
 									
 									var male1 = 0;
 									var hyp1 = 0;
@@ -684,22 +691,13 @@ while(!converge){
 									var fruit1    = 0;
 									var veg1    = 0;
 									var alc1    = 0;
-					
 									
-									var bmi1 = Number(bmi.value);
-									var income1 = Number(income.value);
-									var edu1 = Number(edu.value);
-									var phys_ill1 = Number(phys_ill.value);
-									var genh1 = Number(genh.value);
-									var menh1 = Number(menh.value);
-									var age1 = Number(age.value);
-					
 									
 									if (male.checked) { male1 = 1} 
 									if (hyp.checked) { hyp1 = 1} 
 									if (bmi1 <= 27) { bmi1 = 0} 
 									if (genh1 <= 3) { genh1 = 0} 
-									if (phys_ill1 <= 15) { phys_ill1 = 1} 
+									if (phys_ill1 <= 15) { phys_ill1 = 0} 
 									if (chol.checked) { chol1 = 0} 
 									if (Cchol.checked) { chol_check1 = 1} 
 									if (age1 <= 44) { age1 = 0} 
@@ -714,10 +712,12 @@ while(!converge){
 									if (cov.checked) { coverage1 = 1} 
 									if (cost.checked) { cost1 = 1} 
 									if (walk.checked) { walk1 = 1} 
+									if (edu1 <= 3) { edu1 = 0} 
+									if (menh1 <= 15) { menh1 = 0} 
 									
-
+									
 									var user_input = [[hyp1, chol1, chol_check1, bmi1, smoker1, stroke1, heart1, phys1, fruit1, veg1, alc1, coverage1, cost1, genh1, menh1, phys_ill1, walk1, male1, age1, edu1, income1]];
-									
+									//var user_input = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]];
 									// Final Output Propagation
 									
 									var Z_4 = dotProduct(user_input, W_3);
@@ -727,7 +727,7 @@ while(!converge){
 
 
 									var outputDiv = document.getElementById('output');
-									//outputDiv.innerHTML = Y_hat;
+									
 									var string = "idk man";
 									var conf = 0.00;
 									if(Y_hat[0][0] > 0.5){
@@ -739,7 +739,9 @@ while(!converge){
 									}
 									
 									outputDiv.innerHTML = "You are at " + "<b>" + string + "</b>" + " risk of developing type 2 diabetes! By the way, we are about " + conf.toFixed(2) + "% confident in this prediction.";
-									//outputDiv.innerHTML = Y_hat;
+									
+									
+									//outputDiv.innerHTML = 500;
 								}
 
 							</script>
