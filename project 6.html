@@ -730,7 +730,7 @@ while(!converge){
 									
 									var string = "idk man";
 									var conf = 0.00;
-									if(Y_hat[0][0] > 0.5){
+									if(Y_hat[0][0] >= 0.5){
 										string = "low";
 										conf = 100*Y_hat[0][0];
 									} else if(Y_hat[0][0] < 0.5){
@@ -770,7 +770,7 @@ while(!converge){
 											<ol> 2. <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank"> Linear Algebra - Operations</a> </ol>		
 									</dl>
 									<dl>
-										[5] The values in the W_1 matrix. This cab be used to interpret magnitude of influence each predictor has on diabetes risk. <br><br>
+										[5] The values in the W_1 matrix. This can be used to interpret magnitude of influence each predictor has on diabetes risk. <br><br>
 										<center><img src="Diabetes NN/w1.png" heigh=300 width=300 alt="" /></center>
 									</dl>
 
