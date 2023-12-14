@@ -43,8 +43,9 @@ set.seed(1)
 ######################## Model Data - Regression ######################## 
 ## Step 1: Find best model by fitting diff models on train data and testing its accuracy using test data according to MSE
   n <- nrow(Eth)
-  train <- sample(1:n, n*0.8)
-  test <- -train
+  
+  train <- 1: (n*0.8)
+  test <- ((n*0.8)+1):nrow(Eth)
   mse <- function(y, yhat){
     return(mean((y - yhat)^2))
   }
@@ -83,7 +84,7 @@ set.seed(1)
   mse6 <- mse(Eth$Price[test], spline.pred$y$Price) 
   
   ## GAM with spline
-  gam <- gam(Price ~ s(Day,df = 172), data = Eth, subset = train) #df = 186 comes from smooth.spline()
+  gam <- gam(Price ~ s(Day,df = 172), data = Eth, subset = train) #df comes from smooth.spline()
   gam.pred <- predict(gam, newdata = Eth[test, ])
   mse7 <- mse(Eth$Price[test], gam.pred) 
   
