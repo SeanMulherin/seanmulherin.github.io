@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<!--
+	idk
+-->
+<html>
+	<head>
+		<title>Breast Cancer Detection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="neuralnetwork.html">Artificial Neural Network</a></li>
+						<li><a href="carbonization.html">Carbonization Analysis</a></li>
+						<li><a href="breastcancer.html">Breast Cancer Detection</a></li>
+						<li><a href="modelingEth.html">Modeling Ethereum</a></li>
+						<li><a href="lectures.html">Lecture Notes</a></li>
+						<li><a href="papers.html">Papers</a></li>
+						<li><a href="resume.html">Resume</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>A Classification Analysis on Breast Cancer</h1>
+							<span class="image main"><a href="https://www.emro.who.int/fr/noncommunicable-diseases/campaigns/breast-cancer-awareness-month-2022.html" target="_blank"><img src="Breast Cancer/c.jpg" alt="" /></a></span>
+							<h4>September 27, 2023</h4>
+							<p>Hey team!<br> It's nearly breast cancer awareness month! According to the <a href="https://www.who.int/news-room/fact-sheets/detail/breast-cancer" target="_blank">World Health Organization (WHO)</a>, breast cancer is the "world's most prevalent cancer," 
+								affecting a cumulative 7.8 million people worldwide as of 2020. As you'll see in today's analysis, we are able to detect the malignancy of breast cancer tumors with a high degree
+								of accuracy. Early detection is one of the best ways to increase survival rate, so don't wait and go see a doctor for a <a href="https://www.cdc.gov/cancer/breast/basic_info/screening.htm#:~:text=if%20you%20qualify.-,Mammogram,of%20dying%20from%20breast%20cancer." target="_blank">breast cancer screening test!</a>
+							</p>
+							<p>
+								Okay so we're back in action, this time with a classification project. My innagural project was a regression analysis on Ethereum, during which I compared many
+								different models and used a validation-set approach to identify the best performing model. Today's project will be very similar in that I will be fitting many different
+								classification models to the training data, assessing their performances using the testing data, and choosing the most accurate model with which we will classify
+								tumors as either malignant or benign. I'm getting goosebumps just thinking about it!
+							</p>
+							<p>The data set we'll be using is generously provided by the <a href="https://www.medicine.wisc.edu/hematology-oncology/breast-cancer-clinical-research" target="_blank">University of Wisconsin's Clinical Science Center.</a>
+								Now, this data set includes 30 different recorded metrics on 569 participants. That's a lot of variables and not a lot of samples! It's like bringing goodey bags to a buffet -
+								sure It'll work fine, but I'd prefer a duffle bag. At any rate, let's start shoveling food in. 
+							</p>
+							<p>	
+								So my first step was to take a look at the raw data and see which variables, if any, are expendable. Without getting into too much detail,
+								about a third of the variables were redundant and non-essential. All predictor variables kept describe the average of various characteristics of a cell nucleus 
+								within a breast cancer tumor. Characteristics such as: radius, texture, perimeter, area, smoothness, compactness, concavity, symmetry, and fractal dimension. All variables discarded 
+								describe either the estimated standard error or the minimum value of the aforementioned qualities. The response variable describes patients' diagnoses, with each diagnosis taking on 
+								one of two possible values - benign or malignant. 
+							</p>
+							<p>
+								As you'll see shortly, I fit a slew of popular classification models. Since the response variable is binary, I expected the logistic regression model to outperform
+								all the others becuase it is well-regarded as the most robust and powerful model to use for such an analysis. Becuase we have 9 predictors, it would make sense for the 
+								best model to be one that reduces dimensionality and penalizes complexity; thus, linear classification, logistic classification, and support vector machines should perform well. Let's begin!
+							</p>
+							<p> First, we perform a 70/30 split in the full data set to obtain our train/test sets: 70% of the data will be used to train our models, 30% will be used to test our models.</p>
+							<pre>
+								<code style="background-color:#33475b;color:white">
+####### Partition Data #######
+set.seed(1)
+train <- createDataPartition(y = Breast$diagnosis, p = 0.7, list = F) #generates a vector of random row indices
+test <- -train
+validation <- Breast[test, "diagnosis"]
+								</code>	
+							</pre>
+							
+							<p> Next, we fit various models to the training data, ask these models to predict values, then compare the predicted values with our actual known values (which are held in the test set.)
+								This comparison is quantified as a model's error rate: the proportion of misclassified predictions. I name the error rates for each model: err1, err2, err3, and so on. 
+							</p>
+							
+
+							<pre>
+								<code style="background-color:#33475b;color:white">
+####### Logistic Regression #######
+logreg <- glm(diagnosis ~ ., data = Breast, subset = train, family = "binomial")
+logreg.pred <- predict(logreg, Breast[test, ] , type = "response")
+logreg.pred <- ifelse(logreg.pred >= 0.5, "M", "B")
+err1 <- mean(logreg.pred != validation)
+									
+####### Linear Discriminant Analysis ####### 
+lda <- lda(diagnosis ~., data = Breast, subset = train)
+lda.pred <- predict(lda, Breast[test, ])
+err2 <- mean(lda.pred$class != validation)
+									
+####### Quadratic Discriminant Analysis #######
+qda <- qda(diagnosis ~., data = Breast, subset = train)
+qda.pred <- predict(qda, Breast[test, ])
+err3 <- mean(qda.pred$class != validation)
+									
+####### Naive Bayes #######
+nb <- naiveBayes(diagnosis ~ ., data = Breast, subset = train)
+nb.pred <- predict(nb, Breast[test, ])
+err4 <- mean(nb.pred != validation)
+									
+####### KNN #######
+train.Matrix <- cbind(radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean, concavity_mean, concave_points_mean, symmetry_mean, fractal_dimension_mean)[train, ]
+test.Matrix <- cbind(radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean, concavity_mean, concave_points_mean, symmetry_mean, fractal_dimension_mean)[test, ]
+knn.pred <- knn(train.Matrix, test.Matrix, Breast[train, "diagnosis"], k=1)
+err5 <- mean(knn.pred != validation)
+
+####### CART with 10-fold cv #######
+train.control <- trainControl(method = "cv", number = 10, savePredictions = T)
+cart <- train(diagnosis ~., data = Breast, subset = train, trControl = train.control, tuneLength=10, method = "rpart") #tuneLength controls regularization penalty, rpart invokes cart package, trControl invokes cv
+cart.pred <- predict(cart, Breast[test, ])
+err6 <- mean(cart.pred != validation)
+									
+####### Random Forest using CV #######
+rf1 <- train(diagnosis ~., data = Breast, subset = train, method = "rf", trControl = train.control, tuneLength = 2, preProcess = c("center", "scale")) #mtry represents the # of nodes (how complex your tree is)
+rf1.pred <- predict(rf1, Breast[test, ])
+err7 <- mean(rf1.pred != validation)
+					
+rf2 <- randomForest(diagnosis ~., data = Breast, subset = train) #uses the rf package instead of cv
+rf2.pred <- predict(rf2, Breast[test, ])
+err8 <- mean(rf2.pred != validation)
+									
+####### SVM #######
+svm <- svm(diagnosis ~., data = Breast, subset = train)
+svm.pred <- predict(svm, Breast[test, ])
+err9 <- mean(svm.pred != validation)
+								</code>
+							</pre>
+							
+							<p>Now we look at all the error rates and sort them in ascending order so the best model comes out on top.</p>
+							<pre>
+								<code style="background-color:#33475b;color:white">
+################### Summarize Error Rates ################
+model.errors <- data.frame(Model = c("Logistic", "LDA", "QDA", "Naive Bayes", "KNN", "Decision Tree", "Random Forest 1", "Random Forest 2", "SVM"),
+			Error = c(err1, err2, err3, err4, err5, err6, err7, err8, err9)) %>% mutate(Error = round(Error, 4)) %>% arrange(Error)
+grid.table(models)
+								</code>
+							</pre>
+							<center><img src="Breast Cancer/model_errors.png" height="280" width="240"  alt="" /></center>
+							<p><br>Viola! Here's what we get. We have a tie between our Linear Discriminant Analysis (LDA) and Support Vector Machine (SVM), both having error rates of
+								2.94%. In other words, these two models correctly predict whether a breast cancer tumor is either malignant or benign 97.06% of the time (on the training data subset.)
+								The logistic regression model comes in at 3rd place with an error rate of 4.12%, and I get served yet another humble pie. Although, in my defense, I did expect that the simpler 
+								linear models would perform best which is indeed the case.
+							</p>
+
+							<p>Okay, the final thing to do is to fit the best models (LDA and SVM) on the entire data set instead of just the training subset and recalculate their error rates. 
+								Hopefully, one outperforms the other - ties are so anticlimactic don't you think?
+							</p>
+
+							<pre>
+								<code style="background-color:#33475b;color:white">
+####### Final Model Predictions #######
+lda.final <- lda(diagnosis ~., Breast)
+svm.final <- svm(diagnosis ~., Breast)
+lda.final.err <- mean(predict(lda.final)$class != Breast$diagnosis)
+svm.final.err <- mean(predict(svm.final) != Breast$diagnosis)
+								</code>
+							</pre>
+							<center><img src="Breast Cancer/e.png" height="100" width="140"  alt="" /></center>
+
+							<p><br>Ding! Ding! Ding! We have our winner! Linear Discriminant Analysis is crowned the best performing model, with a final comprehensive error rate of 3.87%.
+								To wrap things up, I hope you are more convinced that breast cancer is a pressing issue, given its prevalence. I hope you agree that early detection
+								is imperative in the fight against this disease, given how confident we can be in the diagnosis. Finally, I hope you think statistics is even cooler
+								than you previously thought. Let's work together to spread the word! Enjoy the day.
+							</p>
+
+							<center><img src="Breast Cancer/d.jpeg" height="280" width="240"  alt="" /></center>
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<section>
+							<h2>Contact Me</h2>
+							<p><strong>Email: </strong>smulherin519@gmail.com<br><strong>Location: </strong>Los Angeles, CA</p>
+						</section>
+						<section>
+							<h2>Follow</h2>
+							<ul class="icons">
+								<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+						<ul class="copyright">
+							<li>&copy; Sean Mulherin. All rights reserved</li>
+						</ul>
+					</div>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
