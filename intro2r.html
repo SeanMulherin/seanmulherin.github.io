@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<!--
-	Documenation
--->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 <html>
 	<head>
 		<title>Intro to R</title>
@@ -47,9 +48,9 @@
 					<div id="main">
 						<div class="inner">
 							<h1>An Introduction to R</h1>
-							<span class="image main"><img src="Intro2R/r2.png" height="400" alt="" /></span>
+							<span class="image main"><img src="Intro2R/r2.png" height="400" width="600" alt="" /></span>
 							<h4>Jan 15, 2024</h4>
-							<h2>Lecture Outline</h2>
+							<h2><hr><center>Lecture Outline</center><hr></h2>	
 							<ol>
 								<li>Arithmetic, Syntax, and Basics </li>
 								<li>Class Types</li>
@@ -73,10 +74,6 @@
 									<li>ggplot | exercises | extras</li>
 								</ul>
 							</ol>
-							<h2>Ice Breaker Activity</h2>
-							<p>
-								Live data visualization activity. Nothing too involved, I promise :)
-							</p>
 							<h2><hr><center>RStudio</center><hr></h2>		
 							<p>
 								RStudio is an integrated development enviornment (IDE) for R. It is one of the most common R programming environments for data scientists. 
@@ -94,10 +91,22 @@
 							<blockquote>
 								<strong>[Command] + [Enter] </strong> - Runs current line <br>
 								<strong>[Command] + [S] </strong> - Saves file <br>
-								<strong>Tools -> Global Options -> Appearance -> Editor Theme </strong> - Change overall theme
+								<strong>Tools -> Global Options -> Appearance -> Editor Theme </strong> - To change the overall appearance
 							</blockquote>
 
 							<h2><hr><center>Arithmetic, Syntax, and Basics</center><hr></h2>	
+							<p>
+								Basic mathematical operations in R, including the assignment of variables, naming convenctions, and traditional syntax.
+								 Notable functions used in this section inlcude: 
+								 <ul>
+									<li><strong>sum( )</strong> -  sum function with a vector as the input</li>
+									<li><strong>mean( )</strong> - mean/average function with a vector as the input</li>
+									<li><strong>log( )</strong> - logarithmic function: \(\log_{10}(x)\)</li>
+									<li><strong>exp( )</strong> - exponential function: \(e^{x}\)</li>
+									<li><strong>sqrt( )</strong> - square root function \(\sqrt{x}\)</li>
+									<li><strong>round( )</strong> - rounding function: \(round(a, b)\), where the real number \(a\) is rounded to \(b\) decimal places </li>
+								 </ul>
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Assigning Variables ########
 x <- 2
 x = 2     #Note "=" often works but "<-" is the convention for R
@@ -106,14 +115,17 @@ b <- 2
 z <- 3.12345
 s <- "Welcome!"
 
-adding <- x + y 
+adding <- x + y
+sum(x, y) 
 subtracting <- x - y 
 multiplying <- x * y 
 dividing <- x / y 
 exponents <- x^b 
+square_root <- sqrt(x)
 exponents_another_way <- x**b 
 logarithmis <- log(x) 
 exponentials <- exp(x) 
+mean(x, y)
 
 rounding <- round(z)
 rounding1 <- round(z, 1)
@@ -127,7 +139,18 @@ pls.dont.use.dots.even.tho.it.works <- 3049
 pls.dont.use.dots.even.tho.it.works</code></pre>
 
 
-							<h2><hr><center>Class Types</center><hr></h2>	
+							<h2><hr><center>Class Types</center><hr></h2>
+							<p>
+								We will specify 5 class types in this section: numeric, logical, character, matrix, data frame. Notable functions/operations used in this section inlcude:  
+								<ul>
+									<li><strong>c( )</strong> - combines elements into a single vector</li>
+									<li><strong>seq(from = a, to = b, by = c)</strong> - sequence function, where \(a, b,\) and \(c\) specify the beginning, end, and incriment, respectively </li>
+									<li><strong>a:b</strong> -  creates a sequence from \(a\) to \(b\), incrimenting by 1</li>
+									<li><strong>matrix(n, nrow = a, ncol = b)</strong> -  creates a matrix, must specify elements \(n\), number of rows \(a\), number of columns \(b\)</li>
+									<li><strong>data.frame( )</strong> -  creates a data frame with a matrix or vectors as the input</li>
+									<li><strong>class( )</strong> -  returns the class type of the input</li>
+								 </ul>
+							</p>	
 							<pre><code style="background-color:#33475b;color:white">######## Numeric ########
 a_numeric <- 456
 another_numeric <- 12.367
@@ -149,18 +172,11 @@ a_string <- "Hello"
 another_string <- 'Datafest!'
 
 ######## Matrix ########
-a_matrix <- matrix(1, nrow = 2, nco = 5) # a Matrix-Array
-a_more_interesting_matrix <- matrix(a_sequence, nrow = 2, nco = 5)
-
-######## List ########
-a_list <- list(5, 6, 7, 8)
+a_matrix <- matrix(1, nrow = 2, ncol = 5) # a Matrix-Array
+a_more_interesting_matrix <- matrix(a_sequence, nrow = 2, ncol = 5)
 
 ######## Data Frame ########
 a_dataframe <- data.frame(a_matrix)
-
-######## Null ########
-a_null <- NULL
-concatenated_string <- cat(a_string, another_string)
 
 ######## Testing Class Types with class() ########
 class(a_numeric)
@@ -179,12 +195,35 @@ class(a_null)</code></pre>
 
 
 							<h2><hr><center>Linear Algebra</center><hr></h2>	
+							<center><img src="Intro2R/linalgmatrix.jpg"  width="400"alt="" /></center>
+							<blockquote>
+								<strong>Matrices</strong> are described by two dimensions: row \((m)\) and column \((n)\). If a matrix has 2 rows and 3 columns, we say it is a 
+								"two by three matrix," denoted as \( m \times n\). We use capital letters to name matrices. If we name the above matrix, \(A\), 
+								we can say \(A\) is a \(8 \times 8\) matrix. Each individual cell within a matrix is called an <u><i>element</i></u>. Elements
+								are referred to using their location within the matrix they belong to. Using matrix \(A\) as an example, the overlapped highlighted <u><i>element</i></u> is located at the row index = 3
+								and column index = 4, so this element is denoted as \(A[3, 4]\). If we wanted to refer to all the elements in column 4, we would denote this as \(A[\hspace{0.2cm}, 4]\),
+								leaving a blank space in the row placeholder. Similarly, we would write \(A[3,\hspace{0.2cm}]\) to refer to all the elements in row 3 of matrix \(A\).
+								<br><br>
+								<strong>Vectors</strong> are one dimensional matrices - either the row dimension = 1 or the column dimension = 1. 
+							</blockquote>
+							<p>
+								Notable functions/operations used in this section inlcude:
+								<ul>
+									<li><strong>cat( )</strong> - concatenate function</li>
+									<li><strong>t( )</strong> - transpose function</li>
+									<li><strong>length( )</strong> - returns the length of a vector</li>
+									<li><strong>dim( )</strong> - returns the dimensions of a matrix or data frame</li>
+									<li><strong>head(a, b)</strong> - prints the first \(b\) rows of vector/matrix/data frame \(a\)</li>
+									<li><strong>View( )</strong> - shows a matrix/data frame in an asthetic viewer display</li>
+								 </ul>
+
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Vectors ########
 num_vector <- c(1, 2, 3, 4, 5, 6, 7) 	#note, we re-wrote this variable and overrode it
 str_vector <- c("D", "a", "t", "a", "f", "e", "s", "t", "!")
 x <- a_vector[1]
 y <- a_vector[4]
-x + y
+sum(x, y)
 str_vector
 cat(str_vector)
 length(str_vector)
@@ -208,13 +247,24 @@ dim(a_matrix) # dimensions
 number_of_rows_displayed <- 3
 head(a_matrix, number_of_rows_displayed)  #displays top rows 
 
-View(a_matrix)    #displays matrix on spreadsheet</code></pre>
+View(a_matrix)    #displays matrix in spreadsheet format</code></pre>
 
 							
 
 
 
-							<h2><hr><center>Functions</center><hr></h2>	
+							<h2><hr><center>Functions</center><hr></h2>
+							<p>
+								Functions accept an input, perform specified tasks and/or return an output as a response dependent on the input value(s). Notable functions/operations 
+								used in this section include: 
+								<ul>
+									<li><strong>if( )</strong> - conditional function</li>
+									<li><strong>else if ( )</strong> - conditional (local) contingency function</li>
+									<li><strong>else( )</strong> - conditional (absolute) contingency function</li>
+									<li><strong>print( )</strong> - prints input to the console</li>
+									<li><strong>return( )</strong> - return function</li>									
+								 </ul>
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## IF/ELSE Conditional Function ########
 if(1 > 10){
   print("If 1 > 10 is TRUE, then this will print!")
@@ -241,6 +291,15 @@ euclidean_distance(xy1, xy2)</code></pre>
 
 
 							<h2><hr><center>Loops</center><hr></h2>	
+							<p>
+								Loops describe iterative and/or repetitive functions. Notable functions/operations 
+								used in this section include: 
+								<ul>
+									<li><strong>for(i in a:b )</strong> - for loop </li>
+									<li><strong>while(condition)</strong> - while loop</li>
+									<li><strong>paste0( )</strong> - </li>									
+								 </ul> 
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## For Loops ######## 
 for(i in 1:10){
   print(2 * i)
@@ -261,6 +320,17 @@ while(count <= 5){
 
 
 							<h2><hr><center>Simulating and Importing Data</center><hr></h2>	
+							<p>
+								We will begin to work with data in this section, focusing on creating and importing data. Notable functions/operations 
+								used in this section include: 
+								<ul>
+									<li><strong>set.seed(a)</strong> - </li>
+									<li><strong>runif(n, min = , max =  )</strong> - random number generator with a uniform distribution</li>
+									<li><strong>rnrom(n, mean = , sd =  )</strong> - random number generator with a normal distribution</li>
+									<li><strong>library( )</strong> - </li>
+									<li><strong>read.csv("path")</strong> - imports .csv file</li>									
+								 </ul>
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Simulating Non-Random Data ########
 seq(from = 1, to = 10, by = .5)
 1:10
@@ -289,11 +359,30 @@ View(imported_data)</code></pre>
 
 
 							<h2><hr><center>Visualizing Data</center><hr></h2>	
+							<p>
+								We will produce many different types of plots and graphs in this section, including: scatterplot, line graph, histogram, bar plot, box plot, pie chart.
+								Notable functions/operations used in this section include: 
+								<ul>
+									<li><strong>plot( )</strong> - </li>
+									<li><strong>lines( )</strong> - </li>
+									<li><strong>legend( )</strong> - manually produces a legend on your plot</li>
+									<li><strong>hist( )</strong> - </li>
+									<li><strong>barplot( )</strong> - </li>
+									<li><strong>boxplot( )</strong> - </li>		
+									<li><strong>table( )</strong> - </li>	
+									<li><strong>pie( )</strong> - </li>	
+									<li><strong>order( )</strong> - </li>							
+								 </ul>
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Scatter Plots ########
 plot(x = 1:10, y = 1:10)
 plot(x = 1:10, y = 1:10, type = "l")
 plot(x = 1:10, y = 1:10, type = "b") +
-  lines(x = 1:10, y = 1.2*(1:10))
+  lines(x = 1:10, y = 1.2*(1:10)) +
+  legend("topleft", 
+        legend = c("line 1", "line 2"), 
+         fill = c("salmon","skyblue"))
+
 plot(x = 1:10, y = 1:10, type = "l", main = "Check out this diagonal line!")
 plot(x = 1:60, y = (1:60)^2, 
      type = "b", 
@@ -378,7 +467,17 @@ barplot(height = music$listeners[1:50],
 
 
 
-							<h2><hr><center>Modeling Data</center><hr></h2>	
+							<h2><hr><center>Modeling Data - Regression</center><hr></h2>	
+							<p>
+								We will fit a few different functions to model data for regression, inlcuding: linear, quadratic, and cubic.
+								Notable functions/operations used in this section include: 
+								<ul>
+									<li><strong>lm( )</strong> - linear regression model fitting function</li>
+									<li><strong>predict( )</strong> - </li>
+									<li><strong>I( )</strong> - </li>
+									<li><strong>which( )</strong> - </li>							
+								 </ul>
+							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Create Data ########
 data <- data.frame(x = 1:10, y = (1:10)^2) # y = x^2 for 1 < x < 10
 plot(data)
@@ -449,7 +548,12 @@ music[138, ]</code></pre>
 
 
 
+							<h2><hr><center>Modeling Data - Classification</center><hr></h2>	
+							<pre><code style="background-color:#33475b;color:white">
 
+
+							
+							</code></pre>
 							
 
 
@@ -462,12 +566,6 @@ music[138, ]</code></pre>
 
 							
 							</code></pre>
-
-
-
-
-
-
 
 
 						</div>
