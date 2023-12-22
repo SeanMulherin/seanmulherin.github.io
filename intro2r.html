@@ -52,10 +52,11 @@
 							<h4>Jan 15, 2024</h4>
 							<h2><hr><center>Lecture Outline</center><hr></h2>	
 							<ol>
+								<li>RStudio IDE</li>
 								<li>Arithmetic, Syntax, and Basics </li>
 								<li>Class Types</li>
 								<ul>
-									<li>integer | numeric | boolean | character | list | matrix | array | data frame | tibble</li>
+									<li>integer | numeric | logical | character | matrix | data frame</li>
 								</ul>
 								<li>Linear Algebra</li>
 								<li>Functions</li>
@@ -65,14 +66,13 @@
 								<ul>
 									<li>scatterplot | histogram | boxplot | barplot | pie chart | line graph</li>
 								</ul>
-								<li>Modeling Data</li>
+								<li>Modeling Data - Regression</li>
 								<ul>
 									<li>lm() | linear | quadratic | cubic | poly() | mean squared error (MSE)</li>
 								</ul>
-								<li>Playing</li>
-								<ul>
-									<li>ggplot | exercises | extras</li>
-								</ul>
+								<li>Modeling Data - Classification</li>
+								<li>Final Exercises</li>
+								<li>Appendix</li>
 							</ol>
 							<h2><hr><center>RStudio</center><hr></h2>		
 							<p>
@@ -123,7 +123,7 @@ dividing <- x / y
 exponents <- x^b 
 square_root <- sqrt(x)
 exponents_another_way <- x**b 
-logarithmis <- log(x) 
+logarithms <- log(x) 
 exponentials <- exp(x) 
 mean(x, y)
 
@@ -157,22 +157,21 @@ another_numeric <- 12.367
 yet_another_numeric <- pi
 
 a_vector <- c(1, 2, 3, 4)
-a_sequence <- seq(from = 10, to = 100, by = 10) # an ordered list of numbers
-yet_another_sequence <- 1:10 # Integer
+a_sequence <- seq(from = 10, to = 100, by = 10) 	# an ordered list of numbers
+yet_another_sequence <- 1:10 				# Integer
 
 ######## Logical ########
 a_boolean <- 2 == 3
 another_boolean <- 1 + 2 == 5 - 2
 sum(a_boolean)
 sum(another_boolean)
-a_na <- NA
 
 ######## Characters ########
-a_string <- "Hello"
-another_string <- 'Datafest!'
+a_charater <- "Hello"
+another_character <- 'Datafest!'
 
 ######## Matrix ########
-a_matrix <- matrix(1, nrow = 2, ncol = 5) # a Matrix-Array
+a_matrix <- matrix(1, nrow = 2, ncol = 5) 		# a Matrix-Array
 a_more_interesting_matrix <- matrix(a_sequence, nrow = 2, ncol = 5)
 
 ######## Data Frame ########
@@ -185,12 +184,10 @@ class(yet_another_numeric)
 class(a_vector)
 class(a_sequence)
 class(yet_another_sequence)
-class(a_list)
 class(a_matrix)
 class(a_boolean)
-class(a_string)
-class(concatenated_string)
-class(a_null)</code></pre>
+class(a_charater)
+class(a_dataframe)</code></pre>
 
 
 
@@ -219,17 +216,17 @@ class(a_null)</code></pre>
 
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Vectors ########
-num_vector <- c(1, 2, 3, 4, 5, 6, 7) 	#note, we re-wrote this variable and overrode it
-str_vector <- c("D", "a", "t", "a", "f", "e", "s", "t", "!")
+num_vector <- c(1, 2, 3, 4, 5, 6, 7) 			#note, we re-wrote this variable, overriding the previous value
+char_vector <- c("D", "a", "t", "a", "f", "e", "s", "t", "!")
 x <- a_vector[1]
 y <- a_vector[4]
 sum(x, y)
-str_vector
-cat(str_vector)
-length(str_vector)
+char_vector
+cat(char_vector)
+length(char_vector)
 
 ######## Matrices ########
-a_matrix <- matrix(data = seq(from = 1, to = 20, by = 1),   #note, we are using "=" here
+a_matrix <- matrix(data = seq(from = 1, to = 20, by = 1),	#note, we are using "=" here
                    nrow = 10,
                    ncol = 2)
 a_matrix
@@ -240,9 +237,9 @@ a_matrix[1, ]              #1st row, all columns
 a_matrix[, 1]              #All rows, 1st column
 a_matrix[1, 1] <- 75       #rewrite the 1st row 1st column element to = 75
 
-mean(a_matrix) # average
-t(a_matrix) # transpose
-dim(a_matrix) # dimensions
+mean(a_matrix) 		   #average
+t(a_matrix)    		   #transpose
+dim(a_matrix)  		   #dimensions
 
 number_of_rows_displayed <- 3
 head(a_matrix, number_of_rows_displayed)  #displays top rows 
@@ -262,7 +259,14 @@ View(a_matrix)    #displays matrix in spreadsheet format</code></pre>
 									<li><strong>else if ( )</strong> - conditional (local) contingency function</li>
 									<li><strong>else( )</strong> - conditional (absolute) contingency function</li>
 									<li><strong>print( )</strong> - prints input to the console</li>
-									<li><strong>return( )</strong> - return function</li>									
+									<li><strong>return( )</strong> - return function</li>
+									<li><strong>install.packages( )</strong> - installs packages not yet downloaded to your PC</li>
+									<li><strong>library( )</strong> - calls packages already downloaded to your PC</li>	
+									<li><strong>|></strong> - a pipeline operator that chains a sequence of calculations/tasks </li>	
+									<li><strong>%>%</strong> - alternative notation for pipeline operation using the dplyr library </li>			
+									<li><strong>mutate( )</strong> - adds new variable or rewrites an old variable, within a data frame</li>	
+									<li><strong>summarise( )</strong> - aggregates variables using summary statistics (i.e mean, median)</li>
+									<li><strong>group_by( )</strong> - groups a data frame by the levels of a specified variable</li>							
 								 </ul>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## IF/ELSE Conditional Function ########
@@ -274,30 +278,46 @@ if(1 > 10){
   print("Darn, they were all false so now you have me!")
 }
 
+
+######## Functions ########
 a_summation_function <- function(a, b){
   return(a + b)
 }
 a_summation_function(5, 11)
 
-euclidean_distance <- function(point1, point2){     # a^2 + b^2 = c^2
-  horiz_vert_dist <- (point1 - point2)^2
-  add_them_up <- sum(horiz_vert_dist)
-  return(sqrt(add_them_up))
-}
-xy1 <- c(0, 0)
-xy2 <- c(1, 1)
-euclidean_distance(xy1, xy2)</code></pre>
 
+######## Pipelines ########
+install.packages("dplyr")
+library(dplyr)
 
+pipe_ex <- 1:10
+pipe_ex |> sum()
+pipe_ex %>% mean()
+pipe_ex |> order(decreasing = TRUE)
+
+pipe_ex2 <- data.frame(numbers = sample(1:100, 8), 
+                       letters = c("A", "B", "B", "A", "C", "A", "B", "A") )
+
+pipe_ex2 |> 
+  group_by(letters) |> 
+  summarise(sum = sum(numbers))
+
+pipe_ex2 |>
+  mutate(new_var = numbers * 10)</code></pre>
+
+						<center><blockquote>
+							<strong>Checkpoint 1: </strong>Write a function that computes the nth power of base b 
+							<br><br>
+							<strong>Challenge: </strong>Write a funtion that computes the euclidean distance between two points (x1, y1) and (x2, y2) 
+						</blockquote></center>	
 
 							<h2><hr><center>Loops</center><hr></h2>	
 							<p>
-								Loops describe iterative and/or repetitive functions. Notable functions/operations 
-								used in this section include: 
+								Loops describe iterative and/or repetitive functions. Notable functions and operations used in this section include: 
 								<ul>
-									<li><strong>for(i in a:b )</strong> - for loop </li>
-									<li><strong>while(condition)</strong> - while loop</li>
-									<li><strong>paste0( )</strong> - </li>									
+									<li><strong>for(i in a:b )</strong> - for loop, must specify iterative index variable \(i\), and the sequence to loop through \(a:b\) </li>
+									<li><strong>while(condition)</strong> - while loop, input is a boolean</li>
+									<li><strong>paste0( )</strong> - concatenates vectors into a string</li>									
 								 </ul> 
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## For Loops ######## 
@@ -306,7 +326,7 @@ for(i in 1:10){
 }
 
 fart <- c()
-for(i in 1:100){
+for(i in 1:20){
   fart[i] <- "fart"
 }
 fart
@@ -314,21 +334,28 @@ fart
 ######## While Loops ########
 count <- 1
 while(count <= 5){
-  print(paste0("This repeats until count equals 10. We're currently on iteration ", count, "."))
+  print(paste0("This repeats until count equals 6. We're currently on iteration ", count, "."))
   count <- count + 1
 }</code></pre>
-
+							<center>
+							<blockquote>
+								<strong>Checkpoint 2: </strong>Write a loop that outputs the first 50 terms of the Fibonacci Sequence
+								<br><br>
+								<strong>Challenge: </strong>Write a loop that outputs the first 100 terms of the following sequence: 4, 9, 16, 25, 36, ...
+							</blockquote>
+							</center>
 
 							<h2><hr><center>Simulating and Importing Data</center><hr></h2>	
 							<p>
-								We will begin to work with data in this section, focusing on creating and importing data. Notable functions/operations 
-								used in this section include: 
+								We will begin to work with data in this section, focusing on creating and importing data. 
+								We will be importing the following csv file: <a href="Intro2R/music.csv">music.csv </a><sup>1</sup>. 
+								Notable functions/operations used in this section include: 
 								<ul>
-									<li><strong>set.seed(a)</strong> - </li>
-									<li><strong>runif(n, min = , max =  )</strong> - random number generator with a uniform distribution</li>
-									<li><strong>rnrom(n, mean = , sd =  )</strong> - random number generator with a normal distribution</li>
-									<li><strong>library( )</strong> - </li>
-									<li><strong>read.csv("path")</strong> - imports .csv file</li>									
+									<li><strong>set.seed(a)</strong> - function to allow for reproducibile random generator values, inputs an integer \(a\)</li>
+									<li><strong>runif(n, min = , max =  )</strong> - random number generator following a uniform distribution</li>
+									<li><strong>rnrom(n, mean = , sd =  )</strong> - random number generator following a normal distribution</li>
+									<li><strong>read.csv("path")</strong> - imports .csv file, input is the file path</li>	
+									<li><strong>dataframe$x</strong> - calls the column name \(x\) of a dataframe</li>							
 								 </ul>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Simulating Non-Random Data ########
@@ -336,63 +363,88 @@ seq(from = 1, to = 10, by = .5)
 1:10
 
 ######## Simulating Random Data ########
-set.seed(1)                          #for reproducibility when using a random generator
+set.seed(1)                         		 	#for reproducibility when using a random generator
 
-runif(n = 10, min = 0, max = 100)    #random uniform #'s
-rnorm(n = 10, mean = 0, sd = 1)      #random normal #'s
+runif(n = 10, min = 0, max = 100)   			#random uniform #'s
+rnorm(n = 10, mean = 0, sd = 1)    			#random normal #'s
+runif(10, 0, 100)                   	    		#you don't always have to specify the function - check defaults
 
-runif(10, 0, 100)                    #you don't always have to specify the function - check defaults
+######## Importing Data ######## 
+imported_data <- read.csv("music.csv") 			#must have dplyr library installed
+View(imported_data)
 
 ######## Data Frames ########
-a_simulated_dataframe <- data.frame(variable1 = 1:50,
-                           variable2 = runif(50, 0, 100))
-a_simulated_dataframe
-View(a_simulated_dataframe)
+a_dataframe <- data.frame(x1 = 1:50,
+                	  x2 = runif(50, 0, 100))
+a_dataframe
+View(a_dataframe)
 
-######## Importing Data ######## https://www.kaggle.com/datasets/pieca111/music-artists-popularity
-library(dplyr)
-imported_data <- read.csv("music.csv")
-View(imported_data)</code></pre>
-
-
-
+a_dataframe$x1						#calls the vector named x1 from a_dataframe
+</code></pre>
 
 
 							<h2><hr><center>Visualizing Data</center><hr></h2>	
 							<p>
-								We will produce many different types of plots and graphs in this section, including: scatterplot, line graph, histogram, bar plot, box plot, pie chart.
-								Notable functions/operations used in this section include: 
+								We will produce many different types of plots and graphs in this section, including: scatter plot, line graph, histogram, bar plot, box plot, pie chart.
+								<h2>Scatter Plots and Line Graphs</h2>
 								<ul>
-									<li><strong>plot( )</strong> - </li>
-									<li><strong>lines( )</strong> - </li>
+									<li>
+										<strong> plot( )</strong> - generic plot function to display coordinate grid plot
+											<ul>
+												<li><strong>x</strong> - x coordinates</li>
+												<li><strong>y</strong> - y coordinates</li>
+												<li><strong>type = ""</strong> - specifies graph type: "p" - point, "l" - line, "b" - both</li>
+												<li><strong>main = ""</strong> - main title</li>
+												<li><strong>xlab = ""</strong> - x axis label</li>
+												<li><strong>ylab = ""</strong> - y axis label</li>
+												<li><strong>xlim = c(a, b)</strong> - x axis scale ranging from a to b</li>
+												<li><strong>ylim = c(a, b)</strong> - y axis scale ranging from a to b</li>
+												<li><strong>col = </strong> - specifies color</li>
+												<li><strong>lwd = a</strong> - specifies line width with real number a</li>
+												<li><strong>cex = a</strong> - specifies point size with real number a</li>
+												<li><strong>pch = a</strong> - specifies point type with whole number a</li>
+											</ul>
+									</li>
+									<li><strong>lines( )</strong> - displays a line segment given (x, y) coordinates. Similar parameter options as plot( )</li>
 									<li><strong>legend( )</strong> - manually produces a legend on your plot</li>
-									<li><strong>hist( )</strong> - </li>
-									<li><strong>barplot( )</strong> - </li>
-									<li><strong>boxplot( )</strong> - </li>		
-									<li><strong>table( )</strong> - </li>	
-									<li><strong>pie( )</strong> - </li>	
-									<li><strong>order( )</strong> - </li>							
+									<ul>
+										<li><strong>locator</strong> - location of legend, can specify (x, y) coordinate or verbal location like "topleft</li>
+										<li><strong>legend</strong> - specifies label names</li>
+										<li><strong>fill</strong> - specifies color asthetics</li>
+									</ul>
 								 </ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## Scatter Plots ########
-plot(x = 1:10, y = 1:10)
-plot(x = 1:10, y = 1:10, type = "l")
-plot(x = 1:10, y = 1:10, type = "b") +
-  lines(x = 1:10, y = 1.2*(1:10)) +
+							<pre><code style="background-color:#33475b;color:white">plot(x = 1:10, y = 1:10, main = "Scatter Plot")
+
+plot(x = 1:10, y = 1:10, type = "l", main = "Line Graph")
+
+plot(x = 1:10, y = 1:10, type = "b", col = "salmon", main = "More Descriptive Line Graph") 
+  lines(x = 1:10, y = 1.2*(1:10), col = "skyblue") 
   legend("topleft", 
         legend = c("line 1", "line 2"), 
          fill = c("salmon","skyblue"))
 
-plot(x = 1:10, y = 1:10, type = "l", main = "Check out this diagonal line!")
 plot(x = 1:60, y = (1:60)^2, 
      type = "b", 
      main = "Intro to R Lecture Knowledge Rate",
      xlab = "Time", ylab = "Knowledge")
 
-plot(a_simulated_dataframe)
+plot(a_simulated_dataframe, main = "Simulated Data Scatter Plot")</code></pre>
+<center>
+<img src = "Intro2R/p1.png" height="300"/>
+<img src = "Intro2R/p2.png" height="300"/>
+<img src = "Intro2R/p3.png" height="300"/>
+<img src = "Intro2R/p5.png" height="300"/>
+<img src = "Intro2R/p6.png" height="300"/>
+</center>
+<p> 
+	<h2>Histograms</h2>
+	<ul>
+		<li><strong>hist( )</strong> - creates a histogram given a vector. Similar parameters as plot( ) except you only specify \(x\)</li>					
+	 </ul>
+</p>
 
-######## Histograms ########
-hist(x = rnorm(10, mean = 0, sd = 1)) # Note: default is mean = 0, sd = 1
+<pre><code style="background-color:#33475b;color:white">hist(x = rnorm(10, mean = 0, sd = 1)) 		#Note: default is mean = 0, sd = 1
 hist(x = rnorm(10), 
      main = "An Interesting Main Title",
      xlab = "A Funny X Axis Title",
@@ -401,15 +453,36 @@ hist(x = rnorm(10),
 ######## Central Limit Theorem ########
 clt_test <- function(n){
   x <- rnorm(n)
-  hist(x)
+  hist(x, main = paste0("Histogram n = ", n))
 }
 clt_test(10)
 clt_test(100)
 clt_test(1000)
-clt_test(10000)
+clt_test(10000)</code></pre>
+<center>
+	<img src = "Intro2R/p7.png" height="300"/>
+	<img src = "Intro2R/p8.png" height="300"/>
+	<img src = "Intro2R/p9.png" height="300"/>
+	<img src = "Intro2R/p10.png" height="300"/>
+	<img src = "Intro2R/p11.png" height="300"/>
+	<img src = "Intro2R/p12.png" height="300"/>
+	</center>
 
-######## Bar Plot ########
-barplot(height = 1:10)
+<p> 
+	<h3>Bar Plot</h3>
+	<ul>
+		<li><strong>barplot( )</strong> - creates a barplot given height values</li>	
+		<ul>
+			<li><strong>height</strong> - specifies height values for each bar</li>
+			<li><strong>names</strong> - specifies label names for each bar</li>
+			<li><strong>horiz</strong> - boolean to control layout: "TRUE" - horizontal layout, "FASLE" - vertical layout</li>
+			<li><strong>las = a</strong> - orients axis labels with whole number \(a\) raging [0-3]</li>
+			<li><strong>cex.names = a</strong> - x axis label with real number \(a\)</li>
+		</ul>					
+	 </ul>
+</p>
+
+<pre><code style="background-color:#33475b;color:white">barplot(height = 1:10)
 barplot(height = runif(5, 0, 10),
         horiz = TRUE)
 
@@ -419,10 +492,22 @@ barplot(height = c(52, 45, 67, 36, 46),
         las = 1,
         cex.names = 0.5,
         col = c(1, 2, 3, 4, 5),
-        main = "What Would You Name The Main Title?")
+        main = "What Would You Name The Main Title?")</code></pre>
 
-######## Box Plot ########
-bieber_fandom <- rnorm(100, mean = 50, sd = 20)
+		<center>
+			<img src = "Intro2R/p13.png" height="300"/>
+			<img src = "Intro2R/p14.png" height="300"/>
+			<img src = "Intro2R/p15.png" height="450"/>
+
+			<blockquote>
+				<strong>Checkpoint 2: </strong>Come up with a descriptive title for the bar graph above.
+			</blockquote>
+		</center>
+
+		
+		<p><h3>Box Plot</h3><ul><li><strong>boxplot(v1, v1, ..., v3)</strong> - creates a boxplot for each vector inputted</li>	</ul></p>
+
+<pre><code style="background-color:#33475b;color:white">bieber_fandom <- rnorm(100, mean = 50, sd = 20)
 swift_fandom <- rnorm(100, mean = 80, sd = 15)
 
 boxplot(bieber_fandom, swift_fandom)
@@ -432,36 +517,60 @@ boxplot(bieber_fandom, swift_fandom,
         main = "Beliber vs. Swifty Fandom",
         xlab = "Public Affection Rating",
         horizontal = TRUE,
-        col = c("lightblue", "salmon"))
+        col = c("lightblue", "salmon"))</code></pre>
+		<center>
+			<img src = "Intro2R/p16.png" height="350"/>
+			<img src = "Intro2R/p17.png" height="350"/>
+		</center>
 
-######## Music Data ########
+		<p>
+			<h3>Real Data</h3> 
+			<ul>		
+				<li><strong>table( )</strong> - creates a table of count values, given a vector</li>	
+				<li><strong>pie( )</strong> - creates a pie chart given a vector of count values</li>	
+				<li><strong>order( )</strong> - sorts values in ascending/descending order, given a vector</li>							
+			 </ul>
+		</p>
+
+<pre><code style="background-color:#33475b;color:white">######## Music Data ########
 music <- imported_data
 dim(music)
 View(music)
 
 table(music$country)
-barplot(height = table(music$country)) 
-pie(table(music$country))
+barplot(height = table(music$country), main = "Artist Count by Country") 
+pie(table(music$country), main = "Cluttered Pie Chart")
 
-# So many countries! Let's remove the smaller ones
-
+## So many countries! Let's remove the smaller ones
 country_table <- table(music$country)
 View(country_table)
 country_table <- country_table[country_table >= 20]
 country_table <- country_table[order(country_table)]
 
-barplot(country_table)
-barplot(country_table, horiz = TRUE, las = 2, cex.names = 0.5)
+barplot(country_table, main = "Countries With More Than 20 Artists")
+barplot(country_table, horiz = TRUE, las = 2, cex.names = 0.5,
+        main = "Horizontal Version")
 
-# Lets compare the top 50 artists
+## Lets compare the top 50 artists
 barplot(height = music$listeners[1:50], 
         names.arg = music$artist[1:50],
         horiz = TRUE, 
         las = 2, 
         cex.names = 0.5,
-        main = "Top 50 Listened-To Artists")</code></pre>
+        main = "Top 50 Listened-To Artists")
 
+## Searching for specific artists
+which(music$artist == "Taylor Swift")
+which(music$artist == "Justin Bieber")
+music[138, ]</code></pre>
 
+		<center>
+			<img src = "Intro2R/p18.png" height="300"/>
+			<img src = "Intro2R/p19.png" height="300"/>
+			<img src = "Intro2R/p20.png" height="300"/>
+			<img src = "Intro2R/p21.png" height="300"/>
+			<img src = "Intro2R/p22.png" height="400"/>
+		</center>
 
 
 
@@ -470,12 +579,14 @@ barplot(height = music$listeners[1:50],
 							<h2><hr><center>Modeling Data - Regression</center><hr></h2>	
 							<p>
 								We will fit a few different functions to model data for regression, inlcuding: linear, quadratic, and cubic.
+								We will be importing the following csv file: <a href="Intro2R/cookies.csv">cookies.csv.</a> 
 								Notable functions/operations used in this section include: 
 								<ul>
-									<li><strong>lm( )</strong> - linear regression model fitting function</li>
-									<li><strong>predict( )</strong> - </li>
-									<li><strong>I( )</strong> - </li>
-									<li><strong>which( )</strong> - </li>							
+									<li><strong>lm(y ~ x, data)</strong> - linear model fitting function, must specify independent variable(s) \( x_1, x_2, ..., x_n\), response variable \(y\), and data frame</li>
+									<li><strong>predict(model, newdata)</strong> - creates numerical predictions for new independent variables in <i>newdata</i>, given a model</li>
+									<li><strong>summary(model)</strong> - prints attributes of a fitted model, including coefficients and accuracy metrics</li>	
+									<li><strong>I( )</strong> - specifies to R that a predictor should be used 'as-is' and as expected</li>
+									<li><strong>which(condition)</strong> - finds indices for which a logical condition is true</li>							
 								 </ul>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Create Data ########
@@ -485,19 +596,24 @@ plot(data)
 ######## Linear Regression Model lm() ########
 lin_model <- lm(y ~ x, data = data)
 predict_lin_model <- predict(lin_model)
+summary(lin_model)
 
 ## Plotting ##
 plot(data, 
      type = "b",
      col = "salmon",
      lwd = 2,
-     main = "Fitting a Linear Model to Quadratic Function") +
+     main = "Fitting a Linear Model to Quadratic Function") 
   lines(predict_lin_model, col = "skyblue", lwd = 2) 
   legend("topleft", 
         legend = c("Observed", "Predicted"), 
-         fill = c("salmon","skyblue"))
+         fill = c("salmon","skyblue"))</code></pre>
+		 <center>
+			<img src = "Intro2R/p23.png" height="350"/>
+			<img src = "Intro2R/p24.png" height="350"/>
+		</center>
 
-######## Quadratic Model ########
+<pre><code style="background-color:#33475b;color:white">######## Quadratic Model ########
 quad_model <- lm(y ~ I(x^2), data = data)
 predict_quad_model <- predict(quad_model)
 
@@ -509,10 +625,12 @@ plot(data,
   lines(predict_quad_model, col = "skyblue", lwd = 2) 
   legend(x = 1, y = 90, 
          legend = c("Observed", "Predicted"), 
-         fill = c("salmon","skyblue"))
+         fill = c("salmon","skyblue"))</code></pre>
+		 <center>
+			<img src = "Intro2R/p25.png" height="400"/>
+		</center>
 
-
-######## Cubic Model ########
+<pre><code style="background-color:#33475b;color:white">######## Cubic Model ########
 cubic_model <- lm(y ~ I(x^3), data = data)
 predict_cubic_model <- predict(cubic_model)
 
@@ -520,14 +638,120 @@ plot(data,
      type = "b",
      col = "salmon",
      lwd = 2,
-     main = "Fitting a Quadratic Model to Quadratic Function") 
+     main = "Fitting a Cubic Model to Quadratic Function") 
   lines(predict_cubic_model, col = "skyblue", lwd = 2) 
   legend(x = 1, y = 90, 
          legend = c("Observed", "Predicted"), 
-         fill = c("salmon","skyblue"))
+         fill = c("salmon","skyblue"))</code></pre>
 
-######## Challenge Problem: Write a function to compute the MSE ########
-mse <- function(y, yhat){
+		 <center>
+			<img src = "Intro2R/p26.png" height="400"/>
+		</center>
+							
+							<blockquote>
+								<strong>Checkpoint 3: </strong>
+								<ul>
+									<li>Read in the cookies.csv file</li>
+									<li>Fit a linear model to the data</li>
+									<li>Predict the number of cookies I will eat on the 7th day</li>
+									<li>Plot the actual data and fitted model on the same graph, make it asthetically descriptive</li>
+								</ul>
+								<strong>Challenge: </strong>Write a function to compute the MSE
+							</blockquote>
+
+
+							<h2><hr><center>Modeling Data - Classification</center><hr></h2>	
+							<p>
+								We won't cover classification methods here, but check out my article on <a href="breastcancer.html">Breast Cancer Detection </a> for
+								an instructive walkthough. In this article, I use logistic regression to classify breast cancer tumors as malignant or benign. 
+							</p>
+
+							<h2><hr><center>Final Exercise</center><hr></h2>	
+							
+								<ul>
+									<li>Choose one of the following data sets<sup>*</sup>:</li>
+									<ol>
+										<li><a href="https://www.kaggle.com/datasets/howisusmanali/house-prices-2023-dataset">House Prices Dataset</a></li>
+										<li><a href="https://www.kaggle.com/datasets/midhundasl/co2-emission-of-cars-dataset">Car CO2 Emmisions</a></li>
+										<li><a href="https://www.kaggle.com/datasets/joebeachcapital/gpa-study-hours">GPA Study Hours</a></li>
+									</ol>
+									<li>Explore the data set: plot(), summary(), dim(), View()</li>
+									<li>Fit a model to the data: lm()</li>
+									<li>Calculate predictions: predict()</li>
+									<li>Create a visual of the observed data and fitted model: plot() </li>
+									<li>Calculate accuracy of your model using MSE</li>
+								</ul>
+								<br><sup>*</sup>You're welcome to look for other data sets on kaggle, data.gov, etc.
+							
+							
+
+							<h2><hr><center>Appendix</center><hr></h2>	
+							<p>Here you can find answers to the checkpoint exercises.</p>
+							<ol>
+								<li>Power Function</li>
+<pre><code style="background-color:#33475b;color:white">power <- function(b, n){     # b^n
+  return(b ** n)
+}
+power(5, 2)</code></pre>
+
+								<li>Euclidean Distance Function</li>
+<pre><code style="background-color:#33475b;color:white">euclidean_distance <- function(point1, point2){     # a^2 + b^2 = c^2
+  horiz_vert_dist <- (point1 - point2)^2
+  add_them_up <- sum(horiz_vert_dist)
+  return(sqrt(add_them_up))
+}
+xy1 <- c(0, 0)
+xy2 <- c(1, 1)
+euclidean_distance(xy1, xy2)</code></pre>
+
+								<li>Write a loop that stores the first 100 terms of the following sequence: 4, 9, 16, 25, 36, ...</li>
+<pre><code style="background-color:#33475b;color:white">terms <- c()
+terms[1] <- 4
+for(i in 1:100){
+  terms[i + 1] <- terms[i] + 2*i + 3
+}
+terms</code></pre>
+
+								<li>Write a loop that outputs the first 50 terms of the Fibonacci Sequence</li>
+<pre><code style="background-color:#33475b;color:white">fib <- c()
+fib[1] <- 0
+fib[2] <- 1
+for(i in 3:50){
+  fib[i] <- fib[i - 1] + fib[i - 2]
+}
+fib</code></pre>
+
+
+								<li>Cookies Regression Analysis</li>
+<pre><code style="background-color:#33475b;color:white"># Step 1: read in data
+cookies_df <- read.csv("cookies.csv")
+
+# Step 2: plot raw data to observe the shape
+plot(cookies_df)
+
+# Step 3: fit linear model
+cookies_model <- lm(Cookies ~ Day, data = cookies_df)
+
+# Step 4: predict day 7 using cookies model
+predict_cookies <- predict(cookies_model, newdata = data.frame(Day = 1:7))
+predict_cookies[7]
+
+# Step 5: Plot 
+plot(cookies_df, 
+     type = "b",
+     col = "salmon",
+     lwd = 2,
+     main = "Cookies Linear Regression Model Actual vs Fitted") 
+  lines(predict_cookies, col = "skyblue", lwd = 2) 
+  legend("topleft", 
+        legend = c("Observed", "Predicted"), 
+         fill = c("salmon","skyblue")) 
+  points(x = 7, y = predict_cookies[7], col = "red", pch = 16) 
+  text(x = 7, y = predict_cookies[7]+0.3, paste0(predict_cookies[7]))</code></pre>
+								<center><img src="Intro2R/cookies_pred.png" height="400"/></center>
+
+								<li>MSE Function</li>
+								<pre><code style="background-color:#33475b;color:white">mse <- function(y, yhat){
   error <- mean( (y - yhat)^2 )
   return(error)
 }
@@ -535,37 +759,11 @@ mse <- function(y, yhat){
 mse(data$y, predict_lin_model)
 mse(data$y, predict_quad_model)
 mse(data$y, predict_cubic_model)
+</code></pre>
 
-
-######## Music Data ########
-which(music$artist == "Taylor Swift")
-which(music$artist == "Justin Bieber")
-music[138, ]</code></pre>
-
-
-
-
-
-
-
-							<h2><hr><center>Modeling Data - Classification</center><hr></h2>	
-							<pre><code style="background-color:#33475b;color:white">
-
-
-							
-							</code></pre>
-							
-
-
-
-
-
-							<h2><hr><center>Playing With Data</center><hr></h2>	
-							<pre><code style="background-color:#33475b;color:white">
-
-
-							
-							</code></pre>
+									
+							</ol>
+							[1] Music data set originates from <a href = "https://www.kaggle.com/datasets/pieca111/music-artists-popularity">Kaggle</a>
 
 
 						</div>
