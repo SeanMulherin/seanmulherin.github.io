@@ -122,7 +122,6 @@ multiplying <- x * y
 dividing <- x / y 
 exponents <- x^b 
 square_root <- sqrt(x)
-exponents_another_way <- x**b 
 logarithms <- log(x) 
 exponentials <- exp(x) 
 mean(x, y)
@@ -146,6 +145,7 @@ pls.dont.use.dots.even.tho.it.works</code></pre>
 									<li><strong>c( )</strong> - combines elements into a single vector</li>
 									<li><strong>seq(from = a, to = b, by = c)</strong> - sequence function, where \(a, b,\) and \(c\) specify the beginning, end, and incriment, respectively </li>
 									<li><strong>a:b</strong> -  creates a sequence from \(a\) to \(b\), incrimenting by 1</li>
+									<li><strong>seq_len(b)</strong> -  creates a sequence from 1 to b, incrimenting by 1. More suitable for interative loops</li>
 									<li><strong>matrix(n, nrow = a, ncol = b)</strong> -  creates a matrix, must specify elements \(n\), number of rows \(a\), number of columns \(b\)</li>
 									<li><strong>data.frame( )</strong> -  creates a data frame with a matrix or vectors as the input</li>
 									<li><strong>class( )</strong> -  returns the class type of the input</li>
@@ -158,7 +158,8 @@ yet_another_numeric <- pi
 
 a_vector <- c(1, 2, 3, 4)
 a_sequence <- seq(from = 10, to = 100, by = 10) 	# an ordered list of numbers
-yet_another_sequence <- 1:10 				# Integer
+another_sequence <- 1:10 				# Integer
+yet_another_sequence <- seq_len(10)		# A sequence suitable for loops
 
 ######## Logical ########
 a_boolean <- 2 == 3
@@ -321,7 +322,7 @@ pipe_ex2 |>
 								 </ul> 
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## For Loops ######## 
-for(i in 1:10){
+for(i in seq_len(10)){
   print(2 * i)
 }
 
@@ -690,7 +691,7 @@ plot(data,
 							<ol>
 								<li>Power Function</li>
 <pre><code style="background-color:#33475b;color:white">power <- function(b, n){     # b^n
-  return(b ** n)
+  print(b^n)
 }
 power(5, 2)</code></pre>
 
