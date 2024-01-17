@@ -56,7 +56,7 @@
 								Okay so we're back in action, this time with a classification project. My innagural project was a regression analysis on Ethereum, during which I compared many
 								different models and used a validation-set approach to identify the best performing model. Today's project will be very similar in that I will be fitting many different
 								classification models to the training data, assessing their performances using the testing data, and choosing the most accurate model with which we will classify
-								tumors as either malignant or benign. I'm getting goosebumps just thinking about it!
+								tumors as either malignant or benign.
 							</p>
 							<p>The data set we'll be using is generously provided by the <a href="https://www.medicine.wisc.edu/hematology-oncology/breast-cancer-clinical-research" target="_blank">University of Wisconsin's Clinical Science Center.</a>
 								Now, this data set includes 30 different recorded metrics on 569 participants. That's a lot of variables and not a lot of samples! It's like bringing goodey bags to a buffet -
@@ -151,13 +151,13 @@ grid.table(models)
 								</code>
 							</pre>
 							<center><img src="Breast Cancer/model_errors.png" height="280" width="240"  alt="" /></center>
-							<p><br>Viola! Here's what we get. We have a tie between our Linear Discriminant Analysis (LDA) and Support Vector Machine (SVM), both having error rates of
+							<p><br>We have a tie between our Linear Discriminant Analysis (LDA) and Support Vector Machine (SVM), both having error rates of
 								2.94%. In other words, these two models correctly predict whether a breast cancer tumor is either malignant or benign 97.06% of the time (on the training data subset.)
 								The logistic regression model comes in at 3rd place with an error rate of 4.12%, and I get served yet another humble pie. Although, in my defense, I did expect that the simpler 
 								linear models would perform best which is indeed the case.
 							</p>
 
-							<p>Okay, the final thing to do is to fit the best models (LDA and SVM) on the entire data set instead of just the training subset and recalculate their error rates. 
+							<p>The final thing to do is to fit the best models (LDA and SVM) on the entire data set instead of just the training subset and recalculate their error rates. 
 								Hopefully, one outperforms the other - ties are so anticlimactic don't you think?
 							</p>
 
@@ -172,7 +172,7 @@ svm.final.err <- mean(predict(svm.final) != Breast$diagnosis)
 							</pre>
 							<center><img src="Breast Cancer/e.png" height="100" width="140"  alt="" /></center>
 
-							<p><br>Ding! Ding! Ding! We have our winner! Linear Discriminant Analysis is crowned the best performing model, with a final comprehensive error rate of 3.87%.
+							<p><br>As shown above, Linear Discriminant Analysis is the best performing model, with a final comprehensive error rate of 3.87%.
 								To wrap things up, I hope you are more convinced that breast cancer is a pressing issue, given its prevalence. I hope you agree that early detection
 								is imperative in the fight against this disease, given how confident we can be in the diagnosis. Finally, I hope you think statistics is even cooler
 								than you previously thought. Let's work together to spread the word! Enjoy the day.
