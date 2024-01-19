@@ -89,8 +89,9 @@
 							</center>
 
 							<blockquote>
-								<strong>[Command] + [Enter] </strong> - Runs current line <br>
-								<strong>[Command] + [S] </strong> - Saves file <br>
+								<strong>[Command] + [enter] </strong> - Runs current line <br>
+								<strong>[Command] + [s] </strong> - Saves file <br>
+								<strong>[Command] + [l] </strong> - Clears console <br>
 								<strong>Tools -> Global Options -> Appearance -> Editor Theme </strong> - To change the overall appearance
 							</blockquote>
 
@@ -217,10 +218,10 @@ class(a_dataframe)</code></pre>
 
 							</p>
 							<pre><code style="background-color:#33475b;color:white">######## Vectors ########
-num_vector <- c(1, 2, 3, 4, 5, 6, 7) 			#note, we re-wrote this variable, overriding the previous value
+num_vector <- c(1, 2, 3, 4, 5, 6, 7) 			
 char_vector <- c("D", "a", "t", "a", "f", "e", "s", "t", "!")
-x <- a_vector[1]
-y <- a_vector[4]
+x <- num_vector[1]
+y <- char_vector[4]
 sum(x, y)
 char_vector
 cat(char_vector)
@@ -309,7 +310,7 @@ pipe_ex2 |>
 						<center><blockquote>
 							<strong>Checkpoint 1: </strong>Write a function that computes the nth power of base b 
 							<br><br>
-							<strong>Challenge: </strong>Write a funtion that computes the euclidean distance between two points (x1, y1) and (x2, y2) 
+							<strong>Challenge: </strong>Write a function that computes the euclidean distance between two points (x1, y1) and (x2, y2) 
 						</blockquote></center>	
 
 							<h2><hr><center>Loops</center><hr></h2>	
@@ -371,7 +372,8 @@ rnorm(n = 10, mean = 0, sd = 1)    			#random normal #'s
 runif(10, 0, 100)                   	    		#you don't always have to specify the function - check defaults
 
 ######## Importing Data ######## 
-imported_data <- read.csv("music.csv") 			#must have dplyr library installed
+install.packages("dplyr")
+imported_data <- read.csv("~/Desktop/music.csv") 			
 View(imported_data)
 
 ######## Data Frames ########
@@ -430,7 +432,7 @@ plot(x = 1:60, y = (1:60)^2,
      main = "Intro to R Lecture Knowledge Rate",
      xlab = "Time", ylab = "Knowledge")
 
-plot(a_simulated_dataframe, main = "Simulated Data Scatter Plot")</code></pre>
+plot(a_dataframe, main = "Simulated Data Scatter Plot")</code></pre>
 <center>
 <img src = "Intro2R/p1.png" height="300"/>
 <img src = "Intro2R/p2.png" height="300"/>
@@ -554,7 +556,7 @@ barplot(country_table, horiz = TRUE, las = 2, cex.names = 0.5,
 
 ## Lets compare the top 50 artists
 barplot(height = music$listeners[1:50], 
-        names.arg = music$artist[1:50],
+        names = music$artist[1:50],
         horiz = TRUE, 
         las = 2, 
         cex.names = 0.5,
