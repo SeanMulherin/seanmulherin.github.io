@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+<html>
+	<head>
+		<title>Data Cleaning in R</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/prism.css" />
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="neuralnetwork.html">Artificial Neural Network</a></li>
+						<li><a href="carbonization.html">Carbonization Analysis</a></li>
+						<li><a href="breastcancer.html">Breast Cancer Detection</a></li>
+						<li><a href="modelingEth.html">Modeling Ethereum</a></li>
+						<li><a href="lectures.html">Lecture Notes</a></li>
+						<li><a href="papers.html">Papers</a></li>
+						<li><a href="resume.html">Resume</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Data Cleaning in R</h1>
+							<span class="image main"><a href="https://www.analyticsvidhya.com/blog/2019/05/beginner-guide-tidyverse-most-powerful-collection-r-packages-data-science/" target="_blank"><img src="images/cleaning4.jpeg" height="500"  alt="" /></span></a>
+							<h4>Jan 20, 2024</h4>
+							<h2><hr><center>Lecture Outline</center><hr></h2>	
+							<ol>
+								<li>Tidyverse</li>
+								<ul>
+									<li>dplyr - transforming (wrangle)</li>
+									<li>lubridate - transforming dates and times (wrangle)</li>
+									<li>stringr - transforming strings (wrangle)</li>
+									<li>tidyr - tidy/clean</li>
+									<li>ggplot2 - visualizing</li>
+									<li>readr - importing</li>
+									<li>purrr - <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional programming</a></li>
+									
+								</ul>
+								<li>Data.table</li>
+								<li>Plyr</li>
+								<li>Janitor</li>
+								<li>Final Exercises</li>
+								<li>Appendix</li>
+							</ol>
+							<h2><hr><center>Tidyverse</center><hr></h2>		
+							<h2>dplyr</h2>
+							<span class="image right"><img src="images/dplyr.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>select()</strong> - select columns from your dataset</li>
+									<li><strong>filter()</strong> - filter out certain rows that meet your criteria(s)</li>
+									<li><strong>arrange()</strong> - arrange your column data in ascending or descending order</li>
+									<li><strong>join()</strong> - perform left, right, full, and inner joins in R</li>		
+									<li><strong>mutate( )</strong> - adds new variable or rewrites an old variable, within a data frame</li>	
+									<li><strong>summarise( )</strong> - aggregates variables using summary statistics (i.e mean, median)</li>
+									<li><strong>group_by( )</strong> - groups a data frame by the levels of a specified variable</li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## dplyr ########
+df <- data.frame(
+  date = c("2022-01-01", "2022-01-01", "2022-01-02", "2022-01-02"),
+  product = c("A", "B", "A", "B"),
+  quantity = c(10, 20, 15, 30),
+  price = c(5.99, 3.99, 6.99, 2.99)
+)
+
+library(dplyr)
+filtered_df <- filter(df, product == "A")
+grouped_df <- group_by(df, date)
+summarized_df <- summarize(grouped_df, total_sales = sum(quantity * price))
+							</code></pre>
+
+							<h2>ggplot2</h2>
+							<span class="image right"><img src="images/ggplot.png" height="150" alt="" /></span>
+							<p>
+								<ul><li><strong>ggplot()</strong> - displays various plot styles</li></ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## ggplot ########
+
+							</code></pre>
+
+							<h2>tidyr</h2>
+							<span class="image right"><img src="images/tidyr.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>gather()</strong> - the function “gathers” multiple columns from your dataset and converts them into key-value pairs</li>
+									<li><strong>spread()</strong> - this takes two columns and “spreads” them into multiple columns</li>
+									<li><strong>separate()</strong> - as the name suggests, this function helps in separating or splitting a single column into numerous columns</li>
+									<li><strong>unite()</strong> -  works completely opposite to the separate() function. It helps in combining two or more columns into one</li>
+									<li><strong>tribble()</strong> -  </li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## tidyr ########
+
+							</code></pre>
+
+							<h2>readr</h2>
+							<span class="image right"><img src="images/readr.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>read.csv("path")</strong> - imports .csv file, input is the file path</li>	
+									<li><strong>read_delim()</strong> - read in a csv file specifying delimiters</li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## readr ########
+
+							</code></pre>
+
+							<h2>purrr</h2>
+							<span class="image right"><img src="images/purrr.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>|></strong> - a pipeline operator that chains a sequence of calculations/tasks </li>	
+									<li><strong>%>%</strong> - alternative notation for pipeline operation</li>	
+									<li><strong>summary()</strong> -  ?maybe?</li>
+									<li><strong>summary(model)</strong> - prints attributes of a fitted model, including coefficients and accuracy metrics</li>	
+									<li><strong>map_dbl()</strong> - </li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## purrr ########
+
+							</code></pre>
+
+							<h2>stringr</h2>
+							<span class="image right"><img src="images/stringr.png" height="150" alt="" /></span>
+							<p>
+								"Stringr is a package that provides tools for working with character strings in R.
+								It offers functions for tasks such as pattern matching, string splitting, and string manipulation. 
+								Stringr is particularly useful when cleaning text data, such as social media posts, emails, and customer feedback."
+								<ul>
+									<li><strong>str_sub()</strong> - extract substrings from a character vector</li>
+									<li><strong>str_trim()</strong> - trim white spaces</li>
+									<li><strong>str_length()</strong> - checks the length of the string</li>
+									<li><strong>str_to_lower/str_to_upper</strong> - converts the string into upper case or lower case</li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## stringr ########
+library(stringr)
+
+# create a character string
+my_string <- "Hello, World!"
+
+# extract a substring
+substring <- str_sub(my_string, start = 1, end = 5)
+
+# count the number of characters in the string
+num_chars <- str_length(my_string)
+
+# split the string into a vector of words
+word_vector <- str_split(my_string, pattern = ", ")[[1]]
+							</code></pre>
+
+							<h2>lubridate</h2>
+							<span class="image right"><img src="images/lubridate.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>todatetime</strong> - </li>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## lubridate ########
+library(lubridate)
+
+# create a date object from a string
+my_date <- ymd("2022-01-01")
+
+# extract components of the date
+year <- year(my_date)
+month <- month(my_date)
+day <- day(my_date)
+
+# perform arithmetic with dates
+next_month <- my_date + months(1)
+next_year <- my_date + years(1)
+
+# calculate the difference between two dates
+start_date <- ymd("2022-01-01")
+end_date <- ymd("2022-01-31")
+days_between <- as.numeric(end_date - start_date)
+
+# format dates for display
+formatted_date <- format(my_date, "%A, %B %d, %Y")
+							</code></pre>
+									
+
+							<h2><hr><center>Data.table</center><hr></h2>	
+							<p>
+								"Data.table is a package that offers fast and memory-efficient data manipulation capabilities. 
+								It provides a syntax that is similar to base R, making it easy to learn for those who are familiar with R. 
+								Data.table is particularly useful for handling large datasets, as it can perform operations at speeds that
+								are faster than those of other packages. It also has advanced features such as joins, grouping, and subsetting."
+
+								 <ul>
+									<li><strong>( )</strong> -  </li>
+								 </ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## data.table ########
+
+							</code></pre>
+
+
+							<h2><hr><center>Plyr</center><hr></h2>
+							<p>
+								"Plyr is a package that provides tools for splitting, applying, and combining data in R. 
+								It offers several functions, including ddply, dlply, and daply, which allow users to apply a 
+								function to a dataset and return the results in a convenient format. Plyr is particularly useful 
+								when working with data that requires grouping or summarizing.""
+								
+								
+								Notable functions/operations used in this section inlcude:  
+								<ul>
+									<li><strong>( )</strong> -  </li>
+								 </ul>
+							</p>	
+							<pre><code style="background-color:#33475b;color:white">######## plyr ########
+library(plyr)
+result_df <- ddply(df, .(product), summarise, total_sales = sum(quantity * price))
+custom_function <- function(row) {
+	if (row$quantity > 20) {
+	  return("large")
+	} else {
+	  return("small")
+	}
+  }
+  result_df <- apply(df, 1, custom_function)
+							</code></pre>
+
+
+							<h2><hr><center>Janitor</center><hr></h2>	
+							<p>
+								"Janitor is a package that provides tools for cleaning and preprocessing datasets in R.
+								 It offers several functions for tasks such as removing duplicate rows, converting data types, 
+								 and removing leading and trailing whitespace. Janitor also provides functions for renaming columns, 
+								 which can be useful when working with messy datasets."
+
+								<ul>
+									<li><strong>( )</strong> -  </li>
+								 </ul>
+
+							</p>
+							<pre><code style="background-color:#33475b;color:white">######## janitor ########
+		
+</code></pre>
+
+							
+
+							<center>
+								<blockquote>
+									<strong>Checkpoint 1: </strong>An engaging exercise will go here 
+									<br><br>
+									<strong>Challenge: </strong>A more challenging exercise will go here  
+								</blockquote>
+							</center>	
+					
+
+							<h2><hr><center>Appendix</center><hr></h2>	
+
+							[1] You can learn more about packages specific to Tidyverse on their website <a href="https://www.tidyverse.org/" target="_blank">here</a>!
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+				<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<section>
+							<h2>Contact Me</h2>
+							<p><strong>Email: </strong>smulherin519@gmail.com<br><strong>Location: </strong>Los Angeles, CA</p>
+						</section>
+						<section>
+							<h2>Follow</h2>
+							<ul class="icons">
+								<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+						<ul class="copyright">
+							<li>&copy; Sean Mulherin. All rights reserved</li>
+						</ul>
+					</div>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/prism.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
