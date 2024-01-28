@@ -48,240 +48,471 @@
 					<div id="main">
 						<div class="inner">
 							<h1>Data Cleaning in R</h1>
-							<span class="image main"><a href="https://www.analyticsvidhya.com/blog/2019/05/beginner-guide-tidyverse-most-powerful-collection-r-packages-data-science/" target="_blank"><img src="images/cleaning4.jpeg" height="500"  alt="" /></span></a>
+							<center><span class ="image"><a href="https://www.analyticsvidhya.com/blog/2019/05/beginner-guide-tidyverse-most-powerful-collection-r-packages-data-science/" target="_blank"><img src="images/cleaning4.jpeg" height="400"  alt="" /></a></span></center>
+							<br>
 							<h4>Jan 20, 2024</h4>
 							<h2><hr><center>Lecture Outline</center><hr></h2>	
 							<ol>
+								<li>Introduction</li>
 								<li>Tidyverse</li>
 								<ul>
-									<li>dplyr - transforming (wrangle)</li>
-									<li>lubridate - transforming dates and times (wrangle)</li>
-									<li>stringr - transforming strings (wrangle)</li>
-									<li>tidyr - tidy/clean</li>
-									<li>ggplot2 - visualizing</li>
-									<li>readr - importing</li>
-									<li>purrr - <a href="https://en.wikipedia.org/wiki/Functional_programming" target="_blank">functional programming</a></li>
-									
+									<li>dplyr - transforming data frames</li>
+									<li>lubridate - wrangling dates and times</li>
+									<li>ggplot2 - visualizing data</li>
+									<li>tidyr - cleaning data</li>
+									<li>readr - importing data</li>
+									<li>purrr - functional programming</li>
+									<li>stringr - wrangling strings</li>
 								</ul>
-								<li>Data.table</li>
-								<li>Plyr</li>
-								<li>Janitor</li>
 								<li>Final Exercises</li>
 								<li>Appendix</li>
 							</ol>
+
+							<h2><hr><center>Introduction</center><hr></h2>	
+							<center><a href="https://www.kdnuggets.com/2016/04/crowdflower-2016-data-science-repost.html" target = "_blank"><img src="dataCleaning/ds_roles.jpeg" height=400  alt="" /></a></center>
+							<p><br>
+								Welcome to another workshop. Today's topic is data cleaning, or <i>wrangling</i>. This can be defined as the act of transforming data in such a way
+								that is conducive to statistical analysis. For data to be clean, it should be without illegible elements, discrepencies, and corruption. 
+								Corrupted data may have duplicated or incomplete values, they may have formatting issues or other flaws that may cause errors later on. 
+								As shown in the plot above, data cleaning comprises most of the work data scientists engage in. For this reason, it is crucial for 
+								data scientists to become experts in cleaning data. The purpose of this workshop is to introduce you to some of the most popular and widely used
+								packages for cleaning data. 
+					
+							</p>
+
+
+
 							<h2><hr><center>Tidyverse</center><hr></h2>		
 							<h2>dplyr</h2>
 							<span class="image right"><img src="images/dplyr.png" height="150" alt="" /></span>
 							<p>
+								Toy data set containing sales information for one week in a coffee shop. <a href="dataCleaning/coffee_shop.tsv">coffee_shop.tsv</a>
 								<ul>
 									<li><strong>select()</strong> - select columns from your dataset</li>
-									<li><strong>filter()</strong> - filter out certain rows that meet your criteria(s)</li>
+									<li><strong>filter(data, variable_name == "element")</strong> - filter out rows that meet your boolean criteria</li>
 									<li><strong>arrange()</strong> - arrange your column data in ascending or descending order</li>
 									<li><strong>join()</strong> - perform left, right, full, and inner joins in R</li>		
 									<li><strong>mutate( )</strong> - adds new variable or rewrites an old variable, within a data frame</li>	
 									<li><strong>summarise( )</strong> - aggregates variables using summary statistics (i.e mean, median)</li>
 									<li><strong>group_by( )</strong> - groups a data frame by the levels of a specified variable</li>
+									<li><strong>|></strong> - a pipeline operator that chains a sequence of calculations/tasks </li>	
+									<li><strong>%>%</strong> - alternative notation for pipeline operation</li>	
 								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## dplyr ########
-df <- data.frame(
-  date = c("2022-01-01", "2022-01-01", "2022-01-02", "2022-01-02"),
-  product = c("A", "B", "A", "B"),
-  quantity = c(10, 20, 15, 30),
-  price = c(5.99, 3.99, 6.99, 2.99)
-)
+							<pre><code style="background-color:#33475b;color:white">coffee_shop <- read.table("~/Desktop/coffee_shop.tsv", header = TRUE)
 
-library(dplyr)
-filtered_df <- filter(df, product == "A")
-grouped_df <- group_by(df, date)
-summarized_df <- summarize(grouped_df, total_sales = sum(quantity * price))
-							</code></pre>
+filtered_coffee <- filter(coffee_shop, beverage == "latte")    						# filter()
+filtered_coffee2 <- filter(coffee_shop, quantity < 40)
+grouped_coffee <- group_by(coffee_shop, date)                  						# group_by()
+only_latte <- select(coffee_shop, quantity)                           					# select()
+all_but_date <- select(coffee_shop, beverage:price)
+summarised_coffee <- summarize(coffee_shop, weekly_sales = sum(quantity * price))                  	# summarize()
+mutated_coffee <- mutate(coffee_shop, sales = quantity * price)    		 			# mutate()
+arranged_coffee <- arrange(mutated_coffee, sales)    # arrange()
+arranged_coffee_desc <- arrange(mutated_coffee, desc(sales))    
+only_mocha <- filter(mutated_coffee, beverage == "mocha")
+
+######## Pipelines ########
+pipe_ex <- 1:10
+pipe_ex |> sum()
+pipe_ex %>% mean()
+pipe_ex |> order(decreasing = TRUE)
+
+coffee_shop |> 
+  mutate(sales = quantity * price) |>
+  filter(beverage == "latte")
+
+coffee_shop |> 
+  mutate(sales = quantity * price) |>
+  filter(beverage == "latte") |>
+  summarise(weekly_latte_sales = sum(sales))</code></pre>
+							<center>
+								<blockquote>
+									<strong>Checkpoint 1: </strong>General time to play around with the starwars data set
+									<br><br>
+									<strong>Challenge: </strong>Determine the BMI for each human. Hint: BMI = mass / (height/100)^2
+								</blockquote>
+							</center>	
+							<br>
+							<h2>lubridate</h2>
+							<span class="image right"><img src="images/lubridate.png" height="150" alt="" /></span>
+							<p>
+								<ul>
+									<li><strong>year/month/day()</strong> - extracts components of an inputted date</li>
+									<li><strong>ymd()</strong> - converts string in YYYY-MM-DD format to date type</li>
+									<li><strong>as.Date()</strong> - converts string to date type</li>
+									<br><br>
+								</ul>
+							</p>
+							<pre><code style="background-color:#33475b;color:white">class(coffee_shop$date)
+coffee_shop$date <- as.Date(coffee_shop$date)						# converting
+year <- year(coffee_shop$date)								# extracting
+month <- month(coffee_shop$date)
+day <- day(coffee_shop$date)
+
+my_day <- as.Date("2024-01-25")
+next_month <- my_day + months(1) 							# arithmetic
+next_year <- my_day + years(1)
+
+start_date <- ymd("2024-01-01")
+end_date <- ymd("2024-01-31")
+days_between <- as.numeric(end_date - start_date)</code></pre>
 
 							<h2>ggplot2</h2>
 							<span class="image right"><img src="images/ggplot.png" height="150" alt="" /></span>
 							<p>
-								<ul><li><strong>ggplot()</strong> - displays various plot styles</li></ul>
+								<ul>
+									<li><strong>ggplot(data, aes())</strong> - creates powerful plotting interface</li>
+									<li><strong> + geom_point()</strong> - scatter plot</li>
+									<li><strong> + geom_bar()</strong> - bar plot</li>
+									<li><strong> + geom_smooth()</strong> - LOESS</li>
+									<li><strong> + geom_hist()</strong> - histogram</li>
+									<li><strong> + annotate()</strong> - manually adds text to plot</li>
+									<li>... and many other functions that can be found <a href="https://cran.r-project.org/web/packages/ggplot2/readme/README.html" target = "_blank">here</a></li>
+								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## ggplot ########
+							<pre><code style="background-color:#33475b;color:white">ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# scatter plot
+  geom_point()
+  
+ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# line graph
+  geom_line()
 
-							</code></pre>
+ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# LOESS plot
+  geom_smooth()
+
+
+daily_sold <- coffee_shop |> 
+                group_by(date) |>
+                  summarise(quantity = sum(quantity))
+
+ggplot(daily_sold, aes(x = date, y = quantity)) +    			# bar plot
+  geom_bar(stat = "identity")
+
+
+ggplot(starwars, aes(height)) +     					# histogram
+  geom_histogram()
+
+
+############# Customizing ############# 
+line_graph <- ggplot(coffee_shop, aes(x = date, y = quantity)) +    
+                geom_line(col = "salmon", linewidth = 2) +
+                labs(x = "Date", y = "Quantity", title = "Total # of Beverages Sold Per Day")
+line_graph
+
+line_graph +
+  annotate(geom="text", x = ymd("2024-01-04"), y = 50, label = "DataFest", col = 6, cex = 5)
+line_graph + theme_bw()
+line_graph + theme_dark()
+
+
+bar_plot <- ggplot(daily_sold, aes(x = date, y = quantity)) +
+              geom_bar(stat = "identity", 
+                       fill = 1:7)
+
+bar_plot
+bar_plot + coord_flip()</code></pre>
+							<center>
+								<img src = "dataCleaning/1.png" height="300"/>
+								<img src = "dataCleaning/2.png" height="300"/>
+								<img src = "dataCleaning/3.png" height="300"/>
+								<img src = "dataCleaning/4.png" height="300"/>
+								<img src = "dataCleaning/5.png" height="300"/>
+								<img src = "dataCleaning/6.png" height="300"/>
+								<img src = "dataCleaning/7.png" height="300"/>
+								<img src = "dataCleaning/8.png" height="300"/>
+								<img src = "dataCleaning/9.png" height="300"/>
+								<img src = "dataCleaning/10.png" height="300"/>
+								<img src = "dataCleaning/11.png" height="300"/>
+							</center>
+
+
+
+							<center>
+								<blockquote>
+									<strong>Checkpoint 2: </strong>Create a bar plot that showws total number of lattes sold each day
+									<br><br>
+									<strong>Challenge: </strong>Create a line graph showing the solution to the following system of equations:
+											\begin{cases} 
+												y = 2x^{2} + 3x - 5 \\
+												y = sin(x) + \frac{1}{2}x \\
+										   	\end{cases}
+								  	
+								</blockquote>
+							</center>
 
 							<h2>tidyr</h2>
 							<span class="image right"><img src="images/tidyr.png" height="150" alt="" /></span>
 							<p>
 								<ul>
-									<li><strong>gather()</strong> - the function “gathers” multiple columns from your dataset and converts them into key-value pairs</li>
+									<li><strong>gather()</strong> - converts df to long stretched out format, using column names as repeated elements</li>
 									<li><strong>spread()</strong> - this takes two columns and “spreads” them into multiple columns</li>
-									<li><strong>separate()</strong> - as the name suggests, this function helps in separating or splitting a single column into numerous columns</li>
-									<li><strong>unite()</strong> -  works completely opposite to the separate() function. It helps in combining two or more columns into one</li>
-									<li><strong>tribble()</strong> -  </li>
+									<li><strong>separate()</strong> - splits a single column into numerous columns - opposite of unite()</li>
+									<li><strong>unite()</strong> -  combines two or more columns into one - opposite of separate()</li>
+									<li><strong>drop_na()</strong> -  removes all rows containing an NA value</li>
+									<li><strong>replace_na()</strong> -  replaces all rows containing an NA value, must input replacements as a list</li>
 								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## tidyr ########
+							<pre><code style="background-color:#33475b;color:white">################ gather() ################
+gathered_df <- coffee_shop |>
+                  gather(Cols, Elements, 
+                         beverage:price)
+gathered_df
 
-							</code></pre>
+
+################ spread() ################ 
+coffee_shop |>
+  spread(beverage, quantity)
+
+spread_df |> drop_na()        									# drop_na()
+spread_df |> replace_na(list(latte = 0, mocha = 0))         					# replace_na()
+
+
+################ separate() ################ 
+sep_df <- data.frame(Type = c("team.A", "team.B", "party.C", "crew.D", "party.E"))
+sep_df
+
+sep_df |> 
+  separate(Type, c("Group Type", "Letter"))
+
+sep_df |>
+  separate(Type, c(NA, "Letter"))
+
+
+################ unite() ################ 
+names_df <- data.frame(First = c("Harry", "James", "Stephen", "Michael", "Taylor"),
+                       Last = c("Styles", "Bond", "Hawking", "Buble", "Swift"),
+                       Age = c(29, 37, 76, 48, 34))
+names_df
+
+united_df <- names_df |>
+              unite("Full Name", First, Last, sep = " ")
+united_df
+
+names_df |>
+  unite("Full Name", Last, First, sep = ", ")
+
+## How would we reverse unite?
+united_df |>
+  separate("Full Name", c("First", "Last"), sep = " ")</code></pre>
 
 							<h2>readr</h2>
 							<span class="image right"><img src="images/readr.png" height="150" alt="" /></span>
 							<p>
 								<ul>
-									<li><strong>read.csv("path")</strong> - imports .csv file, input is the file path</li>	
-									<li><strong>read_delim()</strong> - read in a csv file specifying delimiters</li>
+									<li><strong>read_csv("path")</strong> - imports .csv file, input is the file path</li>	
+									<li><strong>read_table()</strong> - whitespace-separated files</li>
+									<li><strong>col_types()</strong> - specifies desired column class types: character, factor, integer, etc</li>
+									<br>
 								</ul>
+								<br>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## readr ########
+							<pre><code style="background-color:#33475b;color:white">read_table("~/Desktop/coffee_shop.tsv")
 
-							</code></pre>
+read_table(
+  "~/Desktop/Portfolio/dataCleaning/coffee_shop.tsv",
+  col_types = cols(
+      date      = col_date(format = ""),
+      beverage  = col_factor(levels = c("latte", "mocha")),
+      quantity  = col_integer(),
+      price     = col_double()
+  )
+)</code></pre>
 
 							<h2>purrr</h2>
 							<span class="image right"><img src="images/purrr.png" height="150" alt="" /></span>
 							<p>
 								<ul>
-									<li><strong>|></strong> - a pipeline operator that chains a sequence of calculations/tasks </li>	
-									<li><strong>%>%</strong> - alternative notation for pipeline operation</li>	
-									<li><strong>summary()</strong> -  ?maybe?</li>
-									<li><strong>summary(model)</strong> - prints attributes of a fitted model, including coefficients and accuracy metrics</li>	
-									<li><strong>map_dbl()</strong> - </li>
+									<li><strong>map()</strong> - apply function to a list or atomic vector</li>
+									<li><strong>split()</strong> -  divides vector into groups/tibbles</li>
+									<li><strong>\(x)</strong> -  shorthand notation for defining a function (not specific to purrr package)</li>
+									<br><br>
 								</ul>
+								<br>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## purrr ########
+							<pre><code style="background-color:#33475b;color:white">coffee_shop |>                  						# split()
+  split(coffee_shop$beverage)
 
-							</code></pre>
+## Quick Function Review ##
+double_func1 <- function(x) x * 2
+double_func2 <- \(x) x * 2
+double_func1(15)
+double_func2(15)
+
+map(5, \(x) x + 2)        							# map()
+5 |> map(\(x) x^2)
+
+## What if we wanted to predict the # of lattes and mochas sold Jan 8th?
+coffee_shop |>
+  split(coffee_shop$beverage) |>
+  map(\(df) lm(quantity ~ date, data = df)) |>
+  map(\(model) predict(model, newdata = data.frame(date = ymd("2024-01-08"))))</code></pre>
 
 							<h2>stringr</h2>
 							<span class="image right"><img src="images/stringr.png" height="150" alt="" /></span>
 							<p>
-								"Stringr is a package that provides tools for working with character strings in R.
-								It offers functions for tasks such as pattern matching, string splitting, and string manipulation. 
-								Stringr is particularly useful when cleaning text data, such as social media posts, emails, and customer feedback."
 								<ul>
-									<li><strong>str_sub()</strong> - extract substrings from a character vector</li>
-									<li><strong>str_trim()</strong> - trim white spaces</li>
-									<li><strong>str_length()</strong> - checks the length of the string</li>
-									<li><strong>str_to_lower/str_to_upper</strong> - converts the string into upper case or lower case</li>
+									<li><strong>str_sub()</strong> - extract substrings</li>
+									<li><strong>str_length()</strong> - return string length</li>
+									<li><strong>str_split()</strong> - split string into list based on specified pattern</li>
+									<li><strong>str_count()</strong> - return occurance frequency of specified pattern</li>
+									<li><strong>str_detect()</strong> - return TRUE/FALSE depending on the existence of a specified pattern within string</li>
+									<li><strong>str_locate()</strong> - returns start/end indeces of specified pattern within string</li>
+									<li><strong>str_replace()</strong> - replaces pattern with specified alternative string</li>
+									<li><strong>select(ends_with(""))</strong> - enables more specific column selection</li>
+									<li><strong>str_to_lower()/str_to_upper()</strong> - converts the string into upper/lower case</li>
+									<br>
 								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">######## stringr ########
-library(stringr)
+							<pre><code style="background-color:#33475b;color:white"> a_string <- "Hello! I hope you're enjoying this workshop."
+str_sub(a_string, start = 1, end = 5)       
+str_length(a_string)       # length
+str_split(a_string, pattern = " ")       
+str_count(a_string, "o")       
+str_count(a_string, "[oab]")
+str_detect(a_string, "joy")
+str_locate(a_string, "you")
+str_replace(a_string, "you", "we")
+str_to_upper(a_string)
 
-# create a character string
-my_string <- "Hello, World!"
+s <- str_split(a_string, pattern = " ")[[1]]
+str_c(s, collapse = " ")
 
-# extract a substring
-substring <- str_sub(my_string, start = 1, end = 5)
+names(starwars)
+starwars |>
+  select(ends_with("color"))</code></pre>
 
-# count the number of characters in the string
-num_chars <- str_length(my_string)
 
-# split the string into a vector of words
-word_vector <- str_split(my_string, pattern = ", ")[[1]]
-							</code></pre>
-
-							<h2>lubridate</h2>
-							<span class="image right"><img src="images/lubridate.png" height="150" alt="" /></span>
+							<h2><hr><center>Final Exercise</center><hr></h2>
 							<p>
-								<ul>
-									<li><strong>todatetime</strong> - </li>
-								</ul>
-							</p>
-							<pre><code style="background-color:#33475b;color:white">######## lubridate ########
-library(lubridate)
-
-# create a date object from a string
-my_date <- ymd("2022-01-01")
-
-# extract components of the date
-year <- year(my_date)
-month <- month(my_date)
-day <- day(my_date)
-
-# perform arithmetic with dates
-next_month <- my_date + months(1)
-next_year <- my_date + years(1)
-
-# calculate the difference between two dates
-start_date <- ymd("2022-01-01")
-end_date <- ymd("2022-01-31")
-days_between <- as.numeric(end_date - start_date)
-
-# format dates for display
-formatted_date <- format(my_date, "%A, %B %d, %Y")
-							</code></pre>
-									
-
-							<h2><hr><center>Data.table</center><hr></h2>	
-							<p>
-								"Data.table is a package that offers fast and memory-efficient data manipulation capabilities. 
-								It provides a syntax that is similar to base R, making it easy to learn for those who are familiar with R. 
-								Data.table is particularly useful for handling large datasets, as it can perform operations at speeds that
-								are faster than those of other packages. It also has advanced features such as joins, grouping, and subsetting."
-
-								 <ul>
-									<li><strong>( )</strong> -  </li>
-								 </ul>
-							</p>
-							<pre><code style="background-color:#33475b;color:white">######## data.table ########
-
-							</code></pre>
-
-
-							<h2><hr><center>Plyr</center><hr></h2>
-							<p>
-								"Plyr is a package that provides tools for splitting, applying, and combining data in R. 
-								It offers several functions, including ddply, dlply, and daply, which allow users to apply a 
-								function to a dataset and return the results in a convenient format. Plyr is particularly useful 
-								when working with data that requires grouping or summarizing.""
-								
-								
-								Notable functions/operations used in this section inlcude:  
-								<ul>
-									<li><strong>( )</strong> -  </li>
-								 </ul>
+								<ol>
+									<li>Download the current market data for Ethereum from this website: <a href = "https://www.investing.com/crypto/ethereum/historical-data" target = "_blank"> Investing.com</a></li>
+									<li>Read in the file</li>
+									<li>Clean the data, specifically:</li>
+									<ul>
+										<li>Convert Date column to date type</li>
+										<li>Transform the Vol. column to the correct numeric values - look out for 'K' and 'M' units</li>
+										<li>Transform the Change % to numeric type</li>
+									</ul>
+									<li>Predict the USD/ETH price for next month</li>
+									<li>Plot the results using ggplot</li>
+								</ol>
 							</p>	
-							<pre><code style="background-color:#33475b;color:white">######## plyr ########
-library(plyr)
-result_df <- ddply(df, .(product), summarise, total_sales = sum(quantity * price))
-custom_function <- function(row) {
-	if (row$quantity > 20) {
-	  return("large")
-	} else {
-	  return("small")
-	}
-  }
-  result_df <- apply(df, 1, custom_function)
-							</code></pre>
-
-
-							<h2><hr><center>Janitor</center><hr></h2>	
-							<p>
-								"Janitor is a package that provides tools for cleaning and preprocessing datasets in R.
-								 It offers several functions for tasks such as removing duplicate rows, converting data types, 
-								 and removing leading and trailing whitespace. Janitor also provides functions for renaming columns, 
-								 which can be useful when working with messy datasets."
-
-								<ul>
-									<li><strong>( )</strong> -  </li>
-								 </ul>
-
-							</p>
-							<pre><code style="background-color:#33475b;color:white">######## janitor ########
-		
-</code></pre>
-
-							
-
-							<center>
-								<blockquote>
-									<strong>Checkpoint 1: </strong>An engaging exercise will go here 
-									<br><br>
-									<strong>Challenge: </strong>A more challenging exercise will go here  
-								</blockquote>
-							</center>	
 					
 
 							<h2><hr><center>Appendix</center><hr></h2>	
+							<h2>Exercise Solutions</h2>
+							<ol>
+								<li>Star Wars BMI</li>
+								<pre><code style="background-color:#33475b;color:white">starwars |>
+  filter(species == "Human") |>
+  mutate(bmi = mass / (height / 100) ^ 2) |>
+  select(name, bmi)</code></pre>
 
-							[1] You can learn more about packages specific to Tidyverse on their website <a href="https://www.tidyverse.org/" target="_blank">here</a>!
+								<li>Lattes Sold Each Day</li>
+								<pre><code style="background-color:#33475b;color:white">latte_by_day <- coffee_shop |>
+  filter(beverage == "latte")
+
+ggplot(latte_by_day, aes(x = date, y = quantity)) +
+  geom_bar(stat = "identity", fill = 1:7, alpha = 0.7) +
+  labs(x = "Day", y = "Lattes Sold", title = "Total # of Lattes Sold Per Day") + 
+  theme_bw()</code></pre>
+  								<center><img src = "dataCleaning/12.png" height="400"/></center>
+  								<li>Plotting Solutions to a System of Equations</li>
+ 								 <pre><code style="background-color:#33475b;color:white">x1 = seq(-10, 10, 0.1)
+y1 = 2*x^2 + 3*x - 5
+y2 = sin(x) + x/2
+sys_eq_df <- data.frame(x, y1, y2)
+ysol <- y2[which(round(y1, 1) == round(y2, 1))]
+xsol <- x[which(round(y1, 1) == round(y2, 1))]
+
+ggplot(sys_eq_df, aes(x1)) +
+  geom_line(aes(y = y1, col = "salmon"), linewidth = 1) +
+  geom_line(aes(y = y2, col = "skyblue"), linewidth = 1) +
+  theme_bw() + 
+  ylim(-10, 10) +
+  labs(x = "x", y = "y") +
+  scale_color_discrete(name = "Lines", labels = c("y1", "y2")) +
+  geom_point(x = xsol[1], y = ysol[1], col = "red", cex = 3) +
+  geom_point(x = xsol[2], y = ysol[2], col = "red", cex = 3) +
+  annotate(geom="text", x = 3.3, y = 0.3, label="(1.2, 1.53)") + 
+  annotate(geom="text", x = -4.1, y = -3, label="(-2.2, -1.91)")</code></pre>
+ 								<center><img src = "dataCleaning/13.png" height="400"/></center>
+
+								<li>Final Exercise</li>
+								<pre><code style="background-color:#33475b;color:white">### Step 1: Read in data
+eth_df <- read_csv("~/Desktop/eth.csv",
+                   col_types = cols(Date = col_date(format = "%m/%d/%Y"))
+                   )
+
+### Step 2: Clean data
+k <- str_detect(eth_df$Vol., "K")
+m <- str_detect(eth_df$Vol., "M")
+
+eth_df$Vol.[k] <- str_sub(eth_df$Vol.[k], start = 1, end = 6) |>
+                  as.numeric() |>
+                  map(\(x) x * 1000)
+
+eth_df$Vol.[m] <- str_sub(eth_df$Vol.[m], start = 1, end = 4) |>
+                  as.numeric() |>
+                  map(\(x) x * 1000000)
+
+eth_df$`Change %` <- eth_df$`Change %` |>
+                     str_replace("%", "") |>
+                     as.numeric()
+
+### Step 3: Fit model and predict price
+lm <- lm(Price ~ Date, data = eth_df)
+days <- seq(ymd('2023-12-27'), ymd('2024-02-27'), by='1 day')
+pred <- predict(lm, newdata = data.frame(Date = days))
+
+### Step 4: Plot
+eth_df[33:63] <- NA
+ggplot(eth_df, aes(Date, Price)) +
+  geom_line(linewidth = 1.5) +
+  geom_line(aes(x = days, y = pred), col = "salmon", linewidth = 1.5) +
+  theme_bw() +
+  ggtitle("Linear Regression USD/ETH") +
+  annotate(geom = "text", x = ymd('2024-02-25'), y = pred[63] + 20, label = "$2483.68") +
+  geom_point(x = ymd('2024-02-27'), y = pred[63], col = "red", cex = 3)</code></pre>
+
+									<center><img src = "dataCleaning/14.png" height="400"/></center>
+
+
+
+
+
+
+
+
+							</ol>
+							
+							
+
+
+
+							<h2>More Resources</h2>
+							<ul>
+								<li>You can learn more about packages specific to Tidyverse on their website <a href="https://www.tidyverse.org/" target="_blank">here</a>!</li>
+								<li><a href="https://cran.r-project.org/web/packages/dplyr/readme/README.html" target = "_blank">Dplyr</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/lubridate/readme/README.html" target = "_blank">Lubridate</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/ggplot2/readme/README.html" target = "_blank">Ggplot2</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/tidyr/readme/README.html" target = "_blank">Tidyr</a></li>							
+								<li><a href="https://cran.r-project.org/web/packages/readr/readme/README.html" target = "_blank">Readr</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/purrr/readme/README.html" target = "_blank">Purrr</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/stringr/readme/README.html" target = "_blank">Stringr</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/data.table/readme/README.html" target = "_blank">Data.table</a></li>
+								<li><a href="https://cran.r-project.org/web/packages/janitor/readme/README.html" target = "_blank">Janitor</a></li>
+							</ul>
+
+
+
+
+
+
+
+
+
+
 						</div>
 					</div>
 
