@@ -99,23 +99,43 @@
 									<li><strong>%>%</strong> - alternative notation for pipeline operation</li>	
 								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">coffee_shop <- read.table("~/Desktop/coffee_shop.tsv", header = TRUE)
+							<pre><code style="background-color:#33475b;color:white">library(tidyverse)
+coffee_shop <- read.table("~/Desktop/coffee_shop.tsv", header = TRUE)
+View(coffee_shop)
 
 filtered_coffee <- filter(coffee_shop, beverage == "latte")    						# filter()
+filtered_coffee
 filtered_coffee2 <- filter(coffee_shop, quantity < 40)
+filtered_coffee2
+
 grouped_coffee <- group_by(coffee_shop, date)                  						# group_by()
+grouped_coffee
+
 only_latte <- select(coffee_shop, quantity)                           					# select()
+only_latte
 all_but_date <- select(coffee_shop, beverage:price)
+all_but_date
+
 summarised_coffee <- summarize(coffee_shop, weekly_sales = sum(quantity * price))                  	# summarize()
+summarised_coffee
+
 mutated_coffee <- mutate(coffee_shop, sales = quantity * price)    		 			# mutate()
+mutated_coffee
+
 arranged_coffee <- arrange(mutated_coffee, sales)    # arrange()
+arranged_coffee
 arranged_coffee_desc <- arrange(mutated_coffee, desc(sales))    
+arranged_coffee_desc
+
 only_mocha <- filter(mutated_coffee, beverage == "mocha")
+only_mocha
+
 
 ######## Pipelines ########
 pipe_ex <- 1:10
 pipe_ex |> sum()
-pipe_ex %>% mean()
+pipe_ex %>% sum()
+pipe_ex |> mean()
 pipe_ex |> order(decreasing = TRUE)
 
 coffee_shop |> 
@@ -146,17 +166,27 @@ coffee_shop |>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">class(coffee_shop$date)
 coffee_shop$date <- as.Date(coffee_shop$date)						# converting
+coffee_shop$date <- ymd(coffee_shop$date)						
+class(coffee_shop$date)
+
 year <- year(coffee_shop$date)								# extracting
+year
 month <- month(coffee_shop$date)
+month
 day <- day(coffee_shop$date)
+day
 
 my_day <- as.Date("2024-01-25")
+my_day
 next_month <- my_day + months(1) 							# arithmetic
+next_month
 next_year <- my_day + years(1)
+next_year
 
 start_date <- ymd("2024-01-01")
 end_date <- ymd("2024-01-31")
-days_between <- as.numeric(end_date - start_date)</code></pre>
+days_between <- as.numeric(end_date - start_date)
+days_between</code></pre>
 
 							<h2>ggplot2</h2>
 							<span class="image right"><img src="images/ggplot.png" height="150" alt="" /></span>
@@ -173,7 +203,7 @@ days_between <- as.numeric(end_date - start_date)</code></pre>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# scatter plot
   geom_point()
-  
+
 ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# line graph
   geom_line()
 
@@ -182,21 +212,22 @@ ggplot(coffee_shop, aes(x = date, y = quantity)) +    			# LOESS plot
 
 
 daily_sold <- coffee_shop |> 
-                group_by(date) |>
-                  summarise(quantity = sum(quantity))
+  group_by(date) |>
+  summarise(quantity = sum(quantity))
+View(daily_sold)
 
 ggplot(daily_sold, aes(x = date, y = quantity)) +    			# bar plot
   geom_bar(stat = "identity")
 
-
+View(starwars)
 ggplot(starwars, aes(height)) +     					# histogram
   geom_histogram()
 
 
 ############# Customizing ############# 
 line_graph <- ggplot(coffee_shop, aes(x = date, y = quantity)) +    
-                geom_line(col = "salmon", linewidth = 2) +
-                labs(x = "Date", y = "Quantity", title = "Total # of Beverages Sold Per Day")
+  geom_line(col = "salmon", linewidth = 2) +
+  labs(x = "Date", y = "Quantity", title = "Total # of Beverages Sold Per Day")
 line_graph
 
 line_graph +
@@ -206,9 +237,8 @@ line_graph + theme_dark()
 
 
 bar_plot <- ggplot(daily_sold, aes(x = date, y = quantity)) +
-              geom_bar(stat = "identity", 
-                       fill = 1:7)
-
+  geom_bar(stat = "identity", 
+           fill = 1:7)
 bar_plot
 bar_plot + coord_flip()</code></pre>
 							<center>
@@ -254,14 +284,15 @@ bar_plot + coord_flip()</code></pre>
 							</p>
 							<pre><code style="background-color:#33475b;color:white">################ gather() ################
 gathered_df <- coffee_shop |>
-                  gather(Cols, Elements, 
-                         beverage:price)
+  gather(Cols, Elements, 
+         beverage:price)
 gathered_df
 
 
 ################ spread() ################ 
-coffee_shop |>
-  spread(beverage, quantity)
+spread_df <- coffee_shop |>
+                spread(beverage, quantity)
+spread_df
 
 spread_df |> drop_na()        									# drop_na()
 spread_df |> replace_na(list(latte = 0, mocha = 0))         					# replace_na()
@@ -285,7 +316,7 @@ names_df <- data.frame(First = c("Harry", "James", "Stephen", "Michael", "Taylor
 names_df
 
 united_df <- names_df |>
-              unite("Full Name", First, Last, sep = " ")
+  unite("Full Name", First, Last, sep = " ")
 united_df
 
 names_df |>
@@ -329,7 +360,8 @@ read_table(
 								</ul>
 								<br>
 							</p>
-							<pre><code style="background-color:#33475b;color:white">coffee_shop |>                  						# split()
+							<pre><code style="background-color:#33475b;color:white">coffee_shop
+coffee_shop |>                  						# split()
   split(coffee_shop$beverage)
 
 ## Quick Function Review ##
@@ -338,7 +370,8 @@ double_func2 <- \(x) x * 2
 double_func1(15)
 double_func2(15)
 
-map(5, \(x) x + 2)        							# map()
+map(5, double_func1)
+map(5, \(x) x * 2)        							# map()
 5 |> map(\(x) x^2)
 
 ## What if we wanted to predict the # of lattes and mochas sold Jan 8th?
@@ -363,7 +396,7 @@ coffee_shop |>
 									<br>
 								</ul>
 							</p>
-							<pre><code style="background-color:#33475b;color:white"> a_string <- "Hello! I hope you're enjoying this workshop."
+							<pre><code style="background-color:#33475b;color:white">a_string <- "Hello! I hope you're enjoying this workshop."
 str_sub(a_string, start = 1, end = 5)       
 str_length(a_string)       # length
 str_split(a_string, pattern = " ")       
