@@ -452,7 +452,7 @@ ggplot(latte_by_day, aes(x = date, y = quantity)) +
   theme_bw()</code></pre>
   								<center><img src = "dataCleaning/12.png" height="400"/></center>
   								<li>Plotting Solutions to a System of Equations</li>
- 								 <pre><code style="background-color:#33475b;color:white">x1 = seq(-10, 10, 0.1)
+ 								 <pre><code style="background-color:#33475b;color:white">x = seq(-10, 10, 0.1)
 y1 = 2*x^2 + 3*x - 5
 y2 = sin(x) + x/2
 sys_eq_df <- data.frame(x, y1, y2)
@@ -500,7 +500,7 @@ days <- seq(ymd('2023-12-27'), ymd('2024-02-27'), by='1 day')
 pred <- predict(lm, newdata = data.frame(Date = days))
 
 ### Step 4: Plot
-eth_df[33:63] <- NA
+eth_df[33:63, ] <- NA
 ggplot(eth_df, aes(Date, Price)) +
   geom_line(linewidth = 1.5) +
   geom_line(aes(x = days, y = pred), col = "salmon", linewidth = 1.5) +
