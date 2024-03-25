@@ -93,14 +93,14 @@ def index():
     return render_template('housing.html')
 
 
-@app.route('/forecast', methods=['POST'])
+@app.route('/templates/result.html', methods=['POST'])
 def forecast():
     city = request.form['city']
     state = request.form['state']
     location = city.capitalize() + ", " + state.upper()
     period = int(request.form['period'])
     result, plot_html, components_html = house_fcst(location, period)
-    return render_template('result.html', result=result, plot_html=plot_html, components_html=components_html)
+    return render_template('/templates/result.html', result=result, plot_html=plot_html, components_html=components_html)
 
 
 if __name__ == "__main__":
