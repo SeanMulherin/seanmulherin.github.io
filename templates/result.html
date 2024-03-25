@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>House Price</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="neuralnetwork.html">Artificial Neural Network</a></li>
+						<li><a href="carbonization.html">Carbonization Analysis</a></li>
+						<li><a href="breastcancer.html">Breast Cancer Detection</a></li>
+						<li><a href="modelingEth.html">Modeling Ethereum</a></li>
+						<li><a href="lectures.html">Lecture Notes</a></li>
+						<li><a href="papers.html">Papers</a></li>
+						<li><a href="resume.html">Resume</a></li>
+                        <li><a href="thesis.html">Thesis</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Forcasting Selling Price of Houses in the U.S.</h1>
+							<center><img src="../images/house.jpg" width="600" alt="" /></center>
+							<h4>March 20, 2024</h4>
+							 <p>
+                                Hi team,<br>
+                                The data we will be using is generously provided by Zillow. We will look at the average sale price of 
+                                houses by city and month. We have montly data for all months since 1996. The goal is to fit a forcasting 
+                                model to predict the trend for cities of personal interest; we will utilize the Prophet Model to do so.
+                                I've taken the liberty to complete some initial exploratory data analysis which you will see below. This 
+                                is done to provide a plot to the story of home prices in the past few decades. 
+                                <br><br>
+                                Most notably, for your amusement, I've created an interface for you to input your city and forecast length to observe
+                                the forecasted trends and prediction metrics computed by the Prophet model. This model is notorious for it's accuracy and 
+                                flexibility. Housing prices are atypically volatile so this model does particularly well at forecasting.
+                             </p>
+
+
+
+
+
+
+
+
+     
+				<h2>Forecast Result</h2>
+				<p>{{ result }}</p>
+				<h3>Plot</h3>
+				<div>{{ plot_html | safe }}</div>
+				<h3>Components Plot</h3>
+				<div>{{ components_html | safe }}</div>
+
+			</div>
+		</div>
+
+
+				<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<section>
+							<h2>Contact Me</h2>
+							<p><strong>Email: </strong>smulherin519@gmail.com<br><strong>Location: </strong>Los Angeles, CA</p>
+						</section>
+						<section>
+							<h2>Follow</h2>
+							<ul class="icons">
+								<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+								<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+						<ul class="copyright">
+							<li>&copy; Sean Mulherin. All rights reserved</li>
+						</ul>
+					</div>
+				</footer>
+
+			</div>
+	</body>
+</html>
