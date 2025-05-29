@@ -3377,3 +3377,47 @@ video {
   }
 
 
+<style>
+  .intro-header {
+    background: #f9f9f9;  /* Light background for contrast (optional) */
+    padding: 2em 1em;
+    text-align: center;
+  }
+
+  .intro-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .intro-container h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0 0.2em 0;
+  }
+
+  .intro-container h3 {
+    font-size: 1.2em;
+    font-weight: 400;
+    margin: 0.2em 0 1em 0;
+  }
+
+  .intro-container p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 0 auto;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .intro-container h1 {
+      font-size: 2em;
+    }
+
+    .intro-container h3 {
+      font-size: 1em;
+    }
+
+    .intro-container p {
+      font-size: 0.95em;
+    }
+  }
+</style>
