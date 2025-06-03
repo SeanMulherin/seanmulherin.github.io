@@ -1,0 +1,350 @@
+@import url(fontawesome-all.min.css);
+/* Basic Reset & Body Styling */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 85%;
+    max-width: 1100px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header and Navigation */
+header {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px; /* Similar to the reference site's content width */
+    margin: 0 auto;
+    padding: 0 0px;
+}
+
+nav .logo a {
+    font-size: 1.5em;
+    font-weight: 500;
+    text-decoration: none;
+    color: #666;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #f2849e;
+}
+
+/* Main Content */
+main {
+    padding: 40px 0;
+}
+
+section {
+    margin-bottom: 60px;
+    padding: 0 20px; /* Add some padding for content within sections */
+    max-width: 1000px; /* Center content within sections */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.8em;
+    color: #333;
+    font-weight: normal; /* The example site uses a lighter font weight for headings */
+}
+
+/* Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.gallery-item {
+    text-align: center;
+}
+
+.gallery-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #eee; /* Optional border like the example */
+}
+
+.gallery-item p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* About and Contact Section Text */
+#about p, #contact p {
+    text-align: left;
+    max-width: 700px; /* Limit width of text for readability */
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+
+#contact a {
+    color: #337ab7; /* A standard link color */
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Optional: Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+
+.icon {
+    text-decoration: none;
+    border-bottom: none;
+    position: relative;
+}
+
+
+        .icon:before {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            text-transform: none !important;
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 400;
+        }
+
+        .icon > .label {
+            display: none;
+        }
+
+        .icon:before {
+            line-height: inherit;
+        }
+
+        .icon.solid:before {
+            font-weight: 900;
+        }
+
+        .icon.brands:before {
+            font-family: 'Font Awesome 5 Brands';
+        }
+
+        .icon.style2 {
+            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            background-color: transparent;
+            border: solid 1px #c9c9c9;
+            border-radius: 4px;
+            width: 2.65em;
+            height: 2.65em;
+            display: inline-block;
+            text-align: center;
+            line-height: 2.65em;
+            color: inherit;
+        }
+
+            .icon.style2:before {
+                font-size: 1.1em;
+            }
+
+            .icon.style2:hover {
+                color: #f2849e;
+                border-color: #f2849e;
+            }
+
+            .icon.style2:active {
+                background-color: rgba(242, 132, 158, 0.1);
+            }
+
+
+
+
+
+
+
+
+/* Footer */
+
+/* Base styling for the footer */
+#footer {
+  display: flex;               /* enable Flexbox */
+  flex-wrap: wrap;             /* allow wrapping on narrow screens */
+  justify-content: space-between; /* spread columns apart */
+  align-items: flex-start;     /* align items at the top */
+  padding: 5em 0 6em 0;
+  background-color: #f6f6f6;
+  gap: 2rem;                   /* space between columns on wide screens */
+}
+
+/* Each column in the footer */
+.footer-col {
+  flex: 1 1 300px;             /* grow/shrink; min‐width 300px */
+  max-width: 45%;              /* prevent columns from becoming too wide */
+}
+
+/* Ensure headings in columns don’t collide */
+.footer-col h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* Style the bottom line to span full width */
+.footer-bottom {
+  flex: 1 1 100%;              /* force this div to 100% width, below the two columns */
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: -50rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Links in the footer columns */
+#contact-col a,
+#follow-col a {
+  color: #337ab7;              /* match your link style */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+#contact-col a:hover,
+#follow-col a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+/* Responsive tweak: on narrow screens, stack columns */
+@media screen and (max-width: 600px) {
+  #footer {
+    flex-direction: column;
+    padding: 3em 1em;
+  }
+  .footer-col {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  .footer-bottom {
+    margin-top: 1rem;
+  }
+}
+
+
+
+/* ================================
+   2. HERO / “FULL-BLEED” IMAGE
+   ================================ */
+
+/* Make sure the <body> has no extra margin or padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* The outer section (#hero) simply holds our .hero‐inner */
+#hero {
+  /* Cancel out the “max-width: 1000px; margin: auto; padding: 0 20px;” coming from “section {…}” */
+  max-width: none;      /* allow it to grow wider than 1000px */
+  margin: 0;            /* no auto‐centering margin */
+  padding: 0;           /* remove the 20px left/right padding */
+
+  /* Now we can safely set it to fill the viewport: */
+  width: 100vw;
+  height: 70vh;         /* or whatever “vh” you prefer */
+  position: relative;   /* for your overlay text */
+}
+
+/* The inner div actually displays the background image */
+.hero-inner {
+  width: 100%;
+  height: 100%;
+  background-image: url("homepage_bookshelf.jpg"); /* <-- your image path */
+  background-size: cover;    /* scale to cover full area */
+  background-position: center center; /* center‐crop */
+  background-repeat: no-repeat;
+    filter:
+    brightness(0.70)   /* darker: 0. –1 is darker; 1 is normal; >1 is brighter */
+    contrast(1)      /* contrast: 1 is unchanged; >1 increases contrast */
+    saturate(1.2); 
+     background-color: rgba(0,0,0,0.3);
+     background-blend-mode: multiply;
+
+}
+
+#hero .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+#hero .overlay-text h1 {
+  font-size: 3.5rem;     
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+#hero .overlay-text p {
+  font-size: 1.25rem;   /* ~20px */
+  margin-top: 0;
+}
+
+/* Responsive: smaller text on mobile */
+@media screen and (max-width: 768px) {
+  #hero .overlay-text h1 {
+    font-size: 2rem;    /* ~32px */
+  }
+  #hero .overlay-text p {
+    font-size: 1rem;    /* ~16px */
+  }
+}
+
+     

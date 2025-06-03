@@ -144,7 +144,7 @@ input, select, textarea {
 		-webkit-transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		-ms-transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		transition: border-bottom-color 0.2s ease, color 0.2s ease;
-		text-decoration: none;
+		text-decoration: none !important;
 		color: #585858;
 		border-bottom: dotted 1px rgba(88, 88, 88, 0.5);
 	}
@@ -1801,7 +1801,7 @@ input, select, textarea {
 /* Icon */
 
 	.icon {
-		text-decoration: none;
+		text-decoration: none !important;
 		border-bottom: none;
 		position: relative;
 	}
@@ -3420,4 +3420,261 @@ video {
       font-size: 0.95em;
     }
   }
+
+
 </style>
+
+
+/* ============================
+   CUSTOM NAVBAR OVERRIDES
+============================ */
+
+/* Base variables */
+:root {
+  --header-height: 60px;
+  --nav-bg: rgba(0, 0, 0, 0.75);
+  --nav-text: #ffffff;
+  --nav-hover: #f2849e; /* Phantom’s accent pink */
+  --transition: 0.3s ease;
+  --breakpoint-mobile: 768px;
+}
+
+/* Reset default list styling */
+.site-header,
+.site-header ul,
+.site-header li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none !important;
+}
+
+/* Fixed header bar */
+.site-header {
+  position: fixed;
+  padding-top: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--nav-bg);
+  z-index: 10000; /* above everything */
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Center contents and limit max‐width (Phantom often uses 1024px) */
+.nav-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none !important;
+  padding: 0 1em;
+}
+
+/* Logo / Site name */
+.site-logo a {
+  color: inherit;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-decoration: none !important;
+}
+
+/* Desktop nav links */
+.main-nav {
+  /* no positioning needed on desktop */
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.5rem;
+  text-decoration: none !important;
+}
+
+.nav-list li a {
+  color: #555;
+  font-size: 1rem;
+  font-weight: 300;
+  text-decoration: none !important;
+  list-style: none;
+  letter-spacing: 0.04em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  transition: color var(--transition);
+}
+
+.nav-list li a:hover {
+  color: var(--nav-hover);
+  text-decoration: none !important;
+} 
+
+/* Hamburger (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle .bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--nav-text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* ============================
+   MOBILE NAV MENU
+============================ */
+@media screen and (max-width: var(--breakpoint-mobile)) {
+  /* Show hamburger on mobile */
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* Hide/slide‐up the menu by default */
+  .main-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--header-height));
+    background-color: var(--nav-bg);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform var(--transition), opacity var(--transition);
+    pointer-events: none;
+  }
+
+  /* When .open is added to .main-nav, slide it down */
+  .main-nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 2rem 0;
+    text-decoration: none !important;
+  }
+
+  .nav-list li a {
+    font-size: 1.2rem;
+    text-decoration: none !important;
+  }
+}
+
+/* Optional: animate hamburger → “X” when open */
+.nav-toggle.active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.nav-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ============================
+   ADJUST PAGE CONTENT PADDING
+============================ */
+/* Push page‐content below fixed header */
+body {
+  padding-top: var(--header-height);
+}
+
+
+#apps .inner {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+
+/* ─────────────────────────────────────────────
+   OVERRIDE PHANTOM’S “.tiles” NEGATIVE MARGINS
+   so that tiles don’t touch the viewport edges
+───────────────────────────────────────────── */
+section.tiles {
+  /* Remove the negative left/right margin... */
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  /* ...and add some horizontal padding */
+  padding-left: 0em;
+  padding-right: 2.5em;
+}
+
+/* Because we removed the negative margin above, 
+   we also need to adjust each tile’s width/margin 
+   so the layout still “wraps” nicely: */
+section.tiles .tiles {
+  /* (No change here, but for clarity you could think 
+     of this as “the same flex container” since .tiles is on the <section>.) */
+}
+
+section.tiles .tiles article {
+  /* Keep the same “gutter” between tiles (2.5em). 
+     Note: We removed the parent’s negative left/right margin,
+     so each tile’s left-margin no longer “jumps” out of the viewport. */
+  width: calc(33.33333% - 2.5em);
+  margin: 2.5em 0 0 2.5em;
+}
+
+/* At narrower breakpoints, Phantom already has media rules 
+   which shrink “width” and “margin” appropriately; you don’t 
+   need to override those unless you want to tweak the gutters. */
+
+
+/* Remove underline from all nav links (including visited/focus states) */
+/* 1) Target every link state within the navbar */
+.site-header .main-nav .nav-list li a,
+.site-header .main-nav .nav-list li a:visited,
+.site-header .main-nav .nav-list li a:hover,
+.site-header .main-nav .nav-list li a:focus,
+.site-header .main-nav .nav-list li a:active {
+  text-decoration: none !important;
+}
+
+/* 2) If Phantom’s reset still forces underlines on <a>, cancel it globally for navbar only */
+.site-header .main-nav .nav-list li a {
+  border: none !important;
+}
+
+
+
+/* Remove underline from the logo link in all states */
+.site-logo a,
+.site-logo a:visited,
+.site-logo a:hover,
+.site-logo a:focus,
+.site-logo a:active {
+  color: inherit !important;
+  text-decoration: none !important;
+  border: none !important;
+}
+
+
+
+
+
+
+/* Make every <hr> 1px high, light gray, and with 2rem of vertical margin: */
+hr {
+  border: none;
+  border-top: 0.5px solid #ccc;
+  margin: 3rem 0;
+}
+
+
