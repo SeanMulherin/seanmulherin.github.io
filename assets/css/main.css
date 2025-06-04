@@ -3152,7 +3152,7 @@ input, select, textarea {
 /* Main */
 
 	#main {
-		padding: 0em 0 6em 0 ;
+		padding: 0 80px;
 	}
 
 		@media screen and (max-width: 736px) {
@@ -3167,6 +3167,7 @@ input, select, textarea {
 
 	#footer {
 		padding: 5em 0 6em 0 ;
+		margin-top: 20px;
 		background-color: #f6f6f6;
 	}
 
@@ -3183,6 +3184,7 @@ input, select, textarea {
 			-webkit-flex-direction: row;
 			-ms-flex-direction: row;
 			flex-direction: row;
+			margin-left: 120px;
 		}
 
 			#footer > .inner > * > :last-child {
@@ -3205,6 +3207,7 @@ input, select, textarea {
 				margin-top: 5em;
 				list-style: none;
 				font-size: 0.8em;
+				text-align: center;
 				color: rgba(88, 88, 88, 0.5);
 			}
 
@@ -3380,6 +3383,7 @@ video {
 <style>
   .intro-header {
     background: #f9f9f9;  /* Light background for contrast (optional) */
+
     padding: 2em 1em;
     text-align: center;
   }
@@ -3453,11 +3457,12 @@ video {
 .site-header {
   position: fixed;
   padding-top: 20px;
+  padding-bottom: 10px;
+  background-color: #ffffff; /* white background */
   top: 0;
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background-color: var(--nav-bg);
   z-index: 10000; /* above everything */
   display: flex;
   align-items: center;
@@ -3668,13 +3673,13 @@ section.tiles .tiles article {
 
 
 
-
-
 /* Make every <hr> 1px high, light gray, and with 2rem of vertical margin: */
 hr {
   border: none;
   border-top: 0.5px solid #ccc;
   margin: 3rem 0;
 }
+
+
 
 

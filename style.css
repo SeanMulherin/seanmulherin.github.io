@@ -1,10 +1,10 @@
-@import url(fontawesome-all.min.css);
-/* Basic Reset & Body Styling */
+
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     margin: 0;
     padding: 0;
+    padding-top: 60px;
     background-color: #fff;
     color: #333;
     line-height: 1.6;
@@ -20,8 +20,13 @@ body {
 
 /* Header and Navigation */
 header {
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
+  position: fixed;
+  top: 0;
+  height: 60px;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff; /* white background */
+  z-index: 1000;             /* sit above page content */
 }
 
 nav {
@@ -31,6 +36,7 @@ nav {
     max-width: 1000px; /* Similar to the reference site's content width */
     margin: 0 auto;
     padding: 0 0px;
+    margin-top: 10px;
 }
 
 nav .logo a {
@@ -146,7 +152,6 @@ html {
     position: relative;
 }
 
-
         .icon:before {
             -moz-osx-font-smoothing: grayscale;
             -webkit-font-smoothing: antialiased;
@@ -156,7 +161,6 @@ html {
             text-rendering: auto;
             line-height: 1;
             text-transform: none !important;
-            font-family: 'Font Awesome 5 Free';
             font-weight: 400;
         }
 
@@ -172,38 +176,43 @@ html {
             font-weight: 900;
         }
 
-        .icon.brands:before {
-            font-family: 'Font Awesome 5 Brands';
-        }
+    .icon.style2 {
+        /* transition & appearance */
+        transition: background-color 0.2s ease-in-out,
+                    color 0.2s ease-in-out,
+                    border-color 0.2s ease-in-out;
+        background-color: transparent;
+        border-radius: 1px;
+        width: 2.65em;
+        height: 2.65em;
+        display: inline-block;
+        text-align: center;
+        line-height: 2.65em;
+        color: inherit;
 
-        .icon.style2 {
-            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            background-color: transparent;
-            border: solid 1px #c9c9c9;
-            border-radius: 4px;
-            width: 2.65em;
-            height: 2.65em;
-            display: inline-block;
-            text-align: center;
-            line-height: 2.65em;
-            color: inherit;
-        }
+        margin-right: 10rem;
 
-            .icon.style2:before {
-                font-size: 1.1em;
-            }
+        /* ensure no underline on the <a> itself */
+        text-decoration: none;
+    }
 
-            .icon.style2:hover {
-                color: #f2849e;
-                border-color: #f2849e;
-            }
+    .icon.style2:hover {
+        text-decoration: none;
+        color: none;      /* keep your hover color if desired */
+        border-color: none;
+    }
 
-            .icon.style2:active {
-                background-color: rgba(242, 132, 158, 0.1);
-            }
+    /* size the icon glyph itself */
+    .icon.style2:before {
+        font-size: 1.1em;
+    }
+
+    /* hide the accessible label text visually */
+    .icon > .label {
+        display: none;
+    }
+
+
 
 
 
@@ -220,9 +229,10 @@ html {
   flex-wrap: wrap;             /* allow wrapping on narrow screens */
   justify-content: space-between; /* spread columns apart */
   align-items: flex-start;     /* align items at the top */
-  padding: 5em 0 6em 0;
+  padding: 5em 0 6em 120px;
   background-color: #f6f6f6;
-  gap: 2rem;                   /* space between columns on wide screens */
+  gap: 2rem;    
+  text-align: left; 
 }
 
 /* Each column in the footer */
@@ -239,10 +249,11 @@ html {
 /* Style the bottom line to span full width */
 .footer-bottom {
   flex: 1 1 100%;              /* force this div to 100% width, below the two columns */
-  text-align: center;
+  text-align: right;
   margin-top: 2rem;
-  margin-bottom: -50rem;
+  margin-bottom: -40rem;
   font-size: 0.9rem;
+  margin-right: 20px;
   color: #777;
 }
 
@@ -346,5 +357,11 @@ html, body {
     font-size: 1rem;    /* ~16px */
   }
 }
+
+
+a {
+  text-decoration: none !important;
+}
+
 
      
