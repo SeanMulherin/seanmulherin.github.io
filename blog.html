@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="assets/prism.css" />
 	</head>
 	<body class="is-preload">
+		
 		<header class="site-header">
   <div class="nav-container">
     <div class="site-logo">
@@ -147,67 +148,104 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-			<script>
-				document.getElementById('submitBtn').addEventListener('click', function() {
-					// Define the secret code
-					const SECRET_CODE = '2468';
+<script>
+    // ** IMPORTANT **: Paste your own Firebase configuration object here
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9DzGVDOIyC_Vh1BA_-Q6K3BUp_qJj_Ug",
+    authDomain: "portfolio-blog-f49c1.firebaseapp.com",
+    databaseURL: "https://portfolio-blog-f49c1-default-rtdb.firebaseio.com",
+    projectId: "portfolio-blog-f49c1",
+    storageBucket: "portfolio-blog-f49c1.firebasestorage.app",
+    messagingSenderId: "884520998565",
+    appId: "1:884520998565:web:47a9f889796c4347131f4c",
+    measurementId: "G-4K7ZPEPTYB"
+  };
 
-					// Get values from all input fields
-					const securityCode = document.getElementById('securityCodeInput').value;
-					const titleText = document.getElementById('blogTitleInput').value;
-					const postText = document.getElementById('blogPostInput').value;
-			
-					// 1. Check if the security code is correct
-					if (securityCode !== SECRET_CODE) {
-						alert('Incorrect security code.');
-						return;
-					}
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(); // Get a reference to the Firestore database
 
-					// 2. Check if title or post content are empty
-					if (titleText.trim() === '' || postText.trim() === '') {
-						alert('Title and post content cannot be empty.');
-						return;
-					}
-			
-					// Get the container where new posts will be added
-					const newPostsContainer = document.getElementById('newPostsContainer');
-			
-					// Create new HTML elements for the post
-					const postDiv = document.createElement('div');
-					const titleHeader = document.createElement('h1');
-					const dateHeader = document.createElement('h4');
-					const postContent = document.createElement('p');
-					
-					// Set the title
-					titleHeader.textContent = titleText;
+    // --- FUNCTION TO LOAD AND DISPLAY POSTS ---
+    async function loadPosts() {
+        const newPostsContainer = document.getElementById('newPostsContainer');
+        newPostsContainer.innerHTML = ''; // Clear the container to prevent duplicates
 
-					// Format the current date and time
-					const now = new Date();
-					const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-					dateHeader.textContent = now.toLocaleDateString('en-US', options);
-			
-					// Set the post content, preserving line breaks
-					postContent.innerHTML = postText.replace(/\n/g, '<br>');
-			
-					// Assemble the new post in the correct order (Title, Date, Content)
-					postDiv.appendChild(titleHeader);
-					postDiv.appendChild(dateHeader);
-					postDiv.appendChild(postContent);
-					postDiv.appendChild(document.createElement('br'));
-					postDiv.appendChild(document.createElement('br'));
-					postDiv.appendChild(document.createElement('br'));
-					postDiv.appendChild(document.createElement('br'));
-			
-					// Add the new post to the top of the container
-					newPostsContainer.prepend(postDiv);
-			
-					// Clear all input boxes
-					document.getElementById('blogTitleInput').value = '';
-					document.getElementById('blogPostInput').value = '';
-					document.getElementById('securityCodeInput').value = '';
-				});
-			</script>
+        // Get posts from the 'posts' collection, ordered by creation date (newest first)
+        const querySnapshot = await db.collection("posts").orderBy("createdAt", "desc").get();
+
+        querySnapshot.forEach((doc) => {
+            const post = doc.data();
+            const postDiv = document.createElement('div');
+
+            // Create HTML elements
+            const titleHeader = document.createElement('h1');
+            const dateHeader = document.createElement('h4');
+            const postContent = document.createElement('p');
+
+            // Set content from the database
+            titleHeader.textContent = post.title;
+            const postDate = post.createdAt.toDate(); // Convert Firestore timestamp to JS Date
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+            dateHeader.textContent = postDate.toLocaleDateString('en-US', options);
+            postContent.innerHTML = post.content.replace(/\n/g, '<br>');
+
+            // Assemble the post and add it to the page
+            postDiv.appendChild(titleHeader);
+            postDiv.appendChild(dateHeader);
+            postDiv.appendChild(postContent);
+            postDiv.appendChild(document.createElement('br'));
+            postDiv.appendChild(document.createElement('br'));
+            postDiv.appendChild(document.createElement('br'));
+            postDiv.appendChild(document.createElement('br'));
+            newPostsContainer.appendChild(postDiv);
+        });
+    }
+
+    // --- FUNCTION TO SAVE A NEW POST ---
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        const SECRET_CODE = '2468';
+        const securityCode = document.getElementById('securityCodeInput').value;
+        const titleText = document.getElementById('blogTitleInput').value;
+        const postText = document.getElementById('blogPostInput').value;
+
+        // Validations
+        if (securityCode !== SECRET_CODE) {
+            alert('Incorrect security code.');
+            return;
+        }
+        if (titleText.trim() === '' || postText.trim() === '') {
+            alert('Title and post content cannot be empty.');
+            return;
+        }
+
+        // Add a new document with a generated id.
+        db.collection("posts").add({
+            title: titleText,
+            content: postText,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp() // Use server time
+        })
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            // Clear input fields
+            document.getElementById('blogTitleInput').value = '';
+            document.getElementById('blogPostInput').value = '';
+            document.getElementById('securityCodeInput').value = '';
+            // Reload posts to show the new one
+            loadPosts(); 
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+            alert("There was an error submitting your post.");
+        });
+    });
+
+    // --- LOAD POSTS WHEN THE PAGE IS FIRST OPENED ---
+    document.addEventListener('DOMContentLoaded', loadPosts);
+
+</script>
 			</body>
 </html>
 
