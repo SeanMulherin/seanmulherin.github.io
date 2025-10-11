@@ -9,50 +9,51 @@
 		<link rel="stylesheet" href="assets/prism.css" />
 	</head>
 	<body class="is-preload">
-		<!-- ====== CUSTOM SITE HEADER / NAVBAR ====== -->
-<header class="site-header">
-  <div class="nav-container">
-    <div class="site-logo">
-      <a href="index.html"> SM</a>
-    </div>
+		<header class="site-header">
+  <div class="nav-container">
+    <div class="site-logo">
+      <a href="index.html"> SM</a>
+    </div>
 
-    <!-- Hamburger toggle for small screens -->
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
-    <!-- The actual navigation links -->
-    <nav class="main-nav">
-      <ul class="nav-list">
-                <li><a href="apps.html">Apps</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="papers.html">Scholarship</a></li>
-                <li><a href="lectures.html">Teachings</a></li>
-                <li><a href="images/Mulherin Resume.pdf" height="800" width="1000">CV</a></li>
-      </ul>
-    </nav>
-    
-  </div>
+        <nav class="main-nav">
+      <ul class="nav-list">
+                <li><a href="apps.html">Apps</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="papers.html">Scholarship</a></li>
+                <li><a href="lectures.html">Teachings</a></li>
+                <li><a href="images/Mulherin Resume.pdf" height="800" width="1000">CV</a></li>
+      </ul>
+    </nav>
+    
+  </div>
 </header>
 <br><hr/>
 
 
-				<!-- Main -->
-					<div id="main">
+				<div id="main">
 						<div class="inner">
-                            <center><h1>Blog Posts</h1></center>
-                            <p>
-                                Hello, and welcome. This page will be frequently updated to include projects with less discussion, 
-								but all the more statistical rigor. Here, I will append analyses of various phenomena that I 
-                                find intriguing at the time. Most of my focus is on time series analysis, but there are many
-                                statistically engaging tangents to explore, and I will surley deviate into a variety of domains both in
-                                theory and application. Of course, please feel welcome to reach out to me if you have any ideas or 
-                                areas you'd like me to explore.   
-                            </p>
+                            <center><h1>Blog Posts</h1></center>
+                            <p>
+                                Hello, and welcome. This page will be frequently updated to include projects with less discussion, 
+								but all the more statistical rigor. Here, I will append analyses of various phenomena that I 
+                                find intriguing at the time. Most of my focus is on time series analysis, but there are many
+                                statistically engaging tangents to explore, and I will surley deviate into a variety of domains both in
+                                theory and application. Of course, please feel welcome to reach out to me if you have any ideas or 
+                                areas you'd like me to explore.   
+                            </p>
 
-			<h1>Analyzing Factors Contributing to Type II Diabetes</h1>	
+							<section>
+								<textarea id="blogPostInput" placeholder="Write your post here..." rows="8" style="width:100%; resize:vertical;"></textarea>
+								<button id="submitBtn" type="button" style="margin-top:10px;">Submit</button>
+							</section>
+							<div id="newPostsContainer"></div>
+							<h1>Analyzing Factors Contributing to Type II Diabetes</h1>	
 			<h4>March 14, 2025</h4>
 				<center><embed src="Lecture Notes/STATS 411.pdf" height="800" width="1000"></center>
 
@@ -90,7 +91,7 @@
 			<br><br><br><br>
 			<h1>Modeling S&P 500 Index (SPX) Using FB Prophet</h1>
 			<h4>March 3, 2024</h4>
-                           	<script src="https://gist.github.com/SeanMulherin/75b2d6fc52e168033243067d0add8e96.js"></script>
+                           	<script src="https://gist.github.com/SeanMulherin/75b2d6fc52e168033243067d0add8e96.js"></script>
 
 			<br><br><br><br>
 			<h1>Modeling Ethereum (ETH) Using FB Prophet</h1>
@@ -108,17 +109,16 @@
 				<script src="https://gist.github.com/SeanMulherin/218b4cece762556bec55b93d02d818c8.js"></script>
 
 
-                        </div>
-                    </div>
+                        </div>
+                    </div>
 
 
-                            
+                            
 
 
 
 
 
-				<!-- Footer -->
 				<footer id="footer">
 					<div class="inner">
 						<section>
@@ -140,18 +140,56 @@
 
 			</div>
 
-		<!-- Scripts -->
-			<script src="assets/prism.js"></script>
+		<script src="assets/prism.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-	</body>
+			<script>
+				document.getElementById('submitBtn').addEventListener('click', function() {
+					// Get the text from the input box
+					const postText = document.getElementById('blogPostInput').value;
+			
+					// If the input is empty, do nothing
+					if (postText.trim() === '') {
+						return;
+					}
+			
+					// Get the container where new posts will be added
+					const newPostsContainer = document.getElementById('newPostsContainer');
+			
+					// Create new HTML elements for the post
+					const postDiv = document.createElement('div');
+					const dateHeader = document.createElement('h4');
+					const postContent = document.createElement('p');
+					
+					// Format the current date and time
+					const now = new Date();
+					const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+					dateHeader.textContent = now.toLocaleDateString('en-US', options);
+			
+					// Set the post content, replacing newline characters with <br> tags to preserve formatting
+					postContent.innerHTML = postText.replace(/\n/g, '<br>');
+			
+					// Assemble the new post
+					postDiv.appendChild(dateHeader);
+					postDiv.appendChild(postContent);
+					postDiv.appendChild(document.createElement('br'));
+					postDiv.appendChild(document.createElement('br'));
+					postDiv.appendChild(document.createElement('br'));
+					postDiv.appendChild(document.createElement('br'));
+			
+					// Add the new post to the top of the container
+					newPostsContainer.prepend(postDiv);
+			
+					// Clear the input box
+					document.getElementById('blogPostInput').value = '';
+				});
+			</script>
+			</body>
 </html>
-
-
 
 
 
