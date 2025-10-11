@@ -49,8 +49,15 @@
                             </p>
 
 							<section>
+								<label for="blogTitleInput"><b>Title:</b></label>
+								<input type="text" id="blogTitleInput" placeholder="Enter post title" style="width:100%;">
+								<br>
+								<label for="blogPostInput"><b>Post:</b></label>
 								<textarea id="blogPostInput" placeholder="Write your post here..." rows="8" style="width:100%; resize:vertical;"></textarea>
-								<button id="submitBtn" type="button" style="margin-top:10px;">Submit</button>
+								<div style="margin-top:10px; display:flex; align-items:center;">
+									<button id="submitBtn" type="button">Submit</button>
+									<input type="password" id="securityCodeInput" placeholder="Code" maxlength="4" style="width: 70px; margin-left: 15px;">
+								</div>
 							</section>
 							<div id="newPostsContainer"></div>
 							<h1>Analyzing Factors Contributing to Type II Diabetes</h1>	
@@ -149,11 +156,23 @@
 
 			<script>
 				document.getElementById('submitBtn').addEventListener('click', function() {
-					// Get the text from the input box
+					// Define the secret code
+					const SECRET_CODE = '1234';
+
+					// Get values from all input fields
+					const securityCode = document.getElementById('securityCodeInput').value;
+					const titleText = document.getElementById('blogTitleInput').value;
 					const postText = document.getElementById('blogPostInput').value;
 			
-					// If the input is empty, do nothing
-					if (postText.trim() === '') {
+					// 1. Check if the security code is correct
+					if (securityCode !== SECRET_CODE) {
+						alert('Incorrect security code.');
+						return;
+					}
+
+					// 2. Check if title or post content are empty
+					if (titleText.trim() === '' || postText.trim() === '') {
+						alert('Title and post content cannot be empty.');
 						return;
 					}
 			
@@ -162,18 +181,23 @@
 			
 					// Create new HTML elements for the post
 					const postDiv = document.createElement('div');
+					const titleHeader = document.createElement('h1');
 					const dateHeader = document.createElement('h4');
 					const postContent = document.createElement('p');
 					
+					// Set the title
+					titleHeader.textContent = titleText;
+
 					// Format the current date and time
 					const now = new Date();
 					const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
 					dateHeader.textContent = now.toLocaleDateString('en-US', options);
 			
-					// Set the post content, replacing newline characters with <br> tags to preserve formatting
+					// Set the post content, preserving line breaks
 					postContent.innerHTML = postText.replace(/\n/g, '<br>');
 			
-					// Assemble the new post
+					// Assemble the new post in the correct order (Title, Date, Content)
+					postDiv.appendChild(titleHeader);
 					postDiv.appendChild(dateHeader);
 					postDiv.appendChild(postContent);
 					postDiv.appendChild(document.createElement('br'));
@@ -184,16 +208,14 @@
 					// Add the new post to the top of the container
 					newPostsContainer.prepend(postDiv);
 			
-					// Clear the input box
+					// Clear all input boxes
+					document.getElementById('blogTitleInput').value = '';
 					document.getElementById('blogPostInput').value = '';
+					document.getElementById('securityCodeInput').value = '';
 				});
 			</script>
 			</body>
 </html>
-
-
-
-
 
 
 
