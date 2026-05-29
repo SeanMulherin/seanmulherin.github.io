@@ -3800,6 +3800,39 @@ hr {
   margin-top: 0.5rem;
 }
 
+.article-title,
+.media-center,
+.equation-center {
+  text-align: center;
+}
+
+.media-center img {
+  max-width: 100%;
+  height: auto;
+}
+
+.calculator-output {
+  margin: 1.5rem auto;
+  max-width: 42rem;
+  padding: 1rem;
+  border: 1px solid #c9d3dc;
+  border-radius: 4px;
+  background: #f7f9fb;
+}
+
+.calculator-output:empty {
+  display: none;
+}
+
+.calculator-output-error {
+  border-color: #b75c5c;
+  background: #fff7f7;
+}
+
+.calculator-value {
+  text-align: center;
+}
+
 @media screen and (max-width: 736px) {
   .blog-admin {
     padding: 1rem;

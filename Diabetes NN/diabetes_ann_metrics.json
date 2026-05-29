@@ -1,0 +1,51 @@
+{
+  "split_sizes": {
+    "train": 152208,
+    "calibration": 50736,
+    "test": 50736
+  },
+  "class_balance": {
+    "overall_high_risk_rate": 0.157588,
+    "train_high_risk_rate": 0.157594,
+    "calibration_high_risk_rate": 0.15758,
+    "test_high_risk_rate": 0.15758,
+    "oversampled_train_high_risk_rate": 0.5
+  },
+  "calibration": {
+    "threshold": 0.159029,
+    "accuracy": 0.715606,
+    "sensitivity": 0.799875,
+    "recall": 0.799875,
+    "precision": 0.332657,
+    "specificity": 0.699843,
+    "confusion_matrix": {
+      "tn": 29912,
+      "fp": 12829,
+      "fn": 1600,
+      "tp": 6395
+    },
+    "roc_auc": 0.825629,
+    "brier_score": 0.105902
+  },
+  "test": {
+    "threshold": 0.159029,
+    "accuracy": 0.714424,
+    "sensitivity": 0.791995,
+    "recall": 0.791995,
+    "precision": 0.330515,
+    "specificity": 0.699913,
+    "confusion_matrix": {
+      "tn": 29915,
+      "fp": 12826,
+      "fn": 1663,
+      "tp": 6332
+    },
+    "roc_auc": 0.822214,
+    "brier_score": 0.106393,
+    "baseline_accuracy": 0.84242
+  },
+  "model_training": {
+    "n_iter": 31,
+    "loss": 0.508398
+  }
+}
