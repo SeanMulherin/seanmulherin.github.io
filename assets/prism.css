@@ -1,0 +1,42 @@
+pre[class*="language-"],
+code[class*="language-"] {
+  color: #333;
+  font-family: "Courier New", monospace;
+  font-size: 0.95em;
+  text-shadow: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+pre[class*="language-"] {
+  background: rgba(144, 144, 144, 0.075);
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  margin: 0 0 2em;
+  overflow-x: auto;
+  padding: 1em 1.5em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #777;
+}
+
+.token.keyword,
+.token.selector,
+.token.important {
+  color: #b93b66;
+}
+
+.token.string,
+.token.attr-value {
+  color: #2f7d6d;
+}
+
+.token.number,
+.token.boolean,
+.token.function {
+  color: #2d5f9a;
+}

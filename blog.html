@@ -4,93 +4,98 @@
 		<title>Blog</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+				<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link rel="stylesheet" href="assets/prism.css" />
 	</head>
 	<body class="is-preload">
-		
+
 		<header class="site-header">
-  <div class="nav-container">
-    <div class="site-logo">
-      <a href="index.html"> SM</a>
-    </div>
-
-        <button class="nav-toggle" aria-label="Toggle navigation">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-
-        <nav class="main-nav">
-      <ul class="nav-list">
-                <li><a href="apps.html">Apps</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="papers.html">Scholarship</a></li>
-                <li><a href="lectures.html">Teachings</a></li>
-                <li><a href="images/Mulherin Resume.pdf" height="800" width="1000">CV</a></li>
-      </ul>
-    </nav>
-    
-  </div>
-</header>
+			<div class="nav-container">
+				<div class="site-logo">
+					<a href="index.html">SM</a>
+				</div>
+				<nav class="main-nav" aria-label="Main navigation">
+					<ul class="nav-list">
+						<li><a href="apps.html">Apps</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="papers.html">Scholarship</a></li>
+						<li><a href="lectures.html">Teachings</a></li>
+						<li><a href="resume.html">CV</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
 <br><hr/>
 
 
 				<div id="main">
 						<div class="inner">
-                            <center><h1>Blog Posts</h1></center>
+                            <h1 class="blog-title">Blog Posts</h1>
                             <p>
                                 Hello, and welcome. This page will be frequently updated to include projects with less discussion, but all the more statistical rigor. Here, I will append analyses of various phenomena that I find intriguing at the time. Most of my focus is on time series analysis, but there are many statistically engaging tangents to explore, and I will surley deviate into a variety of domains both in theory and application. Of course, please feel welcome to reach out to me if you have any ideas or  areas you'd like me to explore.   
-                            </p>								
+                            </p>
 
-							<section>
-								
-								<input type="text" id="blogTitleInput" placeholder="Title your post here..." style="width:100%;">
-								<br>
-								<textarea id="blogPostInput" placeholder="Write your post here..." rows="1" style="width:100%; resize:vertical;"></textarea>
-								<div style="margin-top:10px; display:flex; align-items:center; justify-content: flex-end;">
-									<button id="submitBtn" type="button">Submit</button>
-									<input type="password" id="securityCodeInput" placeholder="Code" maxlength="4" style="width: 70px; margin-left: 15px;">
+							<section id="blogAdmin" class="blog-admin" hidden>
+								<div class="blog-admin-bar">
+									<div>
+										<h2>New Post</h2>
+										<p id="blogAuthStatus">Sign in with Google to publish.</p>
+									</div>
+									<div>
+										<button id="blogSignIn" type="button">Sign In</button>
+										<button id="blogSignOut" type="button" hidden>Sign Out</button>
+									</div>
+								</div>
+								<div id="blogEditor" class="blog-editor" hidden>
+									<input type="text" id="blogTitleInput" placeholder="Title your post here...">
+									<br>
+									<textarea id="blogPostInput" placeholder="Write your post here..." rows="8"></textarea>
+									<input type="file" id="blogAttachmentInput" multiple>
+									<div class="blog-actions">
+										<p id="blogPostStatus" class="blog-status" aria-live="polite"></p>
+										<button id="submitBtn" type="button">Publish</button>
+									</div>
 								</div>
 							</section>
 							<div id="newPostsContainer"></div>
 
-							<h1>I Passed My Oral Exam!</h1>	
+							<h1>I Passed My Oral Exam!</h1>
 			<h4>February 9, 2026</h4>
-				<center><embed src="Papers/Oral_Exam_Presentation.pdf" height="800" width="1000"></center>
+				<div class="blog-media"><embed src="Papers/Oral_Exam_Presentation.pdf" height="800" width="1000"></div>
 			<br><br><br><br>
-							<h1>Analyzing Factors Contributing to Type II Diabetes</h1>	
+							<h1>Analyzing Factors Contributing to Type II Diabetes</h1>
 			<h4>March 14, 2025</h4>
-				<center><embed src="Lecture Notes/STATS 411.pdf" height="800" width="1000"></center>
+				<div class="blog-media"><embed src="Lecture%20Notes/STATS%20411.pdf" height="800" width="1000"></div>
 
 			<br><br><br><br>
-			<h1>Social Disparities Within Global Education</h1>	
+			<h1>Social Disparities Within Global Education</h1>
 			<h4>June 7, 2024</h4>
-				<center><embed src="Papers/Global Education Disparities.pdf" height="800" width="1000"></center>
+				<div class="blog-media"><embed src="Papers/Global%20Education%20Disparities.pdf" height="800" width="1000"></div>
 
 			<br><br><br><br>
 			<h1>Visualizing the Spread of Electricity</h1>
 			<h4>April 21, 2024</h4>
-			<center>
+			<div class="blog-media">
 				<video width="1000" height="700" controls>
 					<source src="images/elec_animation.mp4" type="video/mp4">
 					Your browser does not support the video tag.
 				</video>
-			</center>			
+			</div>
 
 			<br><br><br><br>
-			<h1>Forecasting Bitcoin On Full Dataset Using FB Prophet</h1>	
+			<h1>Forecasting Bitcoin On Full Dataset Using FB Prophet</h1>
 			<h4>March 13, 2024</h4>
 				<script src="https://gist.github.com/SeanMulherin/28032a110319a1fa86aad2cd6a25573a.js"></script>
 
 			<br><br><br><br>
-			<h1>Forecasting Ethereum On Full Dataset Using FB Prophet</h1>	
+			<h1>Forecasting Ethereum On Full Dataset Using FB Prophet</h1>
 			<h4>March 13, 2024</h4>
 				<script src="https://gist.github.com/SeanMulherin/2277a93c72d48486fcdeb5a6de79638a.js"></script>
 
 			<br><br><br><br>
-			<h1>Modeling S&P 500 Index (SPX) Using FB Prophet</h1>
+			<h1>Modeling S&amp;P 500 Index (SPX) Using FB Prophet</h1>
 			<h4>March 3, 2024</h4>
                            	<script src="https://gist.github.com/SeanMulherin/75b2d6fc52e168033243067d0add8e96.js"></script>
 
@@ -138,119 +143,18 @@
 						</ul>
 					</div>
 				</footer>
-
-			</div>
-
 		<script src="assets/prism.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<script>
-    // ** IMPORTANT **: Paste your own Firebase configuration object here
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9DzGVDOIyC_Vh1BA_-Q6K3BUp_qJj_Ug",
-    authDomain: "portfolio-blog-f49c1.firebaseapp.com",
-    databaseURL: "https://portfolio-blog-f49c1-default-rtdb.firebaseio.com",
-    projectId: "portfolio-blog-f49c1",
-    storageBucket: "portfolio-blog-f49c1.firebasestorage.app",
-    messagingSenderId: "884520998565",
-    appId: "1:884520998565:web:47a9f889796c4347131f4c",
-    measurementId: "G-4K7ZPEPTYB"
-  };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore(); // Get a reference to the Firestore database
-
-    // --- FUNCTION TO LOAD AND DISPLAY POSTS ---
-    async function loadPosts() {
-        const newPostsContainer = document.getElementById('newPostsContainer');
-        newPostsContainer.innerHTML = ''; // Clear the container to prevent duplicates
-
-        // Get posts from the 'posts' collection, ordered by creation date (newest first)
-        const querySnapshot = await db.collection("posts").orderBy("createdAt", "desc").get();
-
-        querySnapshot.forEach((doc) => {
-            const post = doc.data();
-            const postDiv = document.createElement('div');
-
-            // Create HTML elements
-            const titleHeader = document.createElement('h1');
-            const dateHeader = document.createElement('h4');
-            const postContent = document.createElement('p');
-
-            // Set content from the database
-            titleHeader.textContent = post.title;
-            const postDate = post.createdAt.toDate(); // Convert Firestore timestamp to JS Date
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-            dateHeader.textContent = postDate.toLocaleDateString('en-US', options);
-            postContent.innerHTML = post.content.replace(/\n/g, '<br>');
-
-            // Assemble the post and add it to the page
-            postDiv.appendChild(titleHeader);
-            postDiv.appendChild(dateHeader);
-            postDiv.appendChild(postContent);
-            postDiv.appendChild(document.createElement('br'));
-            postDiv.appendChild(document.createElement('br'));
-            postDiv.appendChild(document.createElement('br'));
-            postDiv.appendChild(document.createElement('br'));
-            newPostsContainer.appendChild(postDiv);
-        });
-    }
-
-    // --- FUNCTION TO SAVE A NEW POST ---
-    document.getElementById('submitBtn').addEventListener('click', function() {
-        const SECRET_CODE = '2468';
-        const securityCode = document.getElementById('securityCodeInput').value;
-        const titleText = document.getElementById('blogTitleInput').value;
-        const postText = document.getElementById('blogPostInput').value;
-
-        // Validations
-        if (securityCode !== SECRET_CODE) {
-            alert('Incorrect security code.');
-            return;
-        }
-        if (titleText.trim() === '' || postText.trim() === '') {
-            alert('Title and post content cannot be empty.');
-            return;
-        }
-
-        // Add a new document with a generated id.
-        db.collection("posts").add({
-            title: titleText,
-            content: postText,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp() // Use server time
-        })
-        .then((docRef) => {
-            console.log("Document written with ID: ", docRef.id);
-            // Clear input fields
-            document.getElementById('blogTitleInput').value = '';
-            document.getElementById('blogPostInput').value = '';
-            document.getElementById('securityCodeInput').value = '';
-            // Reload posts to show the new one
-            loadPosts(); 
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-            alert("There was an error submitting your post.");
-        });
-    });
-
-    // --- LOAD POSTS WHEN THE PAGE IS FIRST OPENED ---
-    document.addEventListener('DOMContentLoaded', loadPosts);
-
-</script>
+			<script src="assets/js/main.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+			<script src="assets/js/blog.js"></script>
 			</body>
 </html>
-
-
-
-
 
 
 
