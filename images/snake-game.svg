@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 326" role="img" aria-labelledby="title desc">
+  <title id="title">Snake game preview</title>
+  <desc id="desc">A compact arcade board with a snake, food, and score markers.</desc>
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#263540" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111820"/>
+      <stop offset="1" stop-color="#202c35"/>
+    </linearGradient>
+  </defs>
+  <rect width="353" height="326" fill="#f6f8f9"/>
+  <rect x="31" y="22" width="291" height="282" rx="8" fill="url(#panel)"/>
+  <rect x="51" y="42" width="251" height="228" rx="4" fill="#111820"/>
+  <rect x="51" y="42" width="251" height="228" rx="4" fill="url(#grid)" opacity="0.8"/>
+  <g fill="#7bd0c1">
+    <rect x="99" y="162" width="23" height="23" rx="6"/>
+    <rect x="123" y="162" width="23" height="23" rx="6"/>
+    <rect x="147" y="162" width="23" height="23" rx="6"/>
+    <rect x="171" y="162" width="23" height="23" rx="6"/>
+    <rect x="195" y="138" width="23" height="23" rx="6"/>
+    <rect x="195" y="162" width="23" height="23" rx="6"/>
+    <rect x="219" y="138" width="23" height="23" rx="6"/>
+  </g>
+  <rect x="243" y="114" width="23" height="23" rx="6" fill="#f0b44c"/>
+  <circle cx="235" cy="145" r="3" fill="#111820"/>
+  <rect x="63" y="282" width="74" height="10" rx="5" fill="#7bd0c1"/>
+  <rect x="153" y="282" width="47" height="10" rx="5" fill="#f0b44c"/>
+  <rect x="216" y="282" width="70" height="10" rx="5" fill="#dfe6ea"/>
+</svg>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Snake</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<header class="site-header">
+			<div class="nav-container">
+				<div class="site-logo">
+					<a href="index.html">SM</a>
+				</div>
+				<nav class="main-nav" aria-label="Main navigation">
+					<ul class="nav-list">
+						<li><a href="apps.html">Apps</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="papers.html">Scholarship</a></li>
+						<li><a href="lectures.html">Teachings</a></li>
+						<li><a href="resume.html">CV</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<br><hr/>
+
+		<div id="main">
+			<div class="inner">
+				<section class="snake-app" aria-labelledby="snakeTitle">
+					<div class="snake-heading">
+						<div>
+							<h1 id="snakeTitle" class="article-title">Snake</h1>
+						</div>
+						<a class="button small" href="apps.html">Apps</a>
+					</div>
+
+					<div class="snake-shell">
+						<section class="snake-game-panel" aria-label="Snake game">
+							<div class="snake-controls">
+								<label class="snake-field" for="snakePlayerName">
+									<span>Name</span>
+									<input type="text" id="snakePlayerName" maxlength="24" autocomplete="nickname" placeholder="Enter your name" />
+								</label>
+								<button id="snakeStart" class="primary" type="button">Start</button>
+								<button id="snakePause" type="button" disabled>Pause</button>
+							</div>
+
+							<div class="snake-scorebar" aria-live="polite">
+								<div>
+									<span>Score</span>
+									<strong id="snakeScore">0</strong>
+								</div>
+								<div>
+									<span>Best</span>
+									<strong id="snakeBest">0</strong>
+								</div>
+								<div>
+									<span>Status</span>
+									<strong id="snakeState">Ready</strong>
+								</div>
+							</div>
+
+							<div class="snake-board-wrap">
+								<canvas id="snakeBoard" width="576" height="576" tabindex="0" role="img" aria-label="Snake game board"></canvas>
+							</div>
+
+							<div class="snake-dpad" aria-label="Direction controls">
+								<span></span>
+								<button type="button" data-direction="up" aria-label="Move up">&uarr;</button>
+								<span></span>
+								<button type="button" data-direction="left" aria-label="Move left">&larr;</button>
+								<button type="button" data-direction="down" aria-label="Move down">&darr;</button>
+								<button type="button" data-direction="right" aria-label="Move right">&rarr;</button>
+							</div>
+
+							<p id="snakeMessage" class="snake-message" aria-live="polite"></p>
+						</section>
+
+						<aside class="snake-leaderboard" aria-labelledby="snakeLeaderboardTitle">
+							<div class="snake-leaderboard-head">
+								<h2 id="snakeLeaderboardTitle">Leaderboard</h2>
+								<button id="snakeRefreshScores" class="small" type="button">Refresh</button>
+							</div>
+							<ol id="snakeLeaderboard" class="snake-leaderboard-list">
+								<li class="snake-empty-score">Loading scores...</li>
+							</ol>
+						</aside>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Contact Me</h2>
+					<p><strong>Email: </strong>smulherin519@gmail.com<br><strong>Location: </strong>Los Angeles, CA</p>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank" rel="noopener"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank" rel="noopener"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+				<ul class="copyright">
+					<li>&copy; Sean Mulherin. All rights reserved</li>
+				</ul>
+			</div>
+		</footer>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+		<script src="assets/js/snake.js"></script>
+	</body>
+</html>
