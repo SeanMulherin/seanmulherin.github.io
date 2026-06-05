@@ -56,10 +56,6 @@
       .slice(0, 24);
   }
 
-  function getNameKey(name) {
-    return sanitizeName(name).toLowerCase();
-  }
-
   function setMessage(message, isError) {
     if (!messageElement)
       return;
@@ -116,49 +112,8 @@
     });
   }
 
-  function normalizeLeaderboardEntries(scores) {
-    var entriesByName = {};
-
-    scores.forEach(function(entry) {
-      var name = sanitizeName(entry.name);
-      var storedNameKey = entry.nameKey ? getNameKey(entry.nameKey) : '';
-      var nameKey = storedNameKey || getNameKey(name);
-
-      if (!name || !nameKey)
-        return;
-
-      var normalizedEntry = {
-        id: entry.id || '',
-        name: name,
-        nameKey: nameKey,
-        score: Number(entry.score) || 0,
-        createdAt: entry.createdAt || null
-      };
-      var existingEntry = entriesByName[nameKey];
-      var isCanonical = normalizedEntry.id === nameKey || storedNameKey === nameKey;
-      var existingIsCanonical = existingEntry
-        && (existingEntry.id === nameKey || existingEntry.storedNameKey === nameKey);
-
-      if (
-        !existingEntry ||
-        (isCanonical && !existingIsCanonical) ||
-        (!existingIsCanonical && normalizedEntry.score > existingEntry.score)
-      ) {
-        normalizedEntry.storedNameKey = storedNameKey;
-        entriesByName[nameKey] = normalizedEntry;
-      }
-    });
-
-    return Object.keys(entriesByName).map(function(key) {
-      return entriesByName[key];
-    }).sort(function(a, b) {
-      return b.score - a.score;
-    }).slice(0, LEADERBOARD_LIMIT);
-  }
-
   function renderLeaderboard(scores) {
     leaderboardElement.textContent = '';
-    scores = normalizeLeaderboardEntries(scores);
 
     if (!scores.length) {
       var emptyItem = document.createElement('li');
@@ -205,13 +160,12 @@
     try {
       var snapshot = await db.collection(SCORE_COLLECTION)
         .orderBy('score', 'desc')
+        .limit(LEADERBOARD_LIMIT)
         .get();
       var scores = [];
 
       snapshot.forEach(function(doc) {
-        var scoreData = doc.data();
-        scoreData.id = doc.id;
-        scores.push(scoreData);
+        scores.push(doc.data());
       });
 
       renderLeaderboard(scores);
@@ -224,18 +178,16 @@
 
   async function submitScore() {
     var playerName = sanitizeName(nameInput.value);
-    var nameKey = getNameKey(playerName);
 
-    if (!db || scoreSubmitted || score <= 0 || !playerName || !nameKey)
+    if (!db || scoreSubmitted || score <= 0 || !playerName)
       return;
 
     scoreSubmitted = true;
     setMessage('Submitting score...');
 
     try {
-      await db.collection(SCORE_COLLECTION).doc(nameKey).set({
+      await db.collection(SCORE_COLLECTION).add({
         name: playerName,
-        nameKey: nameKey,
         score: Math.min(score, MAX_SCORE),
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
