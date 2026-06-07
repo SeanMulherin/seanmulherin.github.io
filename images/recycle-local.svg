@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 326" role="img" aria-label="Recycle Local app tile">
+  <rect width="353" height="326" fill="#eef4f2"/>
+  <rect x="30" y="28" width="293" height="270" rx="18" fill="#0f3d3a"/>
+  <circle cx="176.5" cy="163" r="94" fill="#ffffff" opacity="0.1"/>
+  <path d="M176 76 207 130h-25c-20 0-37 11-46 28l-18-31c14-30 37-51 58-51Z" fill="#f3d56b"/>
+  <path d="M255 190 224 244l-13-22c-10-18-28-27-47-26l18-32c33-3 61 7 73 26Z" fill="#61b88a"/>
+  <path d="M95 194h63l-13 22c-10 18-10 39 0 55h-36c-18-27-23-56-14-77Z" fill="#76c7d0"/>
+  <circle cx="177" cy="163" r="22" fill="#ffffff"/>
+  <text x="176.5" y="286" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="middle">Recycle Local</text>
+</svg>
