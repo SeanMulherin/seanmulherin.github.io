@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    		<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <title>Sean Mulherin Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image"
+          href="homepage-bookshelf-wide-1600.webp"
+          imagesrcset="homepage-bookshelf-wide-1600.webp 1600w, homepage-bookshelf-wide-2400.webp 2400w"
+          imagesizes="100vw"
+          media="(min-width: 901px)"
+          type="image/webp"
+          fetchpriority="high">
+    <link rel="preload" as="image"
+          href="homepage-bookshelf-mobile-800.webp"
+          imagesrcset="homepage-bookshelf-mobile-800.webp 800w, homepage-bookshelf-mobile-1200.webp 1200w"
+          imagesizes="100vw"
+          media="(max-width: 900px)"
+          type="image/webp"
+          fetchpriority="high">
 
 </head>
 <body>
@@ -26,12 +40,29 @@
         </div>
     </header>
 
-            <section id="hero">
-            <div class="hero-inner"></div>
+          <section id="hero">
+            <div class="hero-inner" aria-hidden="true">
+              <picture class="hero-media">
+                <source
+                  media="(min-width: 901px)"
+                  type="image/webp"
+                  srcset="homepage-bookshelf-wide-1600.webp 1600w, homepage-bookshelf-wide-2400.webp 2400w"
+                  sizes="100vw">
+                <img
+                  src="homepage-bookshelf-mobile-800.webp"
+                  srcset="homepage-bookshelf-mobile-800.webp 800w, homepage-bookshelf-mobile-1200.webp 1200w"
+                  sizes="100vw"
+                  width="800"
+                  height="1204"
+                  alt=""
+                  decoding="async"
+                  fetchpriority="high">
+              </picture>
+            </div>
             <div class="overlay-text">
-            <h1>Sean Mulherin</h1>
-            <p>Educator • Statistician • Researcher</p>
-          </div>
+              <h1>Sean Mulherin</h1>
+              <p>Educator • Statistician • Researcher</p>
+            </div>
           </section>
 
 
@@ -81,14 +112,6 @@
       <a href="https://github.com/SeanMulherin" target="_blank">
         <img src="github.png" height="40" width="40"  alt="" />
       </a>
-
-    <section id="visitors">
-
-    <script type='text/javascript' 
-        id='clustrmaps' 
-        src='https://clustrmaps.com/map_v2.js?cl=ffffff&amp;w=150&amp;t=tt&amp;d=pCon-dyH33Rdlfvu3z8u3Rh8GRrxC3AgJxXCJGhAiMI'></script>
-
-  </section>
 
     </div>
   </div>

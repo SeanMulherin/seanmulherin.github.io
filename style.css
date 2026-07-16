@@ -355,21 +355,34 @@ html, body {
   position: relative;   /* for your overlay text */
 }
 
-/* The inner div actually displays the background image */
+/* The inner div frames the responsive hero image. */
 .hero-inner {
   width: 100%;
   height: 100%;
-  background-image: url("homepage_bookshelf.jpg"); /* <-- your image path */
-  background-size: cover;    /* scale to cover full area */
-  background-position: center center; /* center‐crop */
-  background-repeat: no-repeat;
-    filter:
-    brightness(0.70)   /* darker: 0. –1 is darker; 1 is normal; >1 is brighter */
-    contrast(1)      /* contrast: 1 is unchanged; >1 increases contrast */
-    saturate(1.2);
-     background-color: rgba(0,0,0,0.3);
-     background-blend-mode: multiply;
+  position: relative;
+  overflow: hidden;
+  background-color: #2a211b;
+}
 
+.hero-media,
+.hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-media img {
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.70) contrast(1) saturate(1.2);
+}
+
+.hero-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
 #hero .overlay-text {
@@ -379,6 +392,7 @@ html, body {
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
+  z-index: 1;
 }
 
 #hero .overlay-text h1 {
@@ -449,5 +463,4 @@ html, body {
 a {
   text-decoration: none !important;
 }
-
 
