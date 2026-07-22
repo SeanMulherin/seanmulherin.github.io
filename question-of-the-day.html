@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Question of the Day | Sean Mulherin</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="A free daily mathematics, physics, statistics, or computer science question." />
+		<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/question-of-the-day.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script>
+			window.MathJax = {
+				tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+				options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+			};
+		</script>
+		<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+	</head>
+	<body class="is-preload">
+		<header class="site-header">
+			<div class="nav-container">
+				<div class="site-logo"><a href="index.html">SM</a></div>
+				<nav class="main-nav" aria-label="Primary navigation">
+					<ul class="nav-list">
+						<li><a href="apps.html">Apps</a></li>
+						<li><a href="papers.html">Scholarship</a></li>
+						<li><a href="lectures.html">Teachings</a></li>
+						<li><a href="resume.html">CV</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div id="main">
+			<div class="inner qod-page">
+				<main class="qod-app" aria-labelledby="qod-title">
+					<header class="qod-heading">
+						<p class="qod-date" id="qod-date"></p>
+						<h1 id="qod-title">Question of the Day</h1>
+					</header>
+
+					<p class="qod-status" id="qod-status" role="status" aria-live="polite">Loading today's question...</p>
+
+					<form id="qod-form" hidden>
+						<p class="qod-subject" id="qod-subject"></p>
+						<fieldset>
+							<legend id="qod-question"></legend>
+							<div class="qod-choices" id="qod-choices"></div>
+						</fieldset>
+						<button class="primary qod-submit" id="qod-submit" type="submit" disabled>Submit answer</button>
+					</form>
+
+					<section class="qod-result" id="qod-result" tabindex="-1" aria-live="polite" hidden>
+						<h2 id="qod-result-title"></h2>
+						<p id="qod-result-answer"></p>
+					</section>
+
+					<p class="qod-source" id="qod-source" hidden></p>
+				</main>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Contact Me</h2>
+					<p><strong>Email: </strong>smulherin519@gmail.com<br /><strong>Location: </strong>Los Angeles, CA</p>
+				</section>
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/sean-mulherin-93640913a/" class="icon brands style2 fa-linkedin" target="_blank" rel="noopener noreferrer"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/SeanMulherin" class="icon brands style2 fa-github" target="_blank" rel="noopener noreferrer"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+				<ul class="copyright"><li>&copy; Sean Mulherin. All rights reserved</li></ul>
+			</div>
+		</footer>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/question-of-the-day.js"></script>
+	</body>
+</html>
