@@ -301,6 +301,34 @@ html {
   color: #777;
 }
 
+#footer .homepage-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  width: 100%;
+  margin-right: 0;
+  padding-right: 20px;
+}
+
+#homepage-visitors {
+  width: 220px;
+  max-width: 100%;
+  text-align: left;
+}
+
+#homepage-visitors img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#footer .homepage-footer-bottom > p {
+  margin: 0 0 0 auto;
+  text-align: right;
+}
+
 /* Links in the footer columns */
 #contact-col a,
 #follow-col a {
